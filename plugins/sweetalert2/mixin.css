@@ -1,0 +1,26 @@
+.colored-toast.swal2-icon-success {
+    background-color: #00b74a !important;
+}
+
+.colored-toast.swal2-icon-error {
+    background-color: #f80c35 !important;
+}
+
+.colored-toast.swal2-icon-warning {
+    background-color: #f8bb86 !important;
+}
+
+.colored-toast .swal2-title,
+.colored-toast .swal2-html-container,
+.colored-toast .swal2-close:hover {
+    color: white;
+}
+
+.colored-toast .swal2-title {
+    font-weight: 500 !important;
+}
+
+/* Close Button Color */
+.colored-toast .swal2-close {
+    color: #E5E4E2;
+}
