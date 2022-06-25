@@ -32,22 +32,28 @@
                                     </div>
                                 </div>
                                 <div class="row mb-4">
-                                    <div class="col-8">
+                                    <div class="col-6">
                                         <label class="form-label">Username</label>
                                         <p class="">John1234</p>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-6">
                                         <label class="form-label">Password</label>
                                         <br />
                                         <button class="btn btn-primary form-control" type="button" data-bs-toggle="modal" data-bs-target="#m-change-password">Change</button>
                                     </div>
                                 </div>
                                 <div class="row mb-4">
-                                    <div class="col-8">
+                                    <div class="col-6">
                                         <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="name" name="name" placeholder="John">
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-6">
+                                        <label for="gender" class="form-label">Email</label>
+                                        <input type="text" class="form-control" id="email" name="email" placeholder="John@mail.com">
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <div class="col-3">
                                         <label for="gender" class="form-label">Gender</label>
                                         <select id="gender" name="gender" class="form-control">
                                             <option value="">-- Gender --</option>
