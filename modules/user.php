@@ -75,7 +75,29 @@
 
     class User_Data_Connector
     {
-        public function read_all( $conn )
+        public function login ( $conn, User $object )
+        {
+            $sql = "SELECT * FROM user
+                    WHERE username = ? AND password = ? AND soft_delete = 0";
+            $stmt = $conn->prepare( $sql );
+            $result = $stmt->execute( [
+                $object->get( 'username' ),
+                $object->get( 'password' ),
+            ] );
+            $num_row = $stmt->rowCount();
+            if( $result && $num_row == 1 )
+            {
+                $result = $stmt->fetch();
+                $new_object = $this->convert( $result );
+                return $new_object;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public function read_all ( $conn )
         {
             $sql = "SELECT * FROM user
                     ORDER BY id DESC";
@@ -86,7 +108,7 @@
             return $result;
         }
 
-        public function read( $conn, User $object )
+        public function read ( $conn, User $object )
         {
             $sql = "SELECT * FROM user
                     WHERE id = ?";
@@ -107,7 +129,7 @@
             }
         }
 
-        public function create( $conn, User $object )
+        public function create ( $conn, User $object )
         {
             $sql = "INSERT INTO user( username, password )
                     VALUES( ?, ? )";
@@ -120,7 +142,7 @@
             return $last_id;
         }
 
-        public function update( $conn, User $object )
+        public function update ( $conn, User $object )
         {
             $sql = "UPDATE user
                     SET username = ?, password = ?, update_at = CURRENT_TIMESTAMP
@@ -134,7 +156,7 @@
             return $result ? true : false;
         }
 
-        public function delete( $conn, User $object )
+        public function delete ( $conn, User $object )
         {
             $sql = "UPDATE user
                     SET soft_delete = ?, update_at = CURRENT_TIMESTAMP
@@ -150,7 +172,7 @@
         /**
          * Convert Method
          */
-        public function convert( array $object )
+        public function convert ( array $object )
         {
             $new_object = new User();
             $new_object->set( 'id', $object[ 'id' ] );
@@ -166,7 +188,7 @@
         /**
          * Convert All Method
          */
-        public function convert_all( array $array )
+        public function convert_all ( array $array )
         {
             $new_array = array();
             foreach ( $array as $object )
