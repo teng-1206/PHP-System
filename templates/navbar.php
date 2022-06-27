@@ -19,9 +19,9 @@
                 </li>
             </ul>
             <div class="d-flex">
-                <a class="btn btn-danger" type="button">
+                <button id="btn-logout" name="btn-logout" class="btn btn-danger" type="button">
                     <i class="fas fa-power-off text-white"></i>
-                </a>
+                </button>
             </div>
         </div>
     </div>

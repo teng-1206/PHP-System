@@ -18,3 +18,26 @@
 <!-- Font Awesome 5 Start -->
 <script src="<?= $config[ 'urls' ][ 'plugins' ] . "font-awesome/js/all.min.js"; ?>"></script>
 <!-- Font Awesome 5 End -->
+
+<script>
+    $( document ).ready( () => {
+        const api_url = $( '#api-url' ).attr( 'content' );
+
+        // Logout Button
+        $( '#btn-logout' ).click( () => {
+            Swal.fire( {
+                title             : 'Logout?',
+                icon              : 'question',
+                showCancelButton  : true,
+                confirmButtonText : 'Log Out',
+                denyButtonText    : 'Cancel',
+                confirmButtonColor: '#dc3545',
+                reverseButtons    : true,
+            } ).then( ( result ) => {
+                if ( result.isConfirmed ) {
+                    window.location.href = api_url + 'logout.php';
+                }
+            } );
+        } );
+    } );
+</script>
