@@ -71,4 +71,7 @@
     defined("UPLOADS_PATH")
         or define("UPLOADS_PATH", ASSETS_PATH . '/uploads/');
 
+    include_once( MODULES_PATH . "/cryptography.php" );
+    $crypto = new Cryptography();
+
 ?>
