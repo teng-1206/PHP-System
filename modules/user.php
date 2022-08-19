@@ -13,7 +13,7 @@
         /**
          * Get Method
          */
-        public function get( string $attribute )
+        public function get ( string $attribute )
         {
             switch ( $attribute ) 
             {
@@ -44,7 +44,7 @@
         /**
          * Set Method
          */
-        public function set( string $attribute, $value )
+        public function set ( string $attribute, $value )
         {
             switch ( $attribute ) 
             {
@@ -102,10 +102,15 @@
             $sql = "SELECT * FROM user
                     ORDER BY id DESC";
             $stmt = $conn->prepare( $sql );
-            $stmt->execute();
-            $result = $stmt->fetchAll();
-            $result = $this->convert( $result );
-            return $result;
+            $result = $stmt->execute();
+            $num_row = $stmt->rowCount();
+            if ( $result && $num_row > 0 ) 
+            {
+                $result = $stmt->fetchAll();
+                $result = $this->convert_all( $result );
+                return $result;
+            }
+            return null;
         }
 
         public function read ( $conn, User $object )
@@ -123,10 +128,7 @@
                 $new_object = $this->convert( $result );
                 return $new_object;
             }
-            else
-            {
-                return null;
-            }
+            return null;
         }
 
         public function create ( $conn, User $object )
