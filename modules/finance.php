@@ -5,6 +5,7 @@
         private $id;
         private $title;
         private $date;
+        private $status;
         private $amount;
         private $fk_category_id;
         private $soft_delete;
@@ -26,6 +27,9 @@
                     break;
                 case 'date':
                     return $this->date;
+                    break;
+                case 'status':
+                    return $this->status;
                     break;
                 case 'amount':
                     return $this->amount;
@@ -61,6 +65,9 @@
                 case 'date':
                     $this->date = $value;
                     break;
+                case 'status':
+                    $this->status = $value;
+                    break;
                 case 'amount':
                     $this->amount = $value;
                     break;
@@ -85,14 +92,15 @@
         public function read_all ( $conn )
         {
             $sql = "SELECT * FROM finance
-                    ORDER BY id DESC";
+                    INNER JOIN finance_category
+                    ON finance.fk_category_id = finance_category.id
+                    ORDER BY finance.id DESC";
             $stmt = $conn->prepare( $sql );
             $result = $stmt->execute();
             $num_row = $stmt->rowCount();
             if ( $result && $num_row > 0 ) 
             {
                 $result = $stmt->fetchAll();
-                $result = $this->convert_all( $result );
                 return $result;
             }
             return null;
@@ -118,12 +126,13 @@
 
         public function create ( $conn, Finance $object )
         {
-            $sql = "INSERT INTO finance( title, date, amount, fk_category_id )
-                    VALUES( ?, ?, ?, ? )";
+            $sql = "INSERT INTO finance( title, date, status, amount, fk_category_id )
+                    VALUES( ?, ?, ?, ?, ? )";
             $stmt = $conn->prepare( $sql );
             $result = $stmt->execute( [
                 $object->get( 'title' ),
                 $object->get( 'date' ),
+                $object->get( 'status' ),
                 $object->get( 'amount' ),
                 $object->get( 'fk_category_id' ),
             ] );
@@ -134,12 +143,13 @@
         public function update ( $conn, Finance $object )
         {
             $sql = "UPDATE finance
-                    SET title = ?, date = ?, amount = ?, fk_category_id = ?, update_at = CURRENT_TIMESTAMP
+                    SET title = ?, date = ?, status = ?, amount = ?, fk_category_id = ?, update_at = CURRENT_TIMESTAMP
                     WHERE id = ?";
             $stmt = $conn->prepare( $sql );
             $result = $stmt->execute( [
                 $object->get( 'title' ),
                 $object->get( 'date' ),
+                $object->get( 'status' ),
                 $object->get( 'amount' ),
                 $object->get( 'fk_category_id' ),
                 $object->get( 'id' ),
@@ -169,6 +179,7 @@
             $new_object->set( 'id', $object[ 'id' ] );
             $new_object->set( 'title', $object[ 'title' ] );
             $new_object->set( 'date', $object[ 'date' ] );
+            $new_object->set( 'status', $object[ 'status' ] );
             $new_object->set( 'amount', $object[ 'amount' ] );
             $new_object->set( 'fk_category_id', $object[ 'fk_category_id' ] );
             $new_object->set( 'soft_delete', $object[ 'soft_delete' ] );

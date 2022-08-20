@@ -107,7 +107,6 @@
             if ( $result && $num_row > 0 ) 
             {
                 $result = $stmt->fetchAll();
-                $result = $this->convert_all( $result );
                 return $result;
             }
             return null;

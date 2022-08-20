@@ -5,6 +5,7 @@
         private $id;
         private $category;
         private $color_code;
+        private $background_color_code;
         private $icon_code;
         private $soft_delete;
         private $create_at;
@@ -25,6 +26,9 @@
                     break;
                 case 'color_code':
                     return $this->color_code;
+                    break;
+                case 'background_color_code':
+                    return $this->background_color_code;
                     break;
                 case 'icon_code':
                     return $this->icon_code;
@@ -57,6 +61,9 @@
                 case 'color_code':
                     $this->color_code = $value;
                     break;
+                case 'background_color_code':
+                    $this->background_color_code = $value;
+                    break;
                 case 'icon_code':
                     $this->icon_code = $value;
                     break;
@@ -85,7 +92,6 @@
             if ( $result && $num_row > 0 ) 
             {
                 $result = $stmt->fetchAll();
-                $result = $this->convert_all( $result );
                 return $result;
             }
             return null;
@@ -111,12 +117,13 @@
 
         public function create ( $conn, Finance_Category $object )
         {
-            $sql = "INSERT INTO finance_category( category, color_code, icon_code )
+            $sql = "INSERT INTO finance_category( category, color_code, background_color_code, icon_code )
                     VALUES( ?, ?, ? )";
             $stmt = $conn->prepare( $sql );
             $result = $stmt->execute( [
                 $object->get( 'category' ),
                 $object->get( 'color_code' ),
+                $object->get( 'background_color_code' ),
                 $object->get( 'icon_code' ),
             ] );
             $last_id = $result ? $conn->lastInsertId() : null;
@@ -126,12 +133,13 @@
         public function update ( $conn, Finance_Category $object )
         {
             $sql = "UPDATE finance_category
-                    SET category = ?, color_code = ?, icon_code = ?, update_at = CURRENT_TIMESTAMP
+                    SET category = ?, color_code = ?, background_color_code = ?, icon_code = ?, update_at = CURRENT_TIMESTAMP
                     WHERE id = ?";
             $stmt = $conn->prepare( $sql );
             $result = $stmt->execute( [
                 $object->get( 'category' ),
                 $object->get( 'color_code' ),
+                $object->get( 'background_color_code' ),
                 $object->get( 'icon_code' ),
                 $object->get( 'id' ),
             ] );
@@ -160,6 +168,7 @@
             $new_object->set( 'id', $object[ 'id' ] );
             $new_object->set( 'category', $object[ 'category' ] );
             $new_object->set( 'color_code', $object[ 'color_code' ] );
+            $new_object->set( 'background_color_code', $object[ 'background_color_code' ] );
             $new_object->set( 'icon_code', $object[ 'icon_code' ] );
             $new_object->set( 'soft_delete', $object[ 'soft_delete' ] );
             $new_object->set( 'create_at', $object[ 'create_at' ] );
