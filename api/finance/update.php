@@ -13,6 +13,7 @@
 
         $finance->set( 'title', $_POST[ 'title' ] );
         $finance->set( 'date', $_POST[ 'date' ] );
+        $finance->set( 'status', $_POST[ 'status' ] );
         $finance->set( 'amount', $_POST[ 'amount' ] );
         $finance->set( 'fk_category_id', $_POST[ 'fk_category_id' ] );
         $res = $finance_data_connector->update( $conn, $finance );

@@ -8,6 +8,7 @@
         $finance = new Finance();
         $finance->set( 'title', $_POST[ 'title' ] );
         $finance->set( 'date', $_POST[ 'date' ] );
+        $finance->set( 'status', $_POST[ 'status' ] );
         $finance->set( 'fk_category_id', $_POST[ 'fk_category_id' ] );
         $finance->set( 'amount', $_POST[ 'amount' ] );
 
