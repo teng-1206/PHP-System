@@ -104,7 +104,7 @@
             $stmt = $conn->prepare( $sql );
             $result = $stmt->execute();
             $num_row = $stmt->rowCount();
-            if ( $result && $num_row > 0 ) 
+            if ( $result ) 
             {
                 $result = $stmt->fetchAll();
                 return $result;

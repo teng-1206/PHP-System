@@ -91,14 +91,15 @@
     {
         public function read_all ( $conn )
         {
-            $sql = "SELECT * FROM finance
+            $sql = "SELECT finance.*, finance_category.category, finance_category.color_code, finance_category.background_color_code, finance_category.icon_code FROM finance
                     INNER JOIN finance_category
                     ON finance.fk_category_id = finance_category.id
+                    WHERE finance.soft_delete = 0
                     ORDER BY finance.id DESC";
             $stmt = $conn->prepare( $sql );
             $result = $stmt->execute();
             $num_row = $stmt->rowCount();
-            if ( $result && $num_row > 0 ) 
+            if ( $result ) 
             {
                 $result = $stmt->fetchAll();
                 return $result;
