@@ -16,6 +16,10 @@
             );
             echo json_encode( $res );
         }
+        else
+        {
+            echo json_encode( array( "result" => false ) );
+        }
     }
     else
     {

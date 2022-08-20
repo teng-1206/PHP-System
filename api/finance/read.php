@@ -22,15 +22,17 @@
         {
             $res = array(
                 "result"      => true,
-                "id"          => $finance->get( 'id' ),
-                "title"       => $finance->get( 'title' ),
-                "date"        => $finance->get( 'date' ),
-                "status"        => $finance->get( 'status' ),
-                "category_id" => $finance_category->get( 'id' ),
-                "category"    => $finance_category->get( 'category' ),
-                "color_code"  => $finance_category->get( 'color_code' ),
-                "icon_code"   => $finance_category->get( 'icon_code' ),
-                "amount"      => $finance->get( 'amount' ),
+                "data" => array(
+                    "id"          => $finance->get( 'id' ),
+                    "title"       => $finance->get( 'title' ),
+                    "date"        => $finance->get( 'date' ),
+                    "status"        => $finance->get( 'status' ),
+                    "category_id" => $finance_category->get( 'id' ),
+                    "category"    => $finance_category->get( 'category' ),
+                    "color_code"  => $finance_category->get( 'color_code' ),
+                    "icon_code"   => $finance_category->get( 'icon_code' ),
+                    "amount"      => $finance->get( 'amount' ),
+                ),
             );
             echo json_encode( $res );
         }
