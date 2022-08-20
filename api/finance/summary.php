@@ -18,10 +18,10 @@
             {
                 $current_year_month = date( 'Y-m' );
                 $finance_year_current_month = date( 'Y-m', strtotime( $finance[ 'date' ] ) );
-                if ( $finance_year_current_month == $current_year_month && $finance[ 'status' ] == true ) 
+                if ( $finance_year_current_month == $current_year_month && $finance[ 'status' ] == false ) 
                     $total_income += ( float ) $finance[ 'amount' ];
 
-                if ( $finance_year_current_month == $current_year_month && $finance[ 'status' ] == false ) 
+                if ( $finance_year_current_month == $current_year_month && $finance[ 'status' ] == true ) 
                     $total_expense += ( float ) $finance[ 'amount' ];
             }
             $total_earning = $total_income - $total_expense;
