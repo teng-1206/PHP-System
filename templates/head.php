@@ -17,6 +17,7 @@
 
 <!-- Sweet Alert 2 Start -->
 <link rel="stylesheet" href="<?= $config[ 'urls' ][ 'plugins' ] . "sweetalert2/sweetalert2.min.css"; ?>" />
+<link rel="stylesheet" href="<?= $config[ 'urls' ][ 'plugins' ] . "sweetalert2/mixin.css"; ?>" />
 <!-- Sweet Alert 2 End -->
 
 <!-- Font Awesome 5 Start -->

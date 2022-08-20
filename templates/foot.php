@@ -13,6 +13,7 @@
 
 <!-- Sweet Alert 2 Start -->
 <script src="<?= $config[ 'urls' ][ 'plugins' ] . "sweetalert2/sweetalert2.all.min.js"; ?>"></script>
+<script src="<?= $config[ 'urls' ][ 'plugins' ] . "sweetalert2/mixin.js"; ?>"></script>
 <!-- Sweet Alert 2 End -->
 
 <!-- Font Awesome 5 Start -->
@@ -20,6 +21,7 @@
 <!-- Font Awesome 5 End -->
 
 <script>
+    const api_url = $( 'meta[ name="api-url" ]' ).attr( 'content' );
     $( document ).ready( () => {
         const api_url = $( '#api-url' ).attr( 'content' );
 
