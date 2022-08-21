@@ -20,17 +20,26 @@
 
     <main class="m-5 pt-5">
         <div class="row">
-            <div class="col-12 p-3">
-                <button id="btn-add" class="btn btn-primary rounded-pill shadow" style="width: 125px; height: 40px;" onclick="open_create_record()">
-                    <i class="fas fa-plus-circle"></i> Add
-                </button>
-            </div>
             <div class="col-6 justify-content-center">
-                <div id="list">
+                <div class="card bg-white shadow mb-3 overflow-auto rounded-5" style="" >
+                    <div class="card-body p-4" >
+                        <button id="btn-add-record" class="btn btn-primary rounded-pill shadow mb-3" style="width: 125px; height: 40px;" onclick="open_create_record()">
+                            <i class="fas fa-plus-circle"></i> Add
+                        </button>
+                        <div id="list" class="mb-3">
+                        </div>
+                        <div id="pagination">
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-3 justify-content-center ">
                 <div class="card bg-white shadow mb-3 overflow-auto rounded-5" style="" >
+                        <div class="col-12 p-4 pb-0">
+                        <button id="btn-add-category" class="btn btn-primary rounded-pill shadow mb-3" style="width: 125px; height: 40px;" onclick="window.location.href = 'finance-category.php'">
+                            <i class="fas fa-plus-circle"></i> Add
+                        </button>
+                        </div>
                     <div class="card-body p-5 pb-0" >
                         <div class="row">
                             <div class="col-4 align-self-center">
@@ -190,158 +199,6 @@
 
     <!-- Custom JS Start -->
     <script src="<?=  $config[ 'urls' ][ 'plugins' ] . "pagination/pagination.js"; ?>"></script>
-    <script>
-        let current_page = 1;
-        let rows = 6;
-        let res_setup_pagination = false;
-        const list_element = document.getElementById( 'list' );
-
-        function setup( list_items ) {
-            if ( ! res_setup_pagination ) {
-                setup_pagination();
-            }
-
-            if ( typeof list_items !== 'undefined' && list_element ) {
-                display_list( list_items, list_element, rows, current_page );
-                display_pagination( list_items, rows );
-            }
-        }
-
-        function setup_pagination() {
-            res_setup_pagination = true;
-            const pagination_element = document.createElement( 'div' );
-            pagination_element.classList.add( 'card', 'bg-white', 'mb-3', 'shadow', 'overflow-auto', 'rounded-5' );
-            pagination_element.innerHTML =  `
-                                            <div class="card-body p-3" >
-                                                <div id="pagination" class="btn-group"></div>
-                                            </div>
-                                            `;
-            list_element.parentNode.insertBefore( pagination_element, list_element.nextSibling );
-        }
-
-        function display_list( items, wrapper, rows_per_page, page ) {
-            wrapper.innerHTML = "";
-            page--;
-
-            let start = rows_per_page * page;
-            let end = start + rows_per_page;
-            let paginated_items = items.slice( start, end );
-
-            for ( let i = 0; i < paginated_items.length; i++ )
-            {
-                let item = paginated_items[ i ];
-                wrapper.appendChild( item );
-            }
-        }
-
-        function display_pagination( items, rows_per_page ) {
-            const wrapper = document.getElementById( 'pagination' );
-            wrapper.innerHTML = "";
-
-            let page_count = Math.ceil( items.length / rows_per_page );
-
-            for ( let i = 1; i < page_count + 1; i++ )
-            {
-                if ( i == 1 ) 
-                {
-                    let prev_btn = prev_pagination_button( items, page_count );
-                    wrapper.appendChild( prev_btn );
-                }
-
-                let btn = pagination_button( i, page_count, items );
-                wrapper.appendChild( btn );
-
-                if ( i == page_count ) 
-                {
-                    next_btn = next_pagination_button( items, page_count );
-                    wrapper.appendChild( next_btn );
-                }
-            }
-        }
-
-        function pagination_button( page, page_count, items ) {
-            let button = document.createElement( 'button' );
-            button.innerText = page;
-            button.classList.add( 'btn', 'btn-outline-primary' );
-
-            if ( current_page == page ) button.classList.add( 'active' );
-
-            button.addEventListener( 'click', function() {
-                current_page = page;
-                display_list( items, list_element, rows, current_page );
-
-                let current_btn = document.querySelector( '#pagination button.active' );
-                current_btn.classList.remove( 'active' );
-
-                let btn_prev = document.getElementById( 'btn-prev' );
-                ( current_page == 1 ) ? btn_prev.classList.add( 'disabled' ) : btn_prev.classList.remove( 'disabled' );
-
-                let btn_next = document.getElementById( 'btn-next' );
-                ( current_page == page_count ) ? btn_next.classList.add( 'disabled' ) : btn_next.classList.remove( 'disabled' );
-
-                button.classList.add( 'active' );
-            } );
-            
-            return button;
-        }
-
-        function next_pagination_button( items, page_count ) {
-            let button = document.createElement( 'button' );
-            button.innerHTML = "&raquo;";
-            button.classList.add( 'btn', 'btn-outline-primary' );
-            button.setAttribute( 'id', 'btn-next' );
-
-            if ( current_page == page_count ) button.classList.add( 'disabled' );
-
-            button.addEventListener( 'click', function() {
-                current_page = current_page + 1;
-                display_list( items, list_element, rows, current_page );
-
-                let current_btn = document.querySelector( '#pagination button.active' );
-                current_btn.classList.remove( 'active' );
-
-                let next_current_btn = current_btn.nextElementSibling;
-                next_current_btn.classList.add( 'active' );
-
-                let btn_prev = document.getElementById( 'btn-prev' );
-                ( current_page == 1 ) ? btn_prev.classList.add( 'disabled' ) : btn_prev.classList.remove( 'disabled' );
-
-                let btn_next = document.getElementById( 'btn-next' );
-                ( current_page == page_count ) ? btn_next.classList.add( 'disabled' ) : btn_next.classList.remove( 'disabled' );
-            } );
-
-            return button;
-        }
-
-        function prev_pagination_button( items, page_count ) {
-            let button = document.createElement( 'button' );
-            button.innerHTML = "&laquo;";
-            button.classList.add( 'btn', 'btn-outline-primary' );
-            button.setAttribute( 'id', 'btn-prev' );
-
-            if ( current_page == 1 ) button.classList.add( 'disabled' );
-
-            button.addEventListener( 'click', function() {
-                current_page = current_page - 1;
-                display_list( items, list_element, rows, current_page );
-
-                let current_btn = document.querySelector( '#pagination button.active' );
-                current_btn.classList.remove( 'active' );
-
-                let prev_current_btn = current_btn.previousElementSibling;
-                prev_current_btn.classList.add( 'active' );
-
-                let btn_prev = document.getElementById( 'btn-prev' );
-                ( current_page == 1 ) ? btn_prev.classList.add( 'disabled' ) : btn_prev.classList.remove( 'disabled' );
-
-                let btn_next = document.getElementById( 'btn-next' );
-                ( current_page == page_count ) ? btn_next.classList.add( 'disabled' ) : btn_next.classList.remove( 'disabled' );
-            } );
-
-            return button;
-        }
-
-    </script>
 
     <script>
         function open_modal() {
@@ -412,61 +269,69 @@
         }
 
         function read_all_record() {
-            const read_all_url = `${ api_url }finance/read_all.php`;
-            const sent_data = {};
-            $.ajax( {
-                type    : 'GET',
-                url     : read_all_url,
-                dataType: 'JSON',
-                data    : sent_data,
-                success: ( res ) => {
-                    if ( res.result ) {
-                        const data = res.data;
-                        let list_items = [];
-                        if ( data.length > 0 ) {
-                            data.forEach( ( row_data ) => {
-                                const item_element = document.createElement( 'div' );
-                                item_element.classList.add( 'card', 'bg-white', 'mb-3', 'shadow', 'rounded-5' );
-                                const item = `
-                                                <div class="card-body" >
-                                                    <div class="row">
-                                                        <div class="col-1 text-center align-self-center">
-                                                            <i class="${ row_data[ 'icon_code' ] } p-3 rounded-circle" style="color: #${ row_data[ 'color_code' ] }; background-color: #${ row_data[ 'background_color_code' ] }"></i>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <h5>${ row_data[ 'title' ] }</h5>
-                                                            <small class="fw-light fst-italic">${ row_data[ 'create_at' ] }</small>
-                                                        </div>
-                                                        <div class="col-2 text-end align-self-center ${ row_data[ 'status' ] == 0 ? 'text-success' : 'text-danger' } fw-bold">
-                                                            ${ row_data[ 'status' ] == 0 ? '&#43;' : '&#45;' }  RM ${ row_data[ 'amount' ] }
-                                                        </div>
-                                                        <div class="col-3 text-end align-self-center">
-                                                            <span class="button-hover rounded-circle" onclick="open_update_record( ${ row_data[ 'id' ] } )">
-                                                                <i class="fas fa-pen fa-lg"></i>
-                                                            </span>
-                                                            <span class="button-hover rounded-circle" onclick="delete_record( ${ row_data[ 'id' ] } )">
-                                                                <i class="fas fa-times-circle fa-lg"></i>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            `;
-                                item_element.innerHTML = item;
-                                list_items.push( item_element );
+            let container = $( '#pagination' );
+            container.pagination( {
+                dataSource: function( done ) {
+                    const read_all_url = `${ api_url }finance/read_all.php`;
+                    const sent_data = {};
+                    $.ajax( {
+                        type    : 'GET',
+                        url     : read_all_url,
+                        dataType: 'JSON',
+                        data    : sent_data,
+                        success: ( res ) => {
+                            if ( res.result ) {
+                                done( res.data );
+                            }
+                            return res;
+                        },
+                        error: ( err ) => {
+                            Toast.fire( {
+                                icon : 'error',
+                                title: 'Read All Error'
                             } );
                         }
-                        setup( list_items );
-                    }
-                    return res;
-                },
-                error: ( err ) => {
-                    Toast.fire( {
-                        icon : 'error',
-                        title: 'Read All Error'
                     } );
+                },
+                pageSize: 6,
+                showNavigator: true,
+                className: '',
+                formatNavigator: '<span class="">Showing <span class="fw-bold"><%= currentPage %></span> of <span class="fw-bold"><%= totalPage %></span> pages | Total <span class="fw-bold"><%= totalNumber %></span> entries</span>',
+                callback: function ( data, pagination ) {
+                    let all_element = '';
+                    $.each( data, function ( index, item ) {
+                        var element = `
+                                        <div class="card bg-white mb-3 shadow rounded-5">
+                                            <div class="card-body" >
+                                                <div class="row">
+                                                    <div class="col-1 text-center align-self-center">
+                                                        <i class="${ item[ 'icon_code' ] } p-3 rounded-circle" style="color: #${ item[ 'color_code' ] }; background-color: #${ item[ 'background_color_code' ] }"></i>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <h5>${ item[ 'title' ] }</h5>
+                                                        <small class="fw-light fst-italic">${ item[ 'create_at' ] }</small>
+                                                    </div>
+                                                    <div class="col-2 text-end align-self-center ${ item[ 'status' ] == 0 ? 'text-success' : 'text-danger' } fw-bold">
+                                                        ${ item[ 'status' ] == 0 ? '&#43;' : '&#45;' }  RM ${ item[ 'amount' ] }
+                                                    </div>
+                                                    <div class="col-3 text-end align-self-center">
+                                                        <span class="button-hover rounded-circle" onclick="open_update_record( ${ item[ 'id' ] } )">
+                                                            <i class="fas fa-pen fa-lg"></i>
+                                                        </span>
+                                                        <span class="button-hover rounded-circle" onclick="delete_record( ${ item[ 'id' ] } )">
+                                                            <i class="fas fa-times-circle fa-lg"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    `;
+                                    all_element += element;
+                        
+                    });
+                    $( "#list" ).html( all_element );
                 }
             } );
-
         }
 
         function read_record() {
@@ -515,7 +380,7 @@
                 success: ( res ) => {
                     if ( res.result ) {
                         close_modal();
-                        read_all_record();
+                        refresh();
                         Toast.fire( {
                             icon : 'success',
                             title: 'Create Success'
@@ -549,7 +414,7 @@
                 success: ( res ) => {
                     if ( res.result ) {
                         close_modal();
-                        read_all_record();
+                        refresh();
                         Toast.fire( {
                             icon : 'success',
                             title: 'Update Success'
@@ -586,8 +451,7 @@
                         data    : sent_data,
                         success: ( res ) => {
                             if ( res.result ) {
-                                read_all_record();
-                                read_summary();
+                                refresh();
                                 Toast.fire( {
                                     icon : 'success',
                                     title: 'Delete Success'
@@ -606,10 +470,13 @@
             } );
         }
 
-        read_all_record();
-        read_summary();
-    </script>
+        function refresh() {
+            read_all_record();
+            read_summary();
+        }
 
+        refresh();
+    </script>
     <!-- Custom JS End -->
 </body>
 </html>
