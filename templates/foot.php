@@ -20,6 +20,10 @@
 <script src="<?= $config[ 'urls' ][ 'plugins' ] . "font-awesome/js/all.min.js"; ?>"></script>
 <!-- Font Awesome 5 End -->
 
+<!-- Custom JS Start -->
+<script src="<?= $config[ 'urls' ][ 'js' ] . "common.js"; ?>"></script>
+<!-- Custom JS End -->
+
 <script>
     const api_url = $( 'meta[ name="api-url" ]' ).attr( 'content' );
     $( document ).ready( () => {

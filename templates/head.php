@@ -23,3 +23,7 @@
 <!-- Font Awesome 5 Start -->
 <link rel="stylesheet" href="<?= $config[ 'urls' ][ 'plugins' ] . "font-awesome/css/all.min.css"; ?>" />
 <!-- Font Awesome 5 End -->
+
+<!-- Custom CSS Start -->
+<link rel="stylesheet" href="<?= $config[ 'urls' ][ 'css' ] . "common.css"; ?>" />
+<!-- Custom CSS End -->
