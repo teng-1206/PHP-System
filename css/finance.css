@@ -1,0 +1,47 @@
+.back-blur-1 {
+    backdrop-filter: blur(1px);
+}
+
+.back-blur-2 {
+    backdrop-filter: blur(2px);
+}
+
+.back-blur-3 {
+    backdrop-filter: blur(3px);
+}
+
+.rounded-5 {
+    border-radius: 1rem;
+}
+
+.button-hover {
+    padding: .75rem;
+    color: #999999;
+}
+
+.button-hover:hover {
+    background-color: #E6E6E6;
+    cursor: pointer;
+    color: #4D4D4D;
+}
+
+.icon-primary {
+    padding: 10px 15px;
+    border-radius: 50%;
+    color: #0d6efd;
+    background-color: #e6f0ff;
+}
+
+.icon-success {
+    padding: 10px 15px;
+    border-radius: 50%;
+    color: #1abc9c;
+    background-color: #ccfff5;
+}
+
+.icon-danger {
+    padding: 10px 15px;
+    border-radius: 50%;
+    color: #E7515A;
+    background-color: #fce9ea;
+}
