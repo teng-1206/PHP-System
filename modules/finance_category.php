@@ -85,6 +85,7 @@
         public function read_all ( $conn )
         {
             $sql = "SELECT * FROM finance_category
+                    WHERE soft_delete = 0
                     ORDER BY id DESC";
             $stmt = $conn->prepare( $sql );
             $result = $stmt->execute();
@@ -118,7 +119,7 @@
         public function create ( $conn, Finance_Category $object )
         {
             $sql = "INSERT INTO finance_category( category, color_code, background_color_code, icon_code )
-                    VALUES( ?, ?, ? )";
+                    VALUES( ?, ?, ?, ? )";
             $stmt = $conn->prepare( $sql );
             $result = $stmt->execute( [
                 $object->get( 'category' ),
