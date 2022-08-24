@@ -29,7 +29,7 @@ function open_update_finance( id ) {
 
 $( '#finance-record-form' ).submit( ( event ) => {
     event.preventDefault();
-    if ( $( '#modal-header-title' ).text() == 'Add Record' ) {
+    if ( $( '#modal-header-title' ).text() == 'Add Finance' ) {
         create_finance();
     } else {
         update_finance();
@@ -102,7 +102,7 @@ function read_all_finance() {
                                     <div class="card-body" >
                                         <div class="row">
                                             <div class="col-1 text-center align-self-center">
-                                                <i class="${ item[ 'icon_code' ] } p-3 rounded-circle" style="color: #${ item[ 'color_code' ] }; background-color: #${ item[ 'background_color_code' ] }"></i>
+                                                <i class="${ item[ 'icon_code' ] } p-3 rounded-circle" style="color: ${ item[ 'color_code' ] }; background-color: ${ item[ 'background_color_code' ] }" width="25px" height="17px"></i>
                                             </div>
                                             <div class="col-6">
                                                 <h5>${ item[ 'title' ] }</h5>
