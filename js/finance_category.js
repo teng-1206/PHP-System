@@ -1,4 +1,5 @@
 function reset_modal() {
+    $('#modal-header-title').text( 'Add Category' );
     $( '#m-category' ).val( '' );
     $( '#m-icon' ).val( '' );
     $( '#m-color' ).val( '' );
@@ -27,7 +28,7 @@ const table = $( '#table-finance-category' ).DataTable( {
         "<'dt--bottom-section d-sm-flex justify-content-sm-between text-center'<'dt--pages-count mb-sm-0 mb-3'i><'dt--pagination'p>>",
     buttons: [],
     columnDefs: [
-        {"className": "align-middle", "targets": "_all"}
+        { "className": "align-middle", "targets": "_all" }
     ],
     order: [ [ 0, 'asc' ] ],
     oLanguage: {

@@ -39,19 +39,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="align-self-center">
-                                    <td>1</td>
-                                    <td>icon</td>
-                                    <td>Foods & Drinks</td>
-                                    <td class="align-self-center">
-                                        <span class="button-hover rounded-circle" onclick="open_update_finance_category()">
-                                            <i class="fas fa-pen fa-lg"></i>
-                                        </span>
-                                        <span class="button-hover rounded-circle" onclick="delete_finance_category()">
-                                            <i class="fas fa-times-circle fa-lg"></i>
-                                        </span>
-                                    </td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -87,6 +74,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-12 text-end">
+                                    <button id="m-btn-reset" name="m-btn-reset" type="reset" class="btn rounded-pill" form="finance-category-form" style="width: 100px; height: 40px;" onclick="reset_modal()">Reset</button>
                                     <button id="m-btn-submit" name="m-btn-submit" type="submit" class="btn btn-primary rounded-pill" form="finance-category-form" style="width: 100px; height: 40px;" onclick="">Submit</button>
                                 </div>
                             </div>
@@ -106,9 +94,9 @@
     <script src="<?= $config[ 'urls' ][ 'plugins' ] . "data-table/data-table.min.js"; ?>"></script>
     <!-- Data Table End -->
 
+    <!-- Custom JS Start -->
     <script src="<?= $config[ 'urls' ][ 'js' ] . "finance_category.js"; ?>"></script>
-
-
+    <!-- Custom JS End -->
 
     <!-- Bootstrap CDN -->
     <!-- <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script> -->
