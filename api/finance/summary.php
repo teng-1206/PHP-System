@@ -4,7 +4,7 @@
     include_once( MODULES_PATH . "/common.php" );
     include_once( MODULES_PATH . "/finance.php" );
 
-    if ( isset( $_GET ) )
+    if ( isset( $_POST ) )
     {
         $finance = new Finance();
         $finance->set( 'fk_user_id', $_POST[ 'fk_user_id' ] );
