@@ -38,7 +38,7 @@ $( '#finance-record-form' ).submit( ( event ) => {
 } );
 
 // CRUD Functions
-function read_summary() {
+function read_finance_summary() {
     const summary_url = `${ api_url }finance/summary.php`;
     const fk_user_id = $( '#m-user-id' ).val();
     const sent_data = { fk_user_id };
@@ -54,6 +54,55 @@ function read_summary() {
                 $( '#total-income' ).html( total_income );
                 $( '#total-expense' ).html( total_expense );
                 $( '#total-earning' ).html( total_earning );
+            }
+            return res;
+        },
+        error: ( err ) => {
+            Toast.fire( {
+                icon : 'error',
+                title: 'Read Error'
+            } );
+        }
+    } );
+}
+
+function read_finance_category_summary() {
+    const summary_url = `${ api_url }finance_category/summary.php`;
+    const fk_user_id = $( '#m-user-id' ).val();
+    const sent_data = { fk_user_id };
+    $.ajax( {
+        type    : 'POST',
+        url     : summary_url,
+        dataType: 'JSON',
+        data    : sent_data,
+        success: ( res ) => {
+            if ( res.result ) {
+                const data = res.data;
+                if ( data.length > 0 ) {
+                    let index = 1;
+                    const container = $( '#finance-category-list' );
+                    let all_element = "";
+                    data.forEach( ( row_data ) => {
+                        index++;
+                        const padding_bottom = ( index == data.length ) ? "pb-0" : "";
+                        const { id, category, income, expense } = row_data;
+                        const element =   `
+                                    <div class="card-body p-5 ${ padding_bottom }" >
+                                        <div class="row">
+                                            <small class="fw-bold fst-italic">${ category }</small><br/>
+                                            <div class="col-6">
+                                                <span class="fw-bold text-success">RM ${ income }</span>
+                                            </div>
+                                            <div class="col-6">
+                                                <span class="fw-bold text-danger">RM ${ expense }</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    `;
+                        all_element += element;
+                    } );
+                    container.html( all_element );
+                }
             }
             return res;
         },
@@ -272,7 +321,8 @@ function delete_finance( id ) {
 
 function refresh() {
     read_all_finance();
-    read_summary();
+    read_finance_summary();
+    read_finance_category_summary();
 }
 
 refresh();

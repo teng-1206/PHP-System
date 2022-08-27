@@ -33,46 +33,7 @@
                 </div>
             </div>
             <div class="col-3 justify-content-center ">
-                <div class="card bg-white shadow mb-3 overflow-auto rounded-5" style="" >
-                    <!-- <div class="col-12 p-4 pb-0"> -->
-                        <!-- <button id="btn-add-category" class="btn btn-primary rounded-pill shadow mb-3" style="width: 125px; height: 40px;" onclick="window.location.href = 'finance-category.php'"> -->
-                            <!-- <i class="fas fa-plus-circle"></i> Add -->
-                        <!-- </button> -->
-                    <!-- </div> -->
-                    <div class="card-body p-5 pb-0" >
-                        <div class="row">
-                            <div class="col-4 align-self-center">
-                            <i class="fa-lg fas fa-long-arrow-up text-success"></i>
-                            </div>
-                            <div class="col-8">
-                                <small>Foods & Drink</small><br/>
-                                <h5>RM 500.00</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body p-5 pb-0" >
-                        <div class="row">
-                            <div class="col-4 align-self-center">
-                            <i class="fa-lg fas fa-long-arrow-down text-danger"></i>
-                            </div>
-                            <div class="col-8">
-                                <small>Loan</small><br/>
-                                <h5>RM 500.00</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body p-5" >
-                        <div class="row">
-                            <div class="col-4 align-self-center">
-                            <i class="fa-lg fas fa-dollar-sign text-primary"></i>
-                            </div>
-                            <div class="col-8">
-                                <small>Fuel</small><br/>
-                                <h5>RM 500.00</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div id="finance-category-list" class="card bg-white shadow mb-3 overflow-auto rounded-5" ></div>
             </div>
             <div class="col-3 justify-content-center ">
                 <div class="card bg-white shadow mb-3 rounded-5" style="" >
@@ -84,8 +45,8 @@
                                 </span>
                             </div>
                             <div class="col-8">
-                                <small class="fw-light fst-italic">Incomes</small>
-                                <h5 class="text-success">RM <span id="total-income"></span></h5>
+                                <small class="fw-bold fw-light fst-italic">Incomes</small><br/>
+                                <span class="fw-bold text-success">RM <span id="total-income"></span></span>
                                 
                             </div>
                         </div>
@@ -98,8 +59,8 @@
                                 </span>
                             </div>
                             <div class="col-8">
-                                <small class="fw-light fst-italic">Expenses</small><br/>
-                                <h5 class="text-danger">RM <span id="total-expense"></span></h5>
+                                <small class="fw-light fw-bold fst-italic">Expenses</small><br/>
+                                <span class="fw-bold text-danger">RM <span id="total-expense"></span></span>
                             </div>
                         </div>
                     </div>
@@ -111,8 +72,8 @@
                                 </span>
                             </div>
                             <div class="col-8">
-                                <small class="fw-light fst-italic">Earnings</small><br/>
-                                <h5 class="text-primary">RM <span id="total-earning"></span></h5>
+                                <small class="fw-light fw-bold fst-italic">Earnings</small><br/>
+                                <span class="fw-bold text-primary">RM <span id="total-earning"></span></span>
                             </div>
                         </div>
                     </div>
