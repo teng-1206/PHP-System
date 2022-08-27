@@ -8,6 +8,7 @@
         private $status;
         private $amount;
         private $fk_category_id;
+        private $fk_user_id;
         private $soft_delete;
         private $create_at;
         private $update_at;
@@ -36,6 +37,9 @@
                     break;
                 case 'fk_category_id':
                     return $this->fk_category_id;
+                    break;
+                case 'fk_user_id':
+                    return $this->fk_user_id;
                     break;
                 case 'soft_delete':
                     return $this->soft_delete;
@@ -74,6 +78,9 @@
                 case 'fk_category_id':
                     $this->fk_category_id = $value;
                     break;
+                case 'fk_user_id':
+                    $this->fk_user_id = $value;
+                    break;
                 case 'soft_delete':
                     $this->soft_delete = $value;
                     break;
@@ -107,6 +114,26 @@
             return null;
         }
 
+        public function read_all_by_user_id ( $conn, Finance $object )
+        {
+            $sql = "SELECT finance.*, finance_category.category, finance_category.color_code, finance_category.background_color_code, finance_category.icon_code FROM finance
+                    INNER JOIN finance_category
+                    ON finance.fk_category_id = finance_category.id
+                    WHERE finance.fk_user_id = ? AND finance.soft_delete = 0
+                    ORDER BY finance.id DESC";
+            $stmt = $conn->prepare( $sql );
+            $result = $stmt->execute( [
+                $object->get( 'fk_user_id' ),
+            ] );
+            $num_row = $stmt->rowCount();
+            if ( $result ) 
+            {
+                $result = $stmt->fetchAll();
+                return $result;
+            }
+            return null;
+        }
+
         public function read ( $conn, Finance $object )
         {
             $sql = "SELECT * FROM finance
@@ -127,8 +154,8 @@
 
         public function create ( $conn, Finance $object )
         {
-            $sql = "INSERT INTO finance( title, date, status, amount, fk_category_id )
-                    VALUES( ?, ?, ?, ?, ? )";
+            $sql = "INSERT INTO finance( title, date, status, amount, fk_category_id, fk_user_id )
+                    VALUES( ?, ?, ?, ?, ?, ? )";
             $stmt = $conn->prepare( $sql );
             $result = $stmt->execute( [
                 $object->get( 'title' ),
@@ -136,6 +163,7 @@
                 $object->get( 'status' ),
                 $object->get( 'amount' ),
                 $object->get( 'fk_category_id' ),
+                $object->get( 'fk_user_id' ),
             ] );
             $last_id = $result ? $conn->lastInsertId() : null;
             return $last_id;
@@ -183,6 +211,7 @@
             $new_object->set( 'status', $object[ 'status' ] );
             $new_object->set( 'amount', $object[ 'amount' ] );
             $new_object->set( 'fk_category_id', $object[ 'fk_category_id' ] );
+            $new_object->set( 'fk_user_id', $object[ 'fk_user_id' ] );
             $new_object->set( 'soft_delete', $object[ 'soft_delete' ] );
             $new_object->set( 'create_at', $object[ 'create_at' ] );
             $new_object->set( 'update_at', $object[ 'update_at' ] );

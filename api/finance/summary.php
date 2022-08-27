@@ -6,8 +6,12 @@
 
     if ( isset( $_GET ) )
     {
+        $finance = new Finance();
+        $finance->set( 'fk_user_id', $_POST[ 'fk_user_id' ] );
+
         $finance_data_connector = new Finance_Data_Connector();
-        $all_finance = $finance_data_connector->read_all( $conn );
+        $all_finance = $finance_data_connector->read_all_by_user_id( $conn, $finance );
+        
         if ( ! is_null( $all_finance ) )
         {
             $temp_all_finance = array();

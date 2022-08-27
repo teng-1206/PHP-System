@@ -40,9 +40,10 @@ $( '#finance-record-form' ).submit( ( event ) => {
 // CRUD Functions
 function read_summary() {
     const summary_url = `${ api_url }finance/summary.php`;
-    const sent_data = {};
+    const fk_user_id = $( '#m-user-id' ).val();
+    const sent_data = { fk_user_id };
     $.ajax( {
-        type    : 'GET',
+        type    : 'POST',
         url     : summary_url,
         dataType: 'JSON',
         data    : sent_data,
@@ -70,9 +71,10 @@ function read_all_finance() {
     container.pagination( {
         dataSource: function( done ) {
             const read_all_url = `${ api_url }finance/read_all.php`;
-            const sent_data = {};
+            const fk_user_id = $( '#m-user-id' ).val();
+            const sent_data = { fk_user_id };
             $.ajax( {
-                type    : 'GET',
+                type    : 'POST',
                 url     : read_all_url,
                 dataType: 'JSON',
                 data    : sent_data,
@@ -163,12 +165,13 @@ function read_finance() {
 
 function create_finance() {
     const create_url = `${ api_url }finance/create.php`;
+    const fk_user_id     = $( '#m-user-id' ).val();
     const title          = $( '#m-title' ).val();
     const date           = $( '#m-date' ).val();
     const fk_category_id = $( '#m-category' ).val();
     const status         = $( '#m-status' ).val();
     const amount         = $( '#m-amount' ).val();
-    const sent_data = { title, date, fk_category_id, status, amount };
+    const sent_data = { fk_user_id, title, date, fk_category_id, status, amount };
     $.ajax( {
         type    : 'POST',
         url     : create_url,

@@ -10,6 +10,7 @@
         $finance->set( 'date', $_POST[ 'date' ] );
         $finance->set( 'status', $_POST[ 'status' ] );
         $finance->set( 'fk_category_id', $_POST[ 'fk_category_id' ] );
+        $finance->set( 'fk_user_id', $_POST[ 'fk_user_id' ] );
         $finance->set( 'amount', $_POST[ 'amount' ] );
 
         $finance_data_connector = new Finance_Data_Connector();
