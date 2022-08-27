@@ -50,6 +50,7 @@
                         <h5 id="modal-header-title" class="mb-4">Add Category</h5>
                         <form id="finance-category-form">
                             <input type="hidden" id="m-id" name="m-id" value="">
+                            <input type="hidden" id="m-user-id" name="m-user-id" value="1">
                             <div class="row mb-4">
                                 <div class="col-12">
                                     <label for="m-category" class="form-label">Category</label>

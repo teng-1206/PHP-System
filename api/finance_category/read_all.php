@@ -4,8 +4,11 @@
 
     if ( isset( $_GET ) )
     {
+        $finance_category = new Finance_Category();
+        $finance_category->set( 'fk_user_id', $_POST[ 'fk_user_id' ] );
+
         $finance_category_data_connector = new Finance_Category_Data_Connector();
-        $all_finance_category = $finance_category_data_connector->read_all( $conn );
+        $all_finance_category = $finance_category_data_connector->read_all_by_user_id( $conn, $finance_category );
 
         if ( ! is_null( $all_finance_category ) )
         {

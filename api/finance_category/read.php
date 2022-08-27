@@ -21,6 +21,7 @@
                     "color_code"            => $finance_category->get( 'color_code' ),
                     "background_color_code" => $finance_category->get( 'background_color_code' ),
                     "icon_code"             => $finance_category->get( 'icon_code' ),
+                    "fk_user_id"             => $finance_category->get( 'fk_user_id' ),
                 ),
             );
             echo json_encode( $res );

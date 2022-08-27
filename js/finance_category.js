@@ -1,5 +1,5 @@
 function reset_modal() {
-    $('#modal-header-title').text( 'Add Category' );
+    $( '#modal-header-title' ).text( 'Add Category' );
     $( '#m-category' ).val( '' );
     $( '#m-icon' ).val( '' );
     $( '#m-color' ).val( '' );
@@ -7,7 +7,7 @@ function reset_modal() {
 }
 
 function open_update_finance_category( id ) {
-    $('#modal-header-title').text( 'Edit Category' );
+    $( '#modal-header-title' ).text( 'Edit Category' );
     $( '#m-id' ).val( id );
     read_finance_category();
 }
@@ -47,9 +47,10 @@ const table = $( '#table-finance-category' ).DataTable( {
 function read_all_finance_category() {
     table.clear().draw();
     const read_all_url = `${ api_url }finance_category/read_all.php`;
-    const sent_data = {};
+    const fk_user_id = $( '#m-user-id' ).val();
+    const sent_data = { fk_user_id };
     $.ajax( {
-        type    : 'GET',
+        type    : 'POST',
         url     : read_all_url,
         dataType: 'JSON',
         data    : sent_data,
@@ -116,11 +117,12 @@ function read_finance_category() {
 
 function create_finance_category() {
     const create_url = `${ api_url }finance_category/create.php`;
+    const fk_user_id            = $( '#m-user-id' ).val();
     const category              = $( '#m-category' ).val();
     const color_code            = $( '#m-color' ).val();
     const background_color_code = $( '#m-background-color' ).val();
     const icon_code             = $( '#m-icon' ).val();
-    const sent_data = { category, color_code, background_color_code, icon_code };
+    const sent_data = { fk_user_id, category, color_code, background_color_code, icon_code };
     $.ajax( {
         type    : 'POST',
         url     : create_url,

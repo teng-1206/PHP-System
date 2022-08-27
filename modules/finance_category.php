@@ -7,6 +7,7 @@
         private $color_code;
         private $background_color_code;
         private $icon_code;
+        private $fk_category_id;
         private $soft_delete;
         private $create_at;
         private $update_at;
@@ -32,6 +33,9 @@
                     break;
                 case 'icon_code':
                     return $this->icon_code;
+                    break;
+                case 'fk_user_id':
+                    return $this->fk_user_id;
                     break;
                 case 'soft_delete':
                     return $this->soft_delete;
@@ -67,6 +71,9 @@
                 case 'icon_code':
                     $this->icon_code = $value;
                     break;
+                case 'fk_user_id':
+                    $this->fk_user_id = $value;
+                    break;
                 case 'soft_delete':
                     $this->soft_delete = $value;
                     break;
@@ -98,6 +105,24 @@
             return null;
         }
 
+        public function read_all_by_user_id ( $conn, Finance_Category $object )
+        {
+            $sql = "SELECT * FROM finance_category
+                    WHERE fk_user_id = ? AND soft_delete = 0
+                    ORDER BY id DESC";
+            $stmt = $conn->prepare( $sql );
+            $result = $stmt->execute( [
+                $object->get( 'fk_user_id' ),
+            ] );
+            $num_row = $stmt->rowCount();
+            if ( $result && $num_row > 0 ) 
+            {
+                $result = $stmt->fetchAll();
+                return $result;
+            }
+            return null;
+        }
+
         public function read ( $conn, Finance_Category $object )
         {
             $sql = "SELECT * FROM finance_category
@@ -118,14 +143,15 @@
 
         public function create ( $conn, Finance_Category $object )
         {
-            $sql = "INSERT INTO finance_category( category, color_code, background_color_code, icon_code )
-                    VALUES( ?, ?, ?, ? )";
+            $sql = "INSERT INTO finance_category( category, color_code, background_color_code, icon_code, fk_user_id )
+                    VALUES( ?, ?, ?, ?, ? )";
             $stmt = $conn->prepare( $sql );
             $result = $stmt->execute( [
                 $object->get( 'category' ),
                 $object->get( 'color_code' ),
                 $object->get( 'background_color_code' ),
                 $object->get( 'icon_code' ),
+                $object->get( 'fk_user_id' ),
             ] );
             $last_id = $result ? $conn->lastInsertId() : null;
             return $last_id;
@@ -171,6 +197,7 @@
             $new_object->set( 'color_code', $object[ 'color_code' ] );
             $new_object->set( 'background_color_code', $object[ 'background_color_code' ] );
             $new_object->set( 'icon_code', $object[ 'icon_code' ] );
+            $new_object->set( 'fk_user_id', $object[ 'fk_user_id' ] );
             $new_object->set( 'soft_delete', $object[ 'soft_delete' ] );
             $new_object->set( 'create_at', $object[ 'create_at' ] );
             $new_object->set( 'update_at', $object[ 'update_at' ] );
