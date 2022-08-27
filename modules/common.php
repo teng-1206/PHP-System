@@ -5,7 +5,7 @@
 
         public static function convert_two_decimal( $value )
         {
-            return sprintf( '%0.2f', round( $value, 2 ) );;
+            return sprintf( '%0.2f', round( $value, 2 ) );
         }
 
     }

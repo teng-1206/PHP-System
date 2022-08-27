@@ -8,7 +8,8 @@
         protected $key;
         protected $iv;
 
-        public function __construct() {
+        public function __construct()
+        {
             $this->set( 'encrypt_method', 'AES-256-CBC' );
             $this->set( 'secret_key', 'system' );
             $this->set( 'secret_iv', 'system' );
@@ -16,13 +17,15 @@
             $this->set( 'iv', substr( hash( 'sha256', $this->get( 'secret_iv' ) ), 0, 16 ) );
         }
 
-        public function hash( $string ) {
+        public function hash( $string )
+        {
             $encrypt_string = $this->encrypt( $string );
             $hash_string = md5( $encrypt_string );
             return $hash_string;
         }
 
-        public function encrypt( $string ) {
+        public function encrypt( $string )
+        {
             return base64_encode( 
                 openssl_encrypt(
                     $string,
@@ -34,7 +37,8 @@
             );
         }
 
-        public function decrypt( $string ) {
+        public function decrypt( $string )
+        {
             return openssl_decrypt(
                 base64_decode( $string ),
                 $this->get( 'encrypt_method' ),
@@ -44,8 +48,10 @@
             );
         }
 
-        public function get( String $attribute ) {
-            switch ( $attribute ) {
+        public function get( String $attribute )
+        {
+            switch ( $attribute )
+            {
                 case 'encrypt_method':
                     return $this->encrypt_method;
                     break;
@@ -66,8 +72,10 @@
             }
         }
 
-        public function set( String $attribute, $value ) {
-            switch ( $attribute ) {
+        public function set( String $attribute, $value )
+        {
+            switch ( $attribute )
+            {
                 case 'encrypt_method':
                     $this->encrypt_method = $value;
                     break;
