@@ -1,9 +1,9 @@
 <?php
-    include_once( realpath( dirname( __FILE__ ) . "./../../config/config.php" ) );
-    include_once( MODULES_PATH . 'finance.php' );
-    include_once( MODULES_PATH . "/finance_category.php" );
+    include_once( realpath( dirname( __FILE__ ) . "/../../config/config.php" ) );
+    include_once( MODULES_PATH . '/finance.php' );
+    include_once( MODULES_PATH . '/finance_category.php' );
 
-    if ( isset( $_POST ) )
+    if ( isset( $_POST[ 'fk_user_id' ] ) )
     {
         $finance = new Finance();
         $finance->set( 'fk_user_id', $_POST[ 'fk_user_id' ] );
@@ -28,6 +28,4 @@
     {
         echo json_encode( array( "result" => false ) );
     }
-
-
 ?>

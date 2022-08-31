@@ -1,6 +1,5 @@
 <?php
-
-    include_once( realpath( dirname( __FILE__ ) . "./../../config/config.php" ) );
+    include_once( realpath( dirname( __FILE__ ) . "/../../config/config.php" ) );
     include_once( MODULES_PATH . "/finance.php" );
 
     if ( isset( $_POST ) )
@@ -27,5 +26,4 @@
             echo json_encode( array( "result" => false ) );
         }
     }
-
 ?>

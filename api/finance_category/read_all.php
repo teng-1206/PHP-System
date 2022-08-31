@@ -1,5 +1,5 @@
 <?php
-    include_once( realpath( dirname( __FILE__ ) . "./../../config/config.php" ) );
+    include_once( realpath( dirname( __FILE__ ) . "/../../config/config.php" ) );
     include_once( MODULES_PATH . "/finance_category.php" );
 
     if ( isset( $_GET ) )
