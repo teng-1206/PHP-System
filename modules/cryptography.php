@@ -8,7 +8,7 @@
         protected $key;
         protected $iv;
 
-        public function __construct()
+        public function __construct ()
         {
             $this->set( 'encrypt_method', 'AES-256-CBC' );
             $this->set( 'secret_key', 'system' );
@@ -17,14 +17,18 @@
             $this->set( 'iv', substr( hash( 'sha256', $this->get( 'secret_iv' ) ), 0, 16 ) );
         }
 
-        public function hash( $string )
+        public function str_contains ( string $haystack, string $needle ) {
+            return $needle !== '' && mb_strpos( $haystack, $needle ) !== false;
+        }
+
+        public function hash ( $string )
         {
             $encrypt_string = $this->encrypt( $string );
             $hash_string = md5( $encrypt_string );
             return $hash_string;
         }
 
-        public function encrypt( $string )
+        public function encrypt ( $string )
         {
             return base64_encode( 
                 openssl_encrypt(
@@ -37,7 +41,31 @@
             );
         }
 
-        public function decrypt( $string )
+        public function encrypt_object ( Cryptography $crypto, array $object )
+        {
+            $key_array = array_keys( $object );
+            foreach ( $key_array as $key )
+            {
+                if ( ! $this->str_contains( $key, 'id' ) && ! $this->str_contains( $key, 'soft_delete' ) && ! $this->str_contains( $key, 'create_at' ) && ! $this->str_contains( $key, 'update_at' ) )
+                {
+                    $object[ $key ] = $crypto->encrypt( $object[ $key ] );
+                }
+            }
+            return $object;
+        }
+
+        public function encrypt_all_object ( Cryptography $crypto, array $array )
+        {
+            $new_array = array();
+            foreach ( $array as $object )
+            {
+                $new_object = $this->encrypt_object( $crypto, $object );
+                array_push( $new_array, $new_object );
+            }
+            return $new_array;
+        }
+
+        public function decrypt ( $string )
         {
             return openssl_decrypt(
                 base64_decode( $string ),
@@ -48,7 +76,31 @@
             );
         }
 
-        public function get( String $attribute )
+        public function decrypt_object ( Cryptography $crypto, array $object )
+        {
+            $key_array = array_keys( $object );
+            foreach ( $key_array as $key )
+            {
+                if ( ! $this->str_contains( $key, 'id' ) && ! $this->str_contains( $key, 'soft_delete' ) && ! $this->str_contains( $key, 'create_at' ) && ! $this->str_contains( $key, 'update_at' ) )
+                {
+                    $object[ $key ] = $crypto->decrypt( $object[ $key ] );
+                }
+            }
+            return $object;
+        }
+
+        public function decrypt_all_object( Cryptography $crypto, array $array )
+        {
+            $new_array = array();
+            foreach ( $array as $object )
+            {
+                $new_object = $this->decrypt_object( $crypto, $object );
+                array_push( $new_array, $new_object );
+            }
+            return $new_array;
+        }
+
+        public function get ( String $attribute )
         {
             switch ( $attribute )
             {
@@ -72,7 +124,7 @@
             }
         }
 
-        public function set( String $attribute, $value )
+        public function set ( String $attribute, $value )
         {
             switch ( $attribute )
             {
