@@ -9,11 +9,12 @@
 
         $finance_data_connector = new Finance_Data_Connector();
         $finance = $finance_data_connector->read( $conn, $finance );
+        $finance = $crypto->decrypt_object( $finance );
 
-        $finance->set( 'title', $_POST[ 'title' ] );
-        $finance->set( 'date', $_POST[ 'date' ] );
-        $finance->set( 'status', $_POST[ 'status' ] );
-        $finance->set( 'amount', $_POST[ 'amount' ] );
+        $finance->set( 'title', $crypto->encrypt( $_POST[ 'title' ] ) );
+        $finance->set( 'date', $crypto->encrypt( $_POST[ 'date' ] ) );
+        $finance->set( 'status', $crypto->encrypt( $_POST[ 'status' ] ) );
+        $finance->set( 'amount', $crypto->encrypt( $_POST[ 'amount' ] ) );
         $finance->set( 'fk_category_id', $_POST[ 'fk_category_id' ] );
         $res = $finance_data_connector->update( $conn, $finance );
 

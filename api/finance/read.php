@@ -10,12 +10,14 @@
 
         $finance_data_connector = new Finance_Data_Connector();
         $finance = $finance_data_connector->read( $conn, $finance );
+        $finance = $crypto->decrypt_object( $finance );
 
         $finance_category = new Finance_Category();
         $finance_category->set( 'id', $finance->get( 'fk_category_id' ) );
 
         $finance_category_data_connector = new Finance_Category_Data_Connector();
         $finance_category = $finance_category_data_connector->read( $conn, $finance_category );
+        $finance_category = $crypto->decrypt_object( $finance_category );
 
         if ( ! is_null( $finance ) && ! is_null( $finance_category ) )
         {
