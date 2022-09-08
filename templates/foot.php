@@ -1,15 +1,11 @@
-<!-- Bootstrap 5 Start -->
-<script src="<?= $config[ 'urls' ][ 'plugins' ] . "bootstrap/bootstrap.min.js"; ?>"></script>
-<script src="<?= $config[ 'urls' ][ 'plugins' ] . "bootstrap/bootstrap.bundle.min.js"; ?>"></script>
-<!-- Bootstrap 5 End -->
-
-<!-- Material Bootstrap 5 Start -->
-<!-- <script src="<?= '' // $config[ 'urls' ][ 'plugins' ] . "material-bootstrap/mdb.min.js"; ?>"></script> -->
-<!-- Material Bootstrap 5 End -->
-
 <!-- jQuery Start -->
 <script src="<?= $config[ 'urls' ][ 'plugins' ] . "jquery/jquery.min.js"; ?>"></script>
 <!-- jQuery End -->
+
+<!-- Bootstrap 5 Start -->
+<script src="<?= $config[ 'urls' ][ 'plugins' ] . "bootstrap/popper.min.js"; ?>"></script>
+<script src="<?= $config[ 'urls' ][ 'plugins' ] . "bootstrap/bootstrap.min.js"; ?>"></script>
+<!-- Bootstrap 5 End -->
 
 <!-- Sweet Alert 2 Start -->
 <script src="<?= $config[ 'urls' ][ 'plugins' ] . "sweetalert2/sweetalert2.all.min.js"; ?>"></script>
@@ -20,10 +16,27 @@
 <script src="<?= $config[ 'urls' ][ 'plugins' ] . "font-awesome/js/all.min.js"; ?>"></script>
 <!-- Font Awesome 5 End -->
 
-<!-- Custom JS Start -->
-<script src="<?= $config[ 'urls' ][ 'js' ] . "common.js"; ?>"></script>
-<!-- Custom JS End -->
+<!-- Loader Start -->
+<script src="<?= $config[ 'urls' ][ 'js' ] . "loader.js"; ?>"></script>
+<!-- Loader End -->
 
+<!-- Common JS Start -->
+<script src="<?= $config[ 'urls' ][ 'js' ] . "common.js"; ?>"></script>
+<!-- Common JS End -->
+
+<!-- Perfect Scrollbar Start -->
+<script src="<?= $config[ 'urls' ][ 'plugins' ] . "perfect-scrollbar/perfect-scrollbar.min.js"; ?>"></script>
+<!-- Perfect Scrollbar End -->
+
+<script src="<?= $config[ 'urls' ][ 'js' ] . "app.js"; ?>"></script>
+<script>
+    $( document ).ready( function() {
+        App.init();
+    } );
+</script>
+<script src="<?=  $config[ 'urls' ][ 'js' ] . "custom.js"; ?>"></script>
+
+<!-- Log Out Start -->
 <script>
     const api_url = $( 'meta[ name="api-url" ]' ).attr( 'content' );
     $( document ).ready( () => {
@@ -47,3 +60,4 @@
         } );
     } );
 </script>
+<!-- Log Out End -->
