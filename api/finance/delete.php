@@ -9,6 +9,7 @@
 
         $finance_data_connector = new Finance_Data_Connector();
         $finance = $finance_data_connector->read( $conn, $finance );
+        $finance = $finance_data_connector->convert( $finance );
         $res = $finance_data_connector->delete( $conn, $finance );
 
         if ( $res )

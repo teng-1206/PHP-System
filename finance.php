@@ -224,7 +224,36 @@
                     </div>
                 </div>
                 <!-- Finance Record Modal End -->
+
+                <!-- Finance Record Delete Modal Start -->
+                <div class="modal fade back-blur-3" id="m-finance-record-delete" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
+                        <div class="modal-content p-3 rounded-5">
+                            <div class="modal-header border-0">
+                                <h5 class="modal-title">Confirmation</h5>
+                                <span class="text-danger" onclick="close_delete_modal()" style="cursor: pointer">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                                </span>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <input type="hidden" id="m-id-delete" name="m-id-delete" value="">
+                                    <div class="row mb-4">
+                                        <div class="col-12">
+                                            <label class="form-label">Do you want to delete this record ?</label>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer border-0">
+                                <button type="button" class="btn rounded-pill" onclick="close_delete_modal()" style="width: 100px; height: 40px;">Cancel</button>
+                                <button type="button" class="btn btn-danger rounded-pill" style="width: 100px; height: 40px;" onclick="delete_finance()">Delete</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <!-- Finance Record Delete Modal End -->
+            </div>
 
             <!-- Footer Start -->
             <?php include_once( TEMPLATES_PATH . 'footer.php' ); ?>
