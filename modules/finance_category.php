@@ -135,8 +135,8 @@
             if ( $result && $num_row == 1 )
             {
                 $result = $stmt->fetch();
-                $new_object = $this->convert( $result );
-                return $new_object;
+                // $result = $this->convert( $result );
+                return $result;
             }
             return null;
         }

@@ -41,25 +41,25 @@
             );
         }
 
-        public function encrypt_object ( Cryptography $crypto, array $object )
+        public function encrypt_object ( array $object )
         {
             $key_array = array_keys( $object );
             foreach ( $key_array as $key )
             {
                 if ( ! $this->str_contains( $key, 'id' ) && ! $this->str_contains( $key, 'soft_delete' ) && ! $this->str_contains( $key, 'create_at' ) && ! $this->str_contains( $key, 'update_at' ) )
                 {
-                    $object[ $key ] = $crypto->encrypt( $object[ $key ] );
+                    $object[ $key ] = $this->encrypt( $object[ $key ] );
                 }
             }
             return $object;
         }
 
-        public function encrypt_all_object ( Cryptography $crypto, array $array )
+        public function encrypt_all_object ( array $array )
         {
             $new_array = array();
             foreach ( $array as $object )
             {
-                $new_object = $this->encrypt_object( $crypto, $object );
+                $new_object = $this->encrypt_object( $object );
                 array_push( $new_array, $new_object );
             }
             return $new_array;
@@ -76,25 +76,25 @@
             );
         }
 
-        public function decrypt_object ( Cryptography $crypto, array $object )
+        public function decrypt_object ( array $object )
         {
             $key_array = array_keys( $object );
             foreach ( $key_array as $key )
             {
                 if ( ! $this->str_contains( $key, 'id' ) && ! $this->str_contains( $key, 'soft_delete' ) && ! $this->str_contains( $key, 'create_at' ) && ! $this->str_contains( $key, 'update_at' ) )
                 {
-                    $object[ $key ] = $crypto->decrypt( $object[ $key ] );
+                    $object[ $key ] = $this->decrypt( $object[ $key ] );
                 }
             }
             return $object;
         }
 
-        public function decrypt_all_object( Cryptography $crypto, array $array )
+        public function decrypt_all_object( array $array )
         {
             $new_array = array();
             foreach ( $array as $object )
             {
-                $new_object = $this->decrypt_object( $crypto, $object );
+                $new_object = $this->decrypt_object( $object );
                 array_push( $new_array, $new_object );
             }
             return $new_array;
