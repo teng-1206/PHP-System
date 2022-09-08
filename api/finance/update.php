@@ -2,7 +2,7 @@
     include_once( realpath( dirname( __FILE__ ) . "/../../config/config.php" ) );
     include_once( MODULES_PATH . "/finance.php" );
 
-    if ( isset( $_POST ) )
+    if ( isset( $_POST[ 'id' ] ) )
     {
         $finance = new Finance();
         $finance->set( 'id', $_POST[ 'id' ] );
@@ -10,6 +10,7 @@
         $finance_data_connector = new Finance_Data_Connector();
         $finance = $finance_data_connector->read( $conn, $finance );
         $finance = $crypto->decrypt_object( $finance );
+        $finance = $finance_data_connector->convert( $finance );
 
         $finance->set( 'title', $crypto->encrypt( $_POST[ 'title' ] ) );
         $finance->set( 'date', $crypto->encrypt( $_POST[ 'date' ] ) );
