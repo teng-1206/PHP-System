@@ -157,9 +157,6 @@
                         <div class="modal-content p-3 rounded-5">
                             <div class="modal-header border-0">
                                 <h5 id="modal-header-title" class="modal-title">Add Record</h5>
-                                <span class="text-danger" onclick="close_modal()" style="cursor: pointer">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
-                                </span>
                             </div>
                             <div class="modal-body">
                                 <form id="finance-record-form">
@@ -231,9 +228,6 @@
                         <div class="modal-content p-3 rounded-5">
                             <div class="modal-header border-0">
                                 <h5 class="modal-title">Confirmation</h5>
-                                <span class="text-danger" onclick="close_delete_modal()" style="cursor: pointer">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
-                                </span>
                             </div>
                             <div class="modal-body">
                                 <form>
