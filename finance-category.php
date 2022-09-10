@@ -83,14 +83,13 @@
                     <div class="col-xl-9 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
                         <div class="widget">
                             <div class="widget-heading">
-                            <h5 class="mb-4">Finance Category</h5>
-
+                                <h5 class="mb-4">Finance Category</h5>
                             </div>
                             <div class="widget-content">
-                                <table id="table-finance-category" class="table align-self-center">
+                                <table id="table-finance-category" class="table style-1 dt-table-hover non-hover">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th class="checkbox-column dt-no-sorting"> Record no. </th>
                                             <th>Icon</th>
                                             <th>Category</th>
                                             <th>Actions</th>
@@ -203,7 +202,6 @@
     <script src="<?= '' //$config[ 'urls' ][ 'plugins' ] . "font-awesome-icon-picker/font-awesome-icon-picker.js"; ?>"></script>
 
     <script>
-        $( '#table-finance-category' ).DataTable();
     </script>
     <!-- Custom JS End -->
 </body>
