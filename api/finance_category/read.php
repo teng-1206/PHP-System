@@ -3,13 +3,15 @@
     include_once( realpath( dirname( __FILE__ ) . "/../../config/config.php" ) );
     include_once( MODULES_PATH . "/finance_category.php" );
 
-    if ( isset( $_POST ) )
+    if ( isset( $_POST[ 'id' ] ) )
     {
         $finance_category = new Finance_Category();
         $finance_category->set( 'id', $_POST[ 'id' ] );
 
         $finance_category_data_connector = new Finance_Category_Data_Connector();
         $finance_category = $finance_category_data_connector->read( $conn, $finance_category );
+        $finance_category = $crypto->decrypt_object( $finance_category );
+        $finance_category = $finance_category_data_connector->convert( $finance_category );
 
         if ( ! is_null( $finance_category ) )
         {

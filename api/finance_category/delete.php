@@ -10,6 +10,7 @@
 
         $finance_category_data_connector = new Finance_Category_Data_Connector();
         $finance_category = $finance_category_data_connector->read( $conn, $finance_category );
+        $finance_category = $finance_category_data_connector->convert( $finance_category );
         $res = $finance_category_data_connector->delete( $conn, $finance_category );
 
         if ( $res )

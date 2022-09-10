@@ -12,12 +12,14 @@
 
         $finance_data_connector = new Finance_Data_Connector();
         $all_finance = $finance_data_connector->read_all_by_user_id( $conn, $finance );
+        $all_finance = $crypto->decrypt_all_object( $all_finance );
 
         $finance_category = new Finance_Category();
         $finance_category->set( 'fk_user_id', $_POST[ 'fk_user_id' ] );
 
         $finance_category_data_connector = new Finance_Category_Data_Connector();
         $all_finance_category = $finance_category_data_connector->read_all_by_user_id( $conn, $finance_category );
+        $all_finance_category = $crypto->decrypt_all_object( $all_finance_category );
         
         $data = array();
         if ( ! is_null( $all_finance_category ) && ! is_null( $all_finance ) )
