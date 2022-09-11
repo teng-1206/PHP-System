@@ -5,11 +5,13 @@
 <html lang="en">
 <head>
     <title> System | Finance Category </title>
+
     <!-- Global CSS Start -->
     <?php include_once( TEMPLATES_PATH . 'head.php' ); ?>
     <!-- Global CSS End -->
 
     <!-- Custom CSS Start -->
+
     <!-- Checkbox Start -->
     <link rel="stylesheet" type="text/css" href="<?= $config[ 'urls' ][ 'css' ] . "forms/theme-checkbox-radio.css"; ?> ">
     <!-- Checkbox End -->
@@ -19,11 +21,7 @@
     <link rel="stylesheet" type="text/css" href="<?= $config[ 'urls' ][ 'plugins' ] . "table/datatable/custom_dt_custom.css"; ?>">
     <link rel="stylesheet" type="text/css" href="<?= $config[ 'urls' ][ 'plugins' ] . "table/datatable/dt-global_style.css"; ?>">
     <!-- Data Table End -->
-    
-    <!-- <link rel="stylesheet" href="dist/css/bootstrap-iconpicker.min.css"/> -->
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"/> -->
-    <link rel="stylesheet" href="<?=''// $config[ 'urls' ][ 'plugins' ] . "font-awesome-icon-picker/font-awesome-icon-picker.min.css"; ?>" />
-    <link rel="stylesheet" href="<?= ''//$config[ 'urls' ][ 'plugins' ] . "font-awesome-icon-picker/font-awesome-icon-picker.css"; ?>" />
+
     <!-- Custom CSS End -->
 
     <style>
@@ -102,7 +100,6 @@
                             </div>
                         </div>
                     </div>
-                    
                     <div class="col-xl-3 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing justify-content-center">
                         <div class="widget">
                             <div class="widget-heading">
@@ -187,29 +184,15 @@
     <!-- Global JS End -->
 
     <!-- Custom JS Start -->
+
     <!-- Data Table Start -->
-    <script src="<?= $config[ 'urls' ][ 'plugins' ] . "data-table/data-table.min.js"; ?>"></script>
-    
-    <script src="<?= $config[ 'urls' ][ 'plugins' ] . "table/datatable/datatables.js"; ?>"></script>
-    <script src="<?= $config[ 'urls' ][ 'plugins' ] . "table/datatable/button-ext/dataTables.buttons.min.js"; ?>"></script>
-    <script src="<?= $config[ 'urls' ][ 'plugins' ] . "table/datatable/button-ext/jszip.min.js"; ?>"></script>
-    <script src="<?= $config[ 'urls' ][ 'plugins' ] . "table/datatable/button-ext/buttons.html5.min.js"; ?>"></script>
-    <script src="<?= $config[ 'urls' ][ 'plugins' ] . "table/datatable/button-ext/buttons.print.min.js"; ?>"></script>
+    <script src="<?= $config[ 'urls' ][ 'plugins' ] . "table/datatable/datatables.min.js"; ?>"></script>
     <!-- Data Table End -->
 
-    <!-- Custom JS Start -->
+    <!-- Finance Category JS Start -->
     <script src="<?= $config[ 'urls' ][ 'js' ] . "finance_category.js"; ?>"></script>
-    <!-- Custom JS End -->
+    <!-- Finance Category JS End -->
 
-    <!-- Bootstrap CDN -->
-    <!-- <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script> -->
-    <!-- Bootstrap-Iconpicker Bundle -->
-    <!-- <script type="text/javascript" src="dist/js/bootstrap-iconpicker.bundle.min.js"></script> -->
-    <script src="<?=''// $config[ 'urls' ][ 'plugins' ] . "font-awesome-icon-picker/font-awesome-icon-picker.min.js"; ?>"></script>
-    <script src="<?= '' //$config[ 'urls' ][ 'plugins' ] . "font-awesome-icon-picker/font-awesome-icon-picker.js"; ?>"></script>
-
-    <script>
-    </script>
     <!-- Custom JS End -->
 </body>
 </html>

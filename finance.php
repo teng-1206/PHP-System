@@ -10,6 +10,7 @@
     <!-- Global CSS End -->
 
     <!-- Custom CSS Start -->
+
     <!-- Checkbox Start -->
     <link rel="stylesheet" type="text/css" href="<?= $config[ 'urls' ][ 'css' ] . "forms/theme-checkbox-radio.css"; ?> ">
     <!-- Checkbox End -->
@@ -19,6 +20,7 @@
     <link rel="stylesheet" type="text/css" href="<?= $config[ 'urls' ][ 'plugins' ] . "table/datatable/custom_dt_custom.css"; ?>">
     <link rel="stylesheet" type="text/css" href="<?= $config[ 'urls' ][ 'plugins' ] . "table/datatable/dt-global_style.css"; ?>">
     <!-- Data Table End -->
+
     <!-- Custom CSS End -->
 
     <style>
@@ -264,6 +266,7 @@
     <!-- Global JS End -->
 
     <!-- Custom JS Start -->
+
     <!-- Data Table Start -->
     <script src="<?= $config[ 'urls' ][ 'plugins' ] . "table/datatable/datatables.min.js"; ?>"></script>
     <!-- Data Table End -->
@@ -271,6 +274,7 @@
     <!-- Finance JS Start -->
     <script src="<?= $config[ 'urls' ][ 'js' ] . "finance.js"; ?>"></script>
     <!-- Finance JS End -->
+
     <!-- Custom JS End -->
 </body>
 </html>
