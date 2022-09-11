@@ -10,7 +10,7 @@
 
         $finance_category_data_connector = new Finance_Category_Data_Connector();
         $finance_category = $finance_category_data_connector->read( $conn, $finance_category );
-        $finance_category = $crypto->decrypt_object( $finance );
+        $finance_category = $crypto->decrypt_object( $finance_category );
         $finance_category = $finance_category_data_connector->convert( $finance_category );
 
         $finance_category->set( 'category', $crypto->encrypt( $_POST[ 'category' ] ) );
