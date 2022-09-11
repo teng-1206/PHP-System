@@ -147,7 +147,7 @@
             </div>
 
             <!-- Finance Category Delete Modal Start -->
-            <div class="modal fade back-blur-3" id="m-finance-record-delete" tabindex="-1" aria-hidden="true">
+            <div class="modal fade back-blur-3" id="m-finance-category-delete" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
                     <div class="modal-content p-3 rounded-5">
                         <div class="modal-header border-0">
@@ -165,7 +165,7 @@
                         </div>
                         <div class="modal-footer border-0">
                             <button type="button" class="btn rounded-pill" onclick="close_delete_modal()" style="width: 100px; height: 40px;">Cancel</button>
-                            <button type="button" class="btn btn-danger rounded-pill" style="width: 100px; height: 40px;" onclick="delete_finance()">Delete</button>
+                            <button type="button" class="btn btn-danger rounded-pill" style="width: 100px; height: 40px;" onclick="delete_finance_category()">Delete</button>
                         </div>
                     </div>
                 </div>

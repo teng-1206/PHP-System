@@ -6,10 +6,19 @@ function reset_modal() {
     $( '#m-background-color' ).val( '' );
 }
 
+function close_delete_modal() {
+    $( '#m-finance-category-delete' ).modal( 'hide' );
+}
+
 function open_update_finance_category( id ) {
     $( '#modal-header-title' ).text( 'Edit Category' );
     $( '#m-id' ).val( id );
     read_finance_category();
+}
+
+function open_delete_finance_category( id ) {
+    $( '#m-finance-category-delete' ).modal( 'show' );
+    $( '#m-id-delete' ).val( id );
 }
 
 $( '#finance-category-form' ).submit( ( event ) => {
@@ -71,7 +80,7 @@ function read_all_finance_category() {
                             `<button onclick="open_update_finance_category( ${ id } );" class="btn btn-primary rounded-pill" data-toggle="tooltip" data-placement="top" title="Edit">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
                             </button>
-                            <button onclick="delete_finance_category( ${ id } )" class="btn btn-danger rounded-pill" data-toggle="tooltip" data-placement="top" title="Delete">
+                            <button onclick="open_delete_finance_category( ${ id } )" class="btn btn-danger rounded-pill" data-toggle="tooltip" data-placement="top" title="Delete">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
                             </button>`,
                         ] ).draw( false );
@@ -182,43 +191,70 @@ function update_finance_category() {
     } );
 }
 
-function delete_finance_category( id ) {
-    Swal.fire( {
-        title             : 'Delete this record?',
-        icon              : 'question',
-        showCancelButton  : true,
-        confirmButtonText : 'Delete',
-        denyButtonText    : 'Cancel',
-        confirmButtonColor: '#dc3545',
-        reverseButtons    : true,
-    } ).then( ( result ) => {
-        if ( result.isConfirmed ) {
-            const delete_url = `${ api_url }finance_category/delete.php`;
-            const sent_data = { id };
-            $.ajax( {
-                type    : 'POST',
-                url     : delete_url,
-                dataType: 'JSON',
-                data    : sent_data,
-                success: ( res ) => {
-                    if ( res.result ) {
-                        refresh();
-                        Toast.fire( {
-                            icon : 'success',
-                            title: 'Delete Success'
-                        } );
-                    }
-                    return res;
-                },
-                error: ( err ) => {
-                    Toast.fire( {
-                        icon : 'error',
-                        title: 'Delete Error'
-                    } );
-                }
+function delete_finance_category() {
+    const id = $( '#m-id-delete' ).val();
+    const delete_url = `${ api_url }finance_category/delete.php`;
+    const sent_data = { id };
+    $.ajax( {
+        type    : 'POST',
+        url     : delete_url,
+        dataType: 'JSON',
+        data    : sent_data,
+        success: ( res ) => {
+            if ( res.result ) {
+                close_delete_modal();
+                refresh();
+                Toast.fire( {
+                    icon : 'success',
+                    title: 'Delete Success'
+                } );
+            }
+            return res;
+        },
+        error: ( err ) => {
+            Toast.fire( {
+                icon : 'error',
+                title: 'Delete Error'
             } );
         }
     } );
+
+    // Swal.fire( {
+    //     title             : 'Delete this record?',
+    //     icon              : 'question',
+    //     showCancelButton  : true,
+    //     confirmButtonText : 'Delete',
+    //     denyButtonText    : 'Cancel',
+    //     confirmButtonColor: '#dc3545',
+    //     reverseButtons    : true,
+    // } ).then( ( result ) => {
+    //     if ( result.isConfirmed ) {
+    //         const delete_url = `${ api_url }finance_category/delete.php`;
+    //         const sent_data = { id };
+    //         $.ajax( {
+    //             type    : 'POST',
+    //             url     : delete_url,
+    //             dataType: 'JSON',
+    //             data    : sent_data,
+    //             success: ( res ) => {
+    //                 if ( res.result ) {
+    //                     refresh();
+    //                     Toast.fire( {
+    //                         icon : 'success',
+    //                         title: 'Delete Success'
+    //                     } );
+    //                 }
+    //                 return res;
+    //             },
+    //             error: ( err ) => {
+    //                 Toast.fire( {
+    //                     icon : 'error',
+    //                     title: 'Delete Error'
+    //                 } );
+    //             }
+    //         } );
+    //     }
+    // } );
 }
 
 function refresh() {
