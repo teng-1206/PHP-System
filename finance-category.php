@@ -14,7 +14,7 @@
     <!-- Checkbox End -->
 
     <!-- Data Table Start -->
-    <link rel="stylesheet" type="text/css" href="<?= $config[ 'urls' ][ 'plugins' ] . "data-table/data-table.min.css"; ?>" />
+    <link rel="stylesheet" type="text/css" href="<?= $config[ 'urls' ][ 'plugins' ] . "table/datatable/datatables.min.css"; ?>" />
     <link rel="stylesheet" type="text/css" href="<?= $config[ 'urls' ][ 'plugins' ] . "table/datatable/custom_dt_custom.css"; ?>">
     <link rel="stylesheet" type="text/css" href="<?= $config[ 'urls' ][ 'plugins' ] . "table/datatable/dt-global_style.css"; ?>">
     <!-- Data Table End -->
@@ -188,6 +188,12 @@
     <!-- Custom JS Start -->
     <!-- Data Table Start -->
     <script src="<?= $config[ 'urls' ][ 'plugins' ] . "data-table/data-table.min.js"; ?>"></script>
+    
+    <script src="<?= $config[ 'urls' ][ 'plugins' ] . "table/datatable/datatables.js"; ?>"></script>
+    <script src="<?= $config[ 'urls' ][ 'plugins' ] . "table/datatable/button-ext/dataTables.buttons.min.js"; ?>"></script>
+    <script src="<?= $config[ 'urls' ][ 'plugins' ] . "table/datatable/button-ext/jszip.min.js"; ?>"></script>
+    <script src="<?= $config[ 'urls' ][ 'plugins' ] . "table/datatable/button-ext/buttons.html5.min.js"; ?>"></script>
+    <script src="<?= $config[ 'urls' ][ 'plugins' ] . "table/datatable/button-ext/buttons.print.min.js"; ?>"></script>
     <!-- Data Table End -->
 
     <!-- Custom JS Start -->
