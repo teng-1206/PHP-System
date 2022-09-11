@@ -36,28 +36,45 @@
 </script>
 <script src="<?=  $config[ 'urls' ][ 'js' ] . "custom.js"; ?>"></script>
 
+<!-- Logout Modal Start -->
+<div class="modal fade back-blur-3" id="m-logout" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
+        <div class="modal-content p-3 rounded-5">
+            <div class="modal-header border-0">
+                <h5 class="modal-title">Confirmation</h5>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <label class="form-label">Do you want to log out ?</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" class="btn rounded-pill" onclick="close_logout_modal()" style="width: 100px; height: 40px;">Cancel</button>
+                <button type="button" class="btn btn-danger rounded-pill" style="width: 100px; height: 40px;" onclick="logout()">Log Out</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Logout Modal End -->
+
 <!-- Log Out Start -->
 <script>
     const api_url = $( 'meta[ name="api-url" ]' ).attr( 'content' );
-    $( document ).ready( () => {
-        const api_url = $( '#api-url' ).attr( 'content' );
 
-        // Logout Button
-        $( '#btn-logout' ).click( () => {
-            Swal.fire( {
-                title             : 'Logout?',
-                icon              : 'question',
-                showCancelButton  : true,
-                confirmButtonText : 'Log Out',
-                denyButtonText    : 'Cancel',
-                confirmButtonColor: '#dc3545',
-                reverseButtons    : true,
-            } ).then( ( result ) => {
-                if ( result.isConfirmed ) {
-                    window.location.href = api_url + 'logout.php';
-                }
-            } );
-        } );
-    } );
+    function open_logout_modal() {
+        $( '#m-logout' ).modal( 'show' );
+    }
+
+    function close_logout_modal() {
+        $( '#m-logout' ).modal( 'hide' );
+    }
+
+    function logout() {
+        window.location.href = api_url + 'logout';
+    }
 </script>
 <!-- Log Out End -->

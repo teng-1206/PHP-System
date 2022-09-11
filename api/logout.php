@@ -5,6 +5,6 @@
     session_unset();
     session_destroy();
 
-    echo "<script>window.location.href='" . $config[ 'urls' ][ 'base' ] . "login.php'</script>";
+    echo "<script>window.location.href='" . $config[ 'urls' ][ 'base' ] . "login'</script>";
 
 ?>
