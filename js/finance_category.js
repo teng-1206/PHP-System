@@ -218,43 +218,6 @@ function delete_finance_category() {
             } );
         }
     } );
-
-    // Swal.fire( {
-    //     title             : 'Delete this record?',
-    //     icon              : 'question',
-    //     showCancelButton  : true,
-    //     confirmButtonText : 'Delete',
-    //     denyButtonText    : 'Cancel',
-    //     confirmButtonColor: '#dc3545',
-    //     reverseButtons    : true,
-    // } ).then( ( result ) => {
-    //     if ( result.isConfirmed ) {
-    //         const delete_url = `${ api_url }finance_category/delete.php`;
-    //         const sent_data = { id };
-    //         $.ajax( {
-    //             type    : 'POST',
-    //             url     : delete_url,
-    //             dataType: 'JSON',
-    //             data    : sent_data,
-    //             success: ( res ) => {
-    //                 if ( res.result ) {
-    //                     refresh();
-    //                     Toast.fire( {
-    //                         icon : 'success',
-    //                         title: 'Delete Success'
-    //                     } );
-    //                 }
-    //                 return res;
-    //             },
-    //             error: ( err ) => {
-    //                 Toast.fire( {
-    //                     icon : 'error',
-    //                     title: 'Delete Error'
-    //                 } );
-    //             }
-    //         } );
-    //     }
-    // } );
 }
 
 function refresh() {
