@@ -117,20 +117,17 @@ function read_finance_category_summary() {
                     let all_element = "";
                     data.forEach( ( row_data ) => {
                         index++;
-                        const padding_bottom = ( index == data.length ) ? "pb-0" : "";
-                        const { id, category, income, expense } = row_data;
+                        const { category, income, expense } = row_data;
                         const element =   `
-                                    <div class="card-body p-5 ${ padding_bottom } text-center" >
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <small class="fw-bold fst-italic">${ category }</small><br/>
-                                            </div>
-                                            <div class="col-6">
-                                                <span class="fw-bold text-success">RM ${ income }</span>
-                                            </div>
-                                            <div class="col-6">
-                                                <span class="fw-bold text-danger">RM ${ expense }</span>
-                                            </div>
+                                    <div class="row mb-3">
+                                        <div class="col-12">
+                                            <small class="fw-bold fst-italic">${ category }</small><br/>
+                                        </div>
+                                        <div class="col-6">
+                                            <span class="fw-bold text-success">RM ${ income }</span>
+                                        </div>
+                                        <div class="col-6">
+                                            <span class="fw-bold text-danger">RM ${ expense }</span>
                                         </div>
                                     </div>
                                     `;
@@ -320,43 +317,6 @@ function delete_finance() {
             } );
         }
     } );
-
-    // Swal.fire( {
-    //     title             : 'Delete this record?',
-    //     icon              : 'question',
-    //     showCancelButton  : true,
-    //     confirmButtonText : 'Delete',
-    //     denyButtonText    : 'Cancel',
-    //     confirmButtonColor: '#dc3545',
-    //     reverseButtons    : true,
-    // } ).then( ( result ) => {
-    //     if ( result.isConfirmed ) {
-    //         const delete_url = `${ api_url }finance/delete.php`;
-    //         const sent_data = { id };
-    //         $.ajax( {
-    //             type    : 'POST',
-    //             url     : delete_url,
-    //             dataType: 'JSON',
-    //             data    : sent_data,
-    //             success: ( res ) => {
-    //                 if ( res.result ) {
-    //                     refresh();
-    //                     Toast.fire( {
-    //                         icon : 'success',
-    //                         title: 'Delete Success'
-    //                     } );
-    //                 }
-    //                 return res;
-    //             },
-    //             error: ( err ) => {
-    //                 Toast.fire( {
-    //                     icon : 'error',
-    //                     title: 'Delete Error'
-    //                 } );
-    //             }
-    //         } );
-    //     }
-    // } );
 }
 
 function refresh() {
