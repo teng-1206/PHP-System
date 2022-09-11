@@ -1,4 +1,5 @@
 <?php include_once( realpath( dirname( __FILE__ ) . "/config/config.php" ) ); ?>
+<?php include_once( TEMPLATES_PATH . 'validation.php' ); ?>
 
 <!DOCTYPE html>
 <html lang="en">

@@ -5,7 +5,7 @@
 
     if( isset( $_POST ) ) {
         $user = new User();
-        $user->set( 'username', $_POST[ 'username' ] );
+        $user->set( 'username', $crypto->encrypt( $_POST[ 'username' ] ) );
         $user->set( 'password', $crypto->hash( $_POST[ 'password' ] ) );
         $user_data_connector = new User_Data_Connector();
         $user = $user_data_connector->login( $conn, $user );

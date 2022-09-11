@@ -15,12 +15,12 @@ $( document ).ready( () => {
             };
             $.ajax( {
                 type: "POST",
-                url: api_url + "login.php",
+                url: api_url + "login",
                 data: data,
                 success: ( res ) => {
                     var res = JSON.parse( res );
                     if( res.result == true ) {
-                        window.location.href= "dashboard.php";
+                        window.location.href= "dashboard";
                     } else {
                         Toast.fire( {
                             icon : 'error',
