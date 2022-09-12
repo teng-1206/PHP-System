@@ -184,7 +184,7 @@
                             <div class="modal-body">
                                 <form id="finance-record-form">
                                     <input type="hidden" id="m-id" name="m-id" value="">
-                                    <input type="hidden" id="m-user-id" name="m-user-id" value="1">
+                                    <input type="hidden" id="m-wallet-id" name="m-wallet-id" value="1">
                                     <div class="row mb-4">
                                         <div class="col-12">
                                             <label for="m-title" class="form-label">Title</label>

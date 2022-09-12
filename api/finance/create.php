@@ -9,7 +9,7 @@
         $finance->set( 'date', $crypto->encrypt( $_POST[ 'date' ] ) );
         $finance->set( 'status', $crypto->encrypt( $_POST[ 'status' ] ) );
         $finance->set( 'fk_category_id', $_POST[ 'fk_category_id' ] );
-        $finance->set( 'fk_user_id', $_POST[ 'fk_user_id' ] );
+        $finance->set( 'fk_wallet_id', $_POST[ 'fk_wallet_id' ] );
         $finance->set( 'amount', $crypto->encrypt( $_POST[ 'amount' ] ) );
 
         $finance_data_connector = new Finance_Data_Connector();

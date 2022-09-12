@@ -73,8 +73,8 @@ multiCheck( table );
 // CRUD Functions
 function read_finance_summary() {
     const summary_url = `${ api_url }finance/summary.php`;
-    const fk_user_id = $( '#m-user-id' ).val();
-    const sent_data = { fk_user_id };
+    const fk_wallet_id = $( '#m-wallet-id' ).val();
+    const sent_data = { fk_wallet_id };
     $.ajax( {
         type    : 'POST',
         url     : summary_url,
@@ -101,8 +101,8 @@ function read_finance_summary() {
 
 function read_finance_category_summary() {
     const summary_url = `${ api_url }finance_category/summary.php`;
-    const fk_user_id = $( '#m-user-id' ).val();
-    const sent_data = { fk_user_id };
+    const fk_wallet_id = $( '#m-wallet-id' ).val();
+    const sent_data = { fk_wallet_id };
     $.ajax( {
         type    : 'POST',
         url     : summary_url,
@@ -150,8 +150,8 @@ function read_finance_category_summary() {
 function read_all_finance() {
     table.clear().draw();
     const read_all_url = `${ api_url }finance/read_all.php`;
-    const fk_user_id = $( '#m-user-id' ).val();
-    const sent_data = { fk_user_id };
+    const fk_wallet_id = $( '#m-wallet-id' ).val();
+    const sent_data = { fk_wallet_id };
     $.ajax( {
         type    : 'POST',
         url     : read_all_url,
@@ -224,13 +224,13 @@ function read_finance() {
 
 function create_finance() {
     const create_url = `${ api_url }finance/create.php`;
-    const fk_user_id     = $( '#m-user-id' ).val();
+    const fk_wallet_id     = $( '#m-wallet-id' ).val();
     const title          = $( '#m-title' ).val();
     const date           = $( '#m-date' ).val();
     const fk_category_id = $( '#m-category' ).val();
     const status         = $( '#m-status' ).val();
     const amount         = $( '#m-amount' ).val();
-    const sent_data = { fk_user_id, title, date, fk_category_id, status, amount };
+    const sent_data = { fk_wallet_id, title, date, fk_category_id, status, amount };
     $.ajax( {
         type    : 'POST',
         url     : create_url,

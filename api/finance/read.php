@@ -34,7 +34,7 @@
                     "category"    => $finance_category->get( 'category' ),
                     "color_code"  => $finance_category->get( 'color_code' ),
                     "icon_code"   => $finance_category->get( 'icon_code' ),
-                    "fk_user_id"  => $finance->get( 'fk_user_id' ),
+                    "fk_wallet_id"  => $finance->get( 'fk_wallet_id' ),
                     "amount"      => $finance->get( 'amount' ),
                 ),
             );
