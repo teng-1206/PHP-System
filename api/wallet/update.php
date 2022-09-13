@@ -12,7 +12,7 @@
         $wallet = $crypto->decrypt_object( $wallet );
         $wallet = $wallet_data_connector->convert( $wallet );
 
-        $wallet->set( 'title', $crypto->encrypt( $_POST[ 'title' ] ) );
+        $wallet->set( 'name', $crypto->encrypt( $_POST[ 'name' ] ) );
         $wallet->set( 'amount', $crypto->encrypt( $_POST[ 'amount' ] ) );
         $res = $wallet_data_connector->update( $conn, $wallet );
 

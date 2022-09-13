@@ -6,7 +6,6 @@
     {
         $wallet = new Wallet();
         $wallet->set( 'id', $_POST[ 'id' ] );
-        $wallet->set( 'id', 2 );
 
         $wallet_data_connector = new Wallet_Data_Connector();
         $wallet = $wallet_data_connector->read( $conn, $wallet );
