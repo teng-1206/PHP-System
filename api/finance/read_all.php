@@ -9,7 +9,7 @@
         $finance->set( 'fk_wallet_id', $_POST[ 'fk_wallet_id' ] );
 
         $finance_data_connector = new Finance_Data_Connector();
-        $all_finance = $finance_data_connector->read_all_by_user_id( $conn, $finance );
+        $all_finance = $finance_data_connector->read_all_by_wallet_id( $conn, $finance );
         $all_finance = $crypto->decrypt_all_object( $all_finance );
 
         if ( ! is_null( $all_finance ) )

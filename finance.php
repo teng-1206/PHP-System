@@ -101,6 +101,23 @@
                     <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
                         <div class="widget">
                             <div class="widget-heading">
+                                
+                            </div>
+                            <div class="widget-content">
+                                <form>
+                                    <div class="col">
+                                        <select name="wallet-id" id="wallet-id" class="form-control">
+                                            <option value="">Select None</option>
+                                            <option value="1">Wallet 01</option>
+                                        </select>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+                        <div class="widget">
+                            <div class="widget-heading">
                                 <button id="btn-add-record" class="btn btn-primary rounded-pill shadow mb-3" style="width: 125px; height: 40px;" onclick="open_create_finance()">
                                     <i class="fas fa-plus-circle"></i> Add
                                 </button>
@@ -184,7 +201,7 @@
                             <div class="modal-body">
                                 <form id="finance-record-form">
                                     <input type="hidden" id="m-id" name="m-id" value="">
-                                    <input type="hidden" id="m-wallet-id" name="m-wallet-id" value="1">
+                                    <input type="hidden" id="m-user-id" name="m-user-id" value="1">
                                     <div class="row mb-4">
                                         <div class="col-12">
                                             <label for="m-title" class="form-label">Title</label>
