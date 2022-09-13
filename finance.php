@@ -21,6 +21,8 @@
     <link rel="stylesheet" type="text/css" href="<?= $config[ 'urls' ][ 'plugins' ] . "table/datatable/dt-global_style.css"; ?>">
     <!-- Data Table End -->
 
+
+
     <!-- Custom CSS End -->
 
     <style>
@@ -98,24 +100,37 @@
         <div id="content" class="main-content">
             <div class="layout-px-spacing">
                 <div class="row layout-top-spacing">
-                    <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
-                        <div class="widget">
-                            <div class="widget-heading">
-                                
-                            </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+                        <div id="" class="widget">
                             <div class="widget-content">
                                 <form>
-                                    <div class="col">
-                                        <select name="wallet-id" id="wallet-id" class="form-control">
-                                            <option value="">Select None</option>
-                                            <option value="1">Wallet 01</option>
-                                        </select>
+                                    <div class="row">
+                                        <div class="col-6 col-xl-3">
+                                            <label for="m-title" class="form-label">Wallet</label>
+                                            <select name="wallet-id" id="wallet-id" class="form-control">
+                                                <option value="">None</option>
+                                                <?php
+                                                    include_once( MODULES_PATH . "/wallet.php" );
+                                                    $wallet_data_connector = new Wallet_Data_Connector();
+                                                    $all_wallet = $wallet_data_connector->read_all( $conn );
+                                                    if ( ! is_null( $all_wallet ) ) :
+                                                        foreach ( $all_wallet as $wallet ) :
+                                                        ?>
+                                                            <option value="<?= $wallet[ 'id' ] ?>">
+                                                                <?= $crypto->decrypt( $wallet[ 'name' ] ) ?>
+                                                            </option>
+                                                        <?php
+                                                        endforeach ;
+                                                    endif ;
+                                                ?>
+                                            </select>
+                                        </div>
                                     </div>
                                 </form>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+                    <div id="table-area" class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
                         <div class="widget">
                             <div class="widget-heading">
                                 <button id="btn-add-record" class="btn btn-primary rounded-pill shadow mb-3" style="width: 125px; height: 40px;" onclick="open_create_finance()">
@@ -140,17 +155,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing justify-content-center">
-                        <div class="widget">
+                    <div id="category-area" class="col-xl-3 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing justify-content-center">
+                        <div id="finance-category-summary-widget" class="widget">
                             <div class="widget-heading">
+                                Category
                             </div>
                             <div id="finance-category-list" class="widget-content">
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing justify-content-center">
-                        <div class="widget">
+                    <div id="summary-area" class="col-xl-3 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing justify-content-center">
+                        <div id="finance-summary-widget" class="widget">
                             <div class="widget-heading">
+                                Summary
                             </div>
                             <div class="widget-content">
                                 <div class="row mb-3">
@@ -201,7 +218,7 @@
                             <div class="modal-body">
                                 <form id="finance-record-form">
                                     <input type="hidden" id="m-id" name="m-id" value="">
-                                    <input type="hidden" id="m-user-id" name="m-user-id" value="1">
+                                    <input type="hidden" id="m-user-id" name="m-user-id" value="<?= $_SESSION[ 'user' ][ 'id' ] ?>">
                                     <div class="row mb-4">
                                         <div class="col-12">
                                             <label for="m-title" class="form-label">Title</label>
@@ -307,6 +324,9 @@
     <!-- Data Table Start -->
     <script src="<?= $config[ 'urls' ][ 'plugins' ] . "table/datatable/datatables.min.js"; ?>"></script>
     <!-- Data Table End -->
+
+    <script src="<?= $config[ 'urls' ][ 'plugins' ] . "blockui/jquery.blockUI.min.js"; ?>"></script>
+
 
     <!-- Finance JS Start -->
     <script src="<?= $config[ 'urls' ][ 'js' ] . "finance.js"; ?>"></script>

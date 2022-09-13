@@ -72,6 +72,29 @@ multiCheck( table );
 
 // CRUD Functions
 function read_finance_summary() {
+    $( '#finance-summary-widget' ).block( {
+        message: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>',
+        fadeIn: 800, 
+        fadeOut: 800,
+        centerX: 0,
+        centerY: 0,
+        overlayCSS: {
+            backgroundColor: '#191e3a',
+            opacity: 0.8,
+            cursor: 'wait'
+        },
+        css: {
+            width: '100%',
+            top: '15px',
+            left: '',
+            right: '10px',
+            bottom: 0,
+            border: 0,
+            color: '#25d5e4',
+            padding: 0,
+            backgroundColor: 'transparent'
+        }
+    } ); 
     const summary_url = `${ api_url }finance/summary.php`;
     const fk_wallet_id = $( '#wallet-id' ).val();
     const sent_data = { fk_wallet_id };
@@ -87,6 +110,7 @@ function read_finance_summary() {
                 $( '#total-income' ).html( total_income );
                 $( '#total-expense' ).html( total_expense );
                 $( '#total-earning' ).html( total_earning );
+                $('#finance-summary-widget').unblock();
             }
             return res;
         },
@@ -100,6 +124,29 @@ function read_finance_summary() {
 }
 
 function read_finance_category_summary() {
+    $( '#finance-category-summary-widget' ).block( {
+        message: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>',
+        fadeIn: 800, 
+        fadeOut: 800,
+        centerX: 0,
+        centerY: 0,
+        overlayCSS: {
+            backgroundColor: '#191e3a',
+            opacity: 0.8,
+            cursor: 'wait'
+        },
+        css: {
+            width: '100%',
+            top: '15px',
+            left: '',
+            right: '10px',
+            bottom: 0,
+            border: 0,
+            color: '#25d5e4',
+            padding: 0,
+            backgroundColor: 'transparent'
+        }
+    } ); 
     const summary_url = `${ api_url }finance_category/summary.php`;
     const fk_wallet_id = $( '#wallet-id' ).val();
     const fk_user_id = $( '#m-user-id' ).val();
@@ -136,6 +183,7 @@ function read_finance_category_summary() {
                     } );
                     container.html( all_element );
                 }
+                $('#finance-category-summary-widget').unblock();
             }
             return res;
         },
@@ -149,6 +197,29 @@ function read_finance_category_summary() {
 }
 
 function read_all_finance() {
+    $( '#table-finance-widget' ).block( {
+        message: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>',
+        fadeIn: 800, 
+        fadeOut: 800,
+        centerX: 0,
+        centerY: 0,
+        overlayCSS: {
+            backgroundColor: '#191e3a',
+            opacity: 0.8,
+            cursor: 'wait'
+        },
+        css: {
+            width: '100%',
+            top: '15px',
+            left: '',
+            right: '10px',
+            bottom: 0,
+            border: 0,
+            color: '#25d5e4',
+            padding: 0,
+            backgroundColor: 'transparent'
+        }
+    } ); 
     table.clear().draw();
     const read_all_url = `${ api_url }finance/read_all.php`;
     const fk_wallet_id = $( '#wallet-id' ).val();
@@ -181,6 +252,7 @@ function read_all_finance() {
                         ] ).draw( false );
                     } );
                 }
+                $('#table-finance-widget').unblock();
             }
             return res;
         },
@@ -326,7 +398,26 @@ function refresh() {
     read_finance_category_summary();
 }
 
+function display_all_area() {
+    $( '#table-area' ).css( 'display', 'block' );
+    $( '#category-area' ).css( 'display', 'block' );
+    $( '#summary-area' ).css( 'display', 'block' );
+}
+
+function hide_all_area() {
+    $( '#table-area' ).css( 'display', 'none' );
+    $( '#category-area' ).css( 'display', 'none' );
+    $( '#summary-area' ).css( 'display', 'none' );
+}
+
 $( '#wallet-id' ).change( () => {
-    refresh();
+    const wallet_id = $( '#wallet-id' ).val();
+    if ( wallet_id != 0 ) {
+        display_all_area();
+        refresh();
+    } else {
+        hide_all_area();
+    }
 } );
+hide_all_area();
 // refresh();
