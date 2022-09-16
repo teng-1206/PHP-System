@@ -147,6 +147,8 @@ function read_finance_category_summary() {
             backgroundColor: 'transparent'
         }
     } ); 
+    $( '#finance-category-list' ).empty();
+
     const summary_url = `${ api_url }finance_category/summary.php`;
     const fk_wallet_id = $( '#wallet-id' ).val();
     const fk_user_id = $( '#m-user-id' ).val();

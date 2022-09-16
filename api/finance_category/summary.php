@@ -37,9 +37,12 @@
                 }
                 $temp_income_total = Common::convert_two_decimal( $temp_income_total );
                 $temp_expense_total = Common::convert_two_decimal( $temp_expense_total );
-                $total = array( "income" => $temp_income_total, "expense" => $temp_expense_total );
-                $finance_category = array_merge_recursive( $finance_category, $total );
-                array_push( $data, $finance_category );
+                if ( $temp_income_total != '0.00' || $temp_expense_total != '0.00' )
+                {
+                    $total = array( "income" => $temp_income_total, "expense" => $temp_expense_total );
+                    $finance_category = array_merge_recursive( $finance_category, $total );
+                    array_push( $data, $finance_category );
+                }
             }
             $res = array(
                 "result" => true,
