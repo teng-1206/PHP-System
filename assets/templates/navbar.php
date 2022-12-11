@@ -8,7 +8,7 @@
                 </a>
             </li>
             <li class="nav-item theme-text">
-                <a href="dashboard" class="nav-link"> Settings </a>
+                <a href="dashboard" class="nav-link"> System </a>
             </li>
         </ul>
         <ul class="navbar-item flex-row ml-md-0 ml-auto">
