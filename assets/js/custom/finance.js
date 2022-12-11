@@ -252,6 +252,7 @@ function read_all_finance() {
                         ] ).draw( false );
                     } );
                 }
+                table.order( 1 ).draw()
                 $('#table-finance-widget').unblock();
             }
             return res;
