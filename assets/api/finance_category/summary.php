@@ -1,24 +1,24 @@
 <?php
 
-    include_once( realpath( dirname( __FILE__ ) . "/../../config/config.php" ) );
-    include_once( MODULES_PATH . "/common.php" );
-    include_once( MODULES_PATH . "/finance.php" );
-    include_once( MODULES_PATH . "/finance_category.php" );
+    include_once( realpath( dirname( __FILE__ ) . "//..//..//config//config.php" ) );
+    include_once( MODULES_PATH . "common.php" );
+    include_once( MODULES_PATH . "finance.php" );
+    include_once( MODULES_PATH . "finance_category.php" );
 
     if ( isset( $_POST ) )
     {
         $finance = new Finance();
-        $finance->set( 'fk_wallet_id', $_POST[ 'fk_wallet_id' ] );
+        $finance->set( 'fk_user_id', htmlspecialchars( $_POST[ 'fk_user_id' ] ) );
 
-        $finance_data_connector = new Finance_Data_Connector();
-        $all_finance = $finance_data_connector->read_all_by_wallet_id( $conn, $finance );
+        $finance_controller = new Finance_Controller();
+        $all_finance = $finance_controller->read_all_by_user_id( $conn, $finance );
         $all_finance = $crypto->decrypt_all_object( $all_finance );
 
         $finance_category = new Finance_Category();
-        $finance_category->set( 'fk_user_id', $_POST[ 'fk_user_id' ] );
+        $finance_category->set( 'fk_user_id', htmlspecialchars( $_POST[ 'fk_user_id' ] ) );
 
-        $finance_category_data_connector = new Finance_Category_Data_Connector();
-        $all_finance_category = $finance_category_data_connector->read_all_by_user_id( $conn, $finance_category );
+        $finance_category_controller = new Finance_Category_Controller();
+        $all_finance_category = $finance_category_controller->read_all_by_user_id( $conn, $finance_category );
         $all_finance_category = $crypto->decrypt_all_object( $all_finance_category );
         
         $data = array();
