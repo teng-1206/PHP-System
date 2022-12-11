@@ -1,4 +1,10 @@
 <?php include_once( realpath( dirname( __FILE__ ) . "//assets//config//config.php" ) ); ?>
+<?php
+    if ( isset( $_SESSION[ 'user_id' ] ) )
+    {
+        echo "<script>location.href='" . $config[ 'urls' ][ 'base' ] . "dashboard'</script>";
+    }
+?>
 
 <!DOCTYPE html>
 <html lang="en">
