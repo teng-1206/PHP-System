@@ -87,7 +87,7 @@
         }
     }
 
-    class Finance_Category_Data_Connector
+    class Finance_Category_Controller
     {
         public function read_all ( $conn )
         {

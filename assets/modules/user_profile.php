@@ -66,7 +66,7 @@
         }
     }
 
-    class User_Profile_Data_Connector
+    class User_Profile_Controller
     {
         public function read( $conn, User_Profile $object )
         {
