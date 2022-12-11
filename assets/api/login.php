@@ -26,8 +26,7 @@
         if ( $user_exist ) 
         {
             // Set session for logged user
-            $user->set( 'id', $user_id );
-            $_SESSION[ 'user' ] = $user_controller->read( $conn2, $user );
+            $_SESSION[ 'user_id' ] = $user_id;
         }
 
         // Return JSON
