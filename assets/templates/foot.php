@@ -21,7 +21,7 @@
 <!-- Loader End -->
 
 <!-- Common JS Start -->
-<script src="<?= $config[ 'urls' ][ 'js' ] . "common.js"; ?>"></script>
+<script src="<?= $config[ 'urls' ][ 'js' ] . "custom/common.js"; ?>"></script>
 <!-- Common JS End -->
 
 <!-- Perfect Scrollbar Start -->

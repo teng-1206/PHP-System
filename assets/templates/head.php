@@ -33,5 +33,5 @@
 <!-- Plugins CSS End -->
 
 <!-- Common CSS Start -->
-<link rel="stylesheet" type="text/css" href="<?= $config[ 'urls' ][ 'css' ] . "common.css"; ?>" />
+<link rel="stylesheet" type="text/css" href="<?= $config[ 'urls' ][ 'css' ] . "custom/common.css"; ?>" />
 <!-- Common CSS End -->
