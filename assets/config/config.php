@@ -84,5 +84,6 @@
     $crypto = new Cryptography();
 
     session_start();
+    session_cache_expire( 60 );
 
 ?>
