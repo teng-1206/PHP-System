@@ -705,7 +705,7 @@
             read_finance_category_summary();
         }
 
-        // refresh();
+        refresh();
     </script>
     <!-- Finance JS End -->
 
