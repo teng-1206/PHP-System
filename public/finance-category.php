@@ -1,4 +1,4 @@
-<?php include_once( realpath( dirname( __FILE__ ) . "/config/config.php" ) ); ?>
+<?php include_once( realpath( dirname( __FILE__ ) . "//assets//config//config.php" ) ); ?>
 <?php include_once( TEMPLATES_PATH . 'validation.php' ); ?>
 
 <!DOCTYPE html>
@@ -19,7 +19,7 @@
     <!-- Data Table Start -->
     <link rel="stylesheet" type="text/css" href="<?= $config[ 'urls' ][ 'plugins' ] . "table/datatable/datatables.min.css"; ?>" />
     <link rel="stylesheet" type="text/css" href="<?= $config[ 'urls' ][ 'plugins' ] . "table/datatable/custom_dt_custom.css"; ?>">
-    <link rel="stylesheet" type="text/css" href="<?= $config[ 'urls' ][ 'plugins' ] . "table/datatable/dt-global_style.css"; ?>">
+    <link rel="stylesheet" type="text/css" href="<?= $config[ 'urls' ][ 'plugins' ] . "table/datatable/dt-global_style.min.css"; ?>">
     <!-- Data Table End -->
 
     <!-- Custom CSS End -->
@@ -74,7 +74,6 @@
                     <div class="page-header">
                         <nav class="breadcrumb-one" aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <!-- <li class="breadcrumb-item"><a href="dashboard">Dashboard</a></li> -->
                                 <li class="breadcrumb-item active" aria-current="page"><span>Finance Category</span></li>
                             </ol>
                         </nav>
@@ -210,7 +209,7 @@
     <!-- Data Table End -->
 
     <!-- Finance Category JS Start -->
-    <script src="<?= $config[ 'urls' ][ 'js' ] . "finance_category.js"; ?>"></script>
+    <script src="<?= $config[ 'urls' ][ 'js' ] . "custom/finance_category.js"; ?>"></script>
     <!-- Finance Category JS End -->
 
     <!-- Custom JS End -->
