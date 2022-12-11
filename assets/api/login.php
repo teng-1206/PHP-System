@@ -1,23 +1,48 @@
 <?php
+    // Include config.php
+    include_once( realpath( dirname( __FILE__ ) . '//..//config/config.php' ) );
 
-    include_once( realpath( dirname( __FILE__ ) . "./../config/config.php" ) );
-    include_once( MODULES_PATH . "/user.php" );
+    // Include User class
+    include_once( MODULES_PATH . 'user.php' );
 
-    if( isset( $_POST ) ) {
+    if ( isset( $_POST[ 'username' ] ) && isset( $_POST[ 'password' ] ) ) 
+    {
+        // Get username & password and escape HTML
+        $username = htmlspecialchars( $_POST[ 'username' ] );
+        $password = htmlspecialchars( md5( $_POST[ 'password' ] ) );
+
+        // Define user controller
+        $user_controller = new User_Controller();
+
+        // Define user object
         $user = new User();
-        $user->set( 'username', $crypto->encrypt( $_POST[ 'username' ] ) );
-        $user->set( 'password', $crypto->hash( $_POST[ 'password' ] ) );
-        $user_data_connector = new User_Data_Connector();
-        $user = $user_data_connector->login( $conn, $user );
-        if ( isset( $user ) ) 
-        {
-            $_SESSION[ 'user' ] = $user;
-            echo json_encode( array( "result" => true ) );
-        }
-        else
-        {
-            echo json_encode( array( "result" => false ) );
-        }
-    }
+        $user->set( 'username', $username );
+        $user->set( 'password', $password );
 
+        // Get user exist result
+        $user_id = $user_controller->login( $conn2, $user );
+        $user_exist = $user_id != 0;
+
+        if ( $user_exist ) 
+        {
+            // Set session for logged user
+            $user->set( 'id', $user_id );
+            $_SESSION[ 'user' ] = $user_controller->read( $conn2, $user );
+        }
+
+        // Return JSON
+        $respond = array(
+            "result" => $user_exist
+        );
+        echo json_encode( $respond );
+    }
+    else
+    {
+        // Return JSON
+        $respond = array( 
+            "result" => false,
+            "message" => "Cannot direct access this page"
+        );
+        echo json_encode( $respond );
+    }
 ?>

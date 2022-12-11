@@ -1,4 +1,4 @@
-<?php include_once( realpath( dirname( __FILE__ ) . "/config/config.php" ) ); ?>
+<?php include_once( realpath( dirname( __FILE__ ) . "//assets//config//config.php" ) ); ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +28,7 @@
     <!-- Global CSS End -->
 
     <!-- Custom CSS Start -->
-    <link rel="stylesheet" href="<?= $config[ 'urls' ][ 'css' ] . "login.css"; ?>" />
+    <link rel="stylesheet" href="<?= $config[ 'urls' ][ 'css' ] . "custom/login.css"; ?>" />
     <!-- Custom CSS End -->
 
 </head>
@@ -80,7 +80,7 @@
     <!-- Font Awesome 5 End -->
 
     <!-- Custom JS Start -->
-    <script src="<?= $config[ 'urls' ][ 'js' ] . "login.js"; ?>"></script>
+    <script src="<?= $config[ 'urls' ][ 'js' ] . "custom/login.js"; ?>"></script>
     <!-- Custom JS End -->
 
 </body>
