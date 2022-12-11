@@ -39,24 +39,3 @@
     cursor: pointer;
     color: #4D4D4D;
 }
-
-.icon-primary {
-    padding: 10px 15px;
-    border-radius: 50%;
-    color: #0d6efd;
-    background-color: #e6f0ff;
-}
-
-.icon-success {
-    padding: 10px 15px;
-    border-radius: 50%;
-    color: #1abc9c;
-    background-color: #ccfff5;
-}
-
-.icon-danger {
-    padding: 10px 15px;
-    border-radius: 50%;
-    color: #E7515A;
-    background-color: #fce9ea;
-}

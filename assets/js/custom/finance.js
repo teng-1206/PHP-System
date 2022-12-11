@@ -43,7 +43,6 @@ $( '#finance-record-form' ).submit( ( event ) => {
     } else {
         update_finance();
     }
-    
 } );
 
 const table = $( '#table-finance' ).DataTable( {
@@ -65,8 +64,8 @@ const table = $( '#table-finance' ).DataTable( {
             "sSearchPlaceholder": "Search",
         "sLengthMenu": "Results :  _MENU_",
         },
-        "lengthMenu": [ 10, 20, 50 ],
-        "pageLength": 10 
+        "lengthMenu": [ 8, 20, 50 ],
+        "pageLength": 8 
     } );
 multiCheck( table );
 
@@ -96,13 +95,13 @@ function read_finance_summary() {
         }
     } ); 
     const summary_url = `${ api_url }finance/summary.php`;
-    const fk_wallet_id = $( '#wallet-id' ).val();
-    const sent_data = { fk_wallet_id };
+    const fk_user_id = $( '#m-user-id' ).val();
+    const sent_data = { fk_user_id };
     $.ajax( {
         type    : 'POST',
         url     : summary_url,
+        data: sent_data,
         dataType: 'JSON',
-        data    : sent_data,
         success: ( res ) => {
             if ( res.result ) {
                 const data = res.data;
@@ -150,9 +149,8 @@ function read_finance_category_summary() {
     $( '#finance-category-list' ).empty();
 
     const summary_url = `${ api_url }finance_category/summary.php`;
-    const fk_wallet_id = $( '#wallet-id' ).val();
     const fk_user_id = $( '#m-user-id' ).val();
-    const sent_data = { fk_wallet_id, fk_user_id };
+    const sent_data = { fk_user_id };
     $.ajax( {
         type    : 'POST',
         url     : summary_url,
@@ -224,13 +222,13 @@ function read_all_finance() {
     } ); 
     table.clear().draw();
     const read_all_url = `${ api_url }finance/read_all.php`;
-    const fk_wallet_id = $( '#wallet-id' ).val();
-    const sent_data = { fk_wallet_id };
+    const fk_user_id = $( '#m-user-id' ).val();
+    const sent_data = { fk_user_id };
     $.ajax( {
         type    : 'POST',
         url     : read_all_url,
+        data: sent_data,
         dataType: 'JSON',
-        data    : sent_data,
         success: ( res ) => {
             if ( res.result ) {
                 const data = res.data;
@@ -299,13 +297,13 @@ function read_finance() {
 
 function create_finance() {
     const create_url = `${ api_url }finance/create.php`;
-    const fk_wallet_id     = $( '#wallet-id' ).val();
     const title          = $( '#m-title' ).val();
     const date           = $( '#m-date' ).val();
     const fk_category_id = $( '#m-category' ).val();
+    const fk_user_id     = $( '#m-user-id' ).val();
     const status         = $( '#m-status' ).val();
     const amount         = $( '#m-amount' ).val();
-    const sent_data = { fk_wallet_id, title, date, fk_category_id, status, amount };
+    const sent_data = { title, date, fk_category_id, fk_user_id, status, amount };
     $.ajax( {
         type    : 'POST',
         url     : create_url,
@@ -400,26 +398,4 @@ function refresh() {
     read_finance_category_summary();
 }
 
-function display_all_area() {
-    $( '#table-area' ).css( 'display', 'block' );
-    $( '#category-area' ).css( 'display', 'block' );
-    $( '#summary-area' ).css( 'display', 'block' );
-}
-
-function hide_all_area() {
-    $( '#table-area' ).css( 'display', 'none' );
-    $( '#category-area' ).css( 'display', 'none' );
-    $( '#summary-area' ).css( 'display', 'none' );
-}
-
-$( '#wallet-id' ).change( () => {
-    const wallet_id = $( '#wallet-id' ).val();
-    if ( wallet_id != 0 ) {
-        display_all_area();
-        refresh();
-    } else {
-        hide_all_area();
-    }
-} );
-hide_all_area();
-// refresh();
+refresh();
