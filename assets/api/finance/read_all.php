@@ -1,15 +1,15 @@
 <?php
-    include_once( realpath( dirname( __FILE__ ) . "/../../config/config.php" ) );
-    include_once( MODULES_PATH . '/finance.php' );
-    include_once( MODULES_PATH . '/finance_category.php' );
+    include_once( realpath( dirname( __FILE__ ) . "//..//..//config//config.php" ) );
+    include_once( MODULES_PATH . 'finance.php' );
+    include_once( MODULES_PATH . 'finance_category.php' );
 
-    if ( isset( $_POST[ 'fk_wallet_id' ] ) )
+    if ( isset( $_POST[ 'fk_user_id' ] ) )
     {
         $finance = new Finance();
-        $finance->set( 'fk_wallet_id', $_POST[ 'fk_wallet_id' ] );
+        $finance->set( 'fk_user_id', htmlspecialchars( $_POST[ 'fk_user_id' ] ) );
 
-        $finance_data_connector = new Finance_Data_Connector();
-        $all_finance = $finance_data_connector->read_all_by_wallet_id( $conn, $finance );
+        $finance_controller = new Finance_Controller();
+        $all_finance = $finance_controller->read_all_by_user_id( $conn, $finance );
         $all_finance = $crypto->decrypt_all_object( $all_finance );
 
         if ( ! is_null( $all_finance ) )
