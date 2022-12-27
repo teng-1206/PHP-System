@@ -29,9 +29,12 @@
                     $total_expense += ( float ) $finance[ 'amount' ];
             }
             $total_earning = $total_income - $total_expense;
-            $total_income = Common::convert_two_decimal( $total_income );
+            $total_income  = Common::convert_two_decimal( $total_income );
             $total_expense = Common::convert_two_decimal( $total_expense );
             $total_earning = Common::convert_two_decimal( $total_earning );
+            $total_income  = number_format( $total_income, 2, '.', ',' );
+            $total_expense = number_format( $total_expense, 2, '.', ',' );
+            $total_earning = number_format( $total_earning, 2, '.', ',' );
             $res = array(
                 "result" => true,
                 "data" => array( 
