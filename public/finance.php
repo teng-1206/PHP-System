@@ -76,7 +76,61 @@
         <div id="content" class="main-content">
             <div class="layout-px-spacing">
                 <div class="row layout-top-spacing">
-                    <div id="table-area" class="col-xl-9 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+                    <div class="summary-area col-12 col-sm-3 layout-spacing justify-content-center">
+                        <div id="finance-summary-widget" class="widget">
+                            <div class="widget-heading">Incomes</div>
+                            <div class="widget-content row">
+                                <div class="row mb-3 col-12">
+                                    <div class="col-5 align-self-center">
+                                        <span class="icon-success">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-up"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+                                        </span>
+                                    </div>
+                                    <div class="col">
+                                        <small class="fw-bold fw-light fst-italic">Incomes</small><br/>
+                                        <span class="fw-bold text-success">RM <span id="total-income">0.00</span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="summary-area col-12 col-sm-3 layout-spacing justify-content-center">
+                        <div id="finance-summary-widget" class="widget">
+                            <div class="widget-heading">Expenses</div>
+                            <div class="widget-content row">
+                                <div class="row mb-3 col-12">
+                                    <div class="col-5 align-self-center">
+                                        <span class="icon-danger">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-down"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+                                        </span>
+                                    </div>
+                                    <div class="col">
+                                        <small class="fw-light fw-bold fst-italic">Expenses</small><br/>
+                                        <span class="fw-bold text-danger">RM <span id="total-expense">0.00</span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="summary-area col-12 col-sm-3 layout-spacing justify-content-center">
+                        <div id="finance-summary-widget" class="widget">
+                            <div class="widget-heading">Earnings</div>
+                            <div class="widget-content row">
+                                <div class="row mb-3 col-12">
+                                    <div class="col-5 align-self-center">
+                                        <span class="icon-primary">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                                        </span>
+                                    </div>
+                                    <div class="col">
+                                        <small class="fw-light fw-bold fst-italic">Earnings</small><br/>
+                                        <span class="fw-bold text-primary">RM <span id="total-earning">0.00</span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="table-area" class="col-12 col-sm-9 layout-spacing">
                         <div class="widget">
                             <div class="widget-heading">
                                 <button id="btn-add-record" class="btn btn-sm btn-primary rounded-pill shadow mb-3" style="" onclick="open_create_finance()">
@@ -101,60 +155,16 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 row">
-                        <div id="summary-area" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing justify-content-center">
-                            <div id="finance-summary-widget" class="widget">
-                                <div class="widget-heading">
-                                    Summary
-                                </div>
-                                <div class="widget-content">
-                                    <div class="row mb-3">
-                                        <div class="col-3 align-self-center">
-                                            <span class="icon-success">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-up"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
-                                            </span>
-                                        </div>
-                                        <div class="col">
-                                            <small class="fw-bold fw-light fst-italic">Incomes</small><br/>
-                                            <span class="fw-bold text-success">RM <span id="total-income"></span></span>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col-3 align-self-center">
-                                            <span class="icon-danger">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-down"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
-                                            </span>
-                                        </div>
-                                        <div class="col">
-                                            <small class="fw-light fw-bold fst-italic">Expenses</small><br/>
-                                            <span class="fw-bold text-danger">RM <span id="total-expense"></span></span>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col-3 align-self-center">
-                                            <span class="icon-primary">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                                            </span>
-                                        </div>
-                                        <div class="col">
-                                            <small class="fw-light fw-bold fst-italic">Earnings</small><br/>
-                                            <span class="fw-bold text-primary">RM <span id="total-earning"></span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="category-area" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing justify-content-center">
+                    <div id="category-area" class="col-12 col-sm-3 layout-spacing justify-content-center">
                             <div id="finance-category-summary-widget" class="widget">
                                 <div class="widget-heading">
                                     Category
                                 </div>
                                 <div id="finance-category-list" class="widget-content">
+                                    <small>No Data Available </small>
                                 </div>
                             </div>
                         </div>
-                        
-                    </div>
                 </div>
 
                 <!-- Finance Record Modal Start -->
@@ -168,30 +178,26 @@
                                 <form id="finance-record-form">
                                     <input type="hidden" id="m-id" name="m-id" value="">
                                     <input type="hidden" id="m-user-id" name="m-user-id" value="<?= $user->get( 'id' ) ?>">
-                                    <div class="row mb-4">
-                                        <div class="col-12">
+                                    <div class="row ">
+                                        <div class="col-12 mb-4">
                                             <label for="m-title" class="form-label">Title</label>
                                             <input type="text" id="m-title" name="m-title" class="form-control" placeholder="Breakfast.." autocomplete="off" required />
                                         </div>
-                                    </div>
-                                    <div class="row mb-4">
-                                        <div class="col-6">
+                                        <div class="col-12 col-lg-6 mb-4">
                                             <label for="m-date" class="form-label">Date</label>
                                             <input type="date" id="m-date" name="m-date" class="form-control" placeholder="DD/MM/YYYY" value="<?= date( 'Y-m-d' ) ?>">
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-12 col-lg-6 mb-4">
                                             <label for="m-status" class="form-label">Status</label>
-                                            <select id="m-status" name="m-status" class="form-select" required >
+                                            <select id="m-status" name="m-status" class="form-control" required >
                                                 <option value="" selected >Select Status</option>
                                                 <option value="0">Income</option>
                                                 <option value="1">Expense</option>
                                             </select>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-6">
+                                        <div class="col-12 col-lg-6 mb-4">
                                             <label for="m-category" class="form-label">Category</label>
-                                            <select id="m-category" name="m-category" class="form-select" required >
+                                            <select id="m-category" name="m-category" class="form-control" required >
                                                 <option value="" selected >Select Category</option>
                                                 <?php
                                                     include_once( MODULES_PATH . "finance_category.php" );
@@ -209,8 +215,8 @@
                                                 ?>
                                             </select>
                                         </div>
-                                        <div class="col-6">
-                                        <label for="m-amount" class="form-label">Amount</label>
+                                        <div class="col-12 col-lg-6 mb-4">
+                                            <label for="m-amount" class="form-label">Amount</label>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text">RM</span>
                                                 <input type="text" id="m-amount" name="m-amount" class="form-control text-end" placeholder="0.00" autocomplete="off" required >

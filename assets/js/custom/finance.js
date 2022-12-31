@@ -145,7 +145,7 @@ function read_finance_category_summary() {
             padding: 0,
             backgroundColor: 'transparent'
         }
-    } ); 
+    } );
     $( '#finance-category-list' ).empty();
 
     const summary_url = `${ api_url }finance_category/summary.php`;
