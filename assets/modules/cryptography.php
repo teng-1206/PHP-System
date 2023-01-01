@@ -23,8 +23,8 @@
 
         public function hash ( $string )
         {
-            $encrypt_string = $this->encrypt( $string );
-            $hash_string = md5( $encrypt_string );
+            // $encrypt_string = $this->encrypt( $string );
+            $hash_string = md5( $string );
             return $hash_string;
         }
 
