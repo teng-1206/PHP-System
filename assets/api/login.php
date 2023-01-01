@@ -9,7 +9,7 @@
     {
         // Get username & password and escape HTML
         $username = htmlspecialchars( $_POST[ 'username' ] );
-        $password = htmlspecialchars( md5( $_POST[ 'password' ] ) );
+        $password = md5( htmlspecialchars( $_POST[ 'password' ] ) );
 
         // Define user controller
         $user_controller = new User_Controller();
