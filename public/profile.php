@@ -1,4 +1,18 @@
-<?php include_once( realpath( dirname( __FILE__ ) . "/config/config.php" ) ); ?>
+<?php include_once( realpath( dirname( __FILE__ ) . "//assets//config//config.php" ) ); ?>
+<?php include_once( TEMPLATES_PATH . 'validation.php' ); ?>
+<?php include_once( MODULES_PATH . 'user.php' ); ?>
+<?php include_once( MODULES_PATH . 'user_profile.php' ); ?>
+<?php
+    $user_controller = new User_Controller();
+    $user = new User();
+    $user->set( 'id', $_SESSION[ 'user_id' ] );
+    $user = $user_controller->read( $conn2, $user );
+
+    // $user_profile_controller = new User_Profile_Controller();
+    // $user_profile = new User_Profile();
+    // $user_profile->set( 'fk_user_id', $_SESSION[ 'user_id' ] );
+    // $user_profile = $user_profile_controller->read( $conn, $user_profile );
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,113 +25,240 @@
     <!-- Custom CSS Start -->
     <!-- Custom CSS End -->
 </head>
-<body class="bg-light">
+<body>
+    <!-- Loader Start -->
+    <?php include_once( TEMPLATES_PATH . 'loader.php' ); ?>
+    <!-- Loader End -->
+
     <!-- Navbar Start -->
     <?php include_once( TEMPLATES_PATH . 'navbar.php' ); ?>
     <!-- Navbar End -->
 
-    <main class="container">
-        <div class="pt-5 mt-5">
-            <div class="row justify-content-center">
-                <div class="mt-5 col-6 justify-content-center">
-                    <div class="card bg-white" style="border-radius: 1rem;" >
-                        <div class="card-body p-5" >
-                            <form id="profile-form" class="mb-md-5 mt-md-4 pb-3" >
-                                <h2 class="fw-bold mb-2 text-uppercase">Profile</h2>
-                                <small class="">Please fill in.</small>
-                                <div class="row mt-5 mb-4">
-                                    <div class="col-12">
-                                        <label class="form-label">Image</label>
-                                        <input type="file" name="profile-image" id="profile-image" class="form-control" accept="image/*">
+    <!-- Breadcrumb Start -->
+    <div class="sub-header-container">
+        <header class="header navbar navbar-expand-sm">
+            <a href="javascript:void(0);" class="sidebarCollapse" data-placement="bottom"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></a>
+            <ul class="navbar-nav flex-row">
+                <li>
+                    <div class="page-header">
+                        <nav class="breadcrumb-one" aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item active" aria-current="page"><span>Profile</span></li>
+                            </ol>
+                        </nav>
+                    </div>
+                </li>
+            </ul>
+        </header>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <!-- Main Container Start -->
+    <div class="main-container" id="container">
+
+        <div class="overlay"></div>
+        <div class="search-overlay"></div>
+
+        <!-- Sidebar Start  -->
+        <?php include_once( TEMPLATES_PATH . 'sidebar.php' ); ?>
+        <!-- Sidebar End  -->
+
+        <!-- Content Area Start -->
+        <div id="content" class="main-content">
+            <div class="layout-px-spacing">
+                <div class="row layout-top-spacing">
+                    <div class="col-12 col-sm-6">
+                        <div class="card" style="border-radius: 1rem;" >
+                            <div class="card-body p-5" >
+                                <form id="profile-form" class="mb-md-5 pb-3" >
+                                    <input type="hidden" id="m-user-id" name="m-user-id" value="<?= $user->get( 'id' ) ?>">
+                                    <input type="hidden" id="m-password" name="m-password" value="<?= $user->get( 'password' ) ?>">
+                                    <h2 class="fw-bold mb-2">Profile</h2>
+                                    <small class="">Please fill in.</small>
+                                    <div class="row mt-5 mb-4">
+                                        <!-- <div class="col-12 mb-4">
+                                            <label class="form-label">Image</label>
+                                            <input type="file" name="profile-image" id="profile-image" class="form-control" accept="image/*">
+                                        </div> -->
+                                        <div class="col-12 col-sm-6 mb-4">
+                                            <label class="form-label">Username</label>
+                                            <p class=""><?= $user->get( 'username' ) ?></p>
+                                        </div>
+                                        <div class="col-12 col-sm-6 mb-4">
+                                            <label class="form-label">Password</label>
+                                            <br />
+                                            <button class="btn btn-primary form-control" type="button" onclick="open_change_password_modal()">Change</button>
+                                        </div>
+                                        <!-- <div class="col-12 col-sm-6 mb-4">
+                                            <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="name" name="name" placeholder="John" value="">
+                                        </div>
+                                        <div class="col-12 col-sm-6 mb-4">
+                                            <label for="gender" class="form-label">Email</label>
+                                            <input type="text" class="form-control" id="email" name="email" placeholder="John@mail.com" value="<?= $user->get( 'email' ) ?>">
+                                        </div> -->
+                                        <!-- <div class="col-12 col-sm-4 mb-4">
+                                            <label for="gender" class="form-label">Gender</label>
+                                            <select id="gender" name="gender" class="form-control">
+                                                <option value="">-- Gender --</option>
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                            </select>
+                                        </div> -->
                                     </div>
+                                </form>
+                                <div>
+                                    <button id="btn-submit" class="btn btn-success px-3" type="button">Save Changes</button>
                                 </div>
-                                <div class="row mb-4">
-                                    <div class="col-6">
-                                        <label class="form-label">Username</label>
-                                        <p class="">John1234</p>
-                                    </div>
-                                    <div class="col-6">
-                                        <label class="form-label">Password</label>
-                                        <br />
-                                        <button class="btn btn-primary form-control" type="button" data-bs-toggle="modal" data-bs-target="#m-change-password">Change</button>
-                                    </div>
-                                </div>
-                                <div class="row mb-4">
-                                    <div class="col-6">
-                                        <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="name" name="name" placeholder="John">
-                                    </div>
-                                    <div class="col-6">
-                                        <label for="gender" class="form-label">Email</label>
-                                        <input type="text" class="form-control" id="email" name="email" placeholder="John@mail.com">
-                                    </div>
-                                </div>
-                                <div class="row mb-4">
-                                    <div class="col-3">
-                                        <label for="gender" class="form-label">Gender</label>
-                                        <select id="gender" name="gender" class="form-control">
-                                            <option value="">-- Gender --</option>
-                                            <option value="Male">Male</option>
-                                            <option value="Female">Female</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </form>
-                            <div>
-                                <button id="btn-submit" class="btn btn-success px-3" type="button">Save Changes</button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Change Password Modal Start -->
-        <div class="modal fade" id="m-change-password" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Change Password</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="change-password-form">
-                            <div class="row mb-4">
-                                <div class="col-12">
-                                    <label for="m-password" class="form-label">Current Password</label>
-                                    <input type="password" id="m-current-password" class="form-control">
-                                </div>
+                <!-- Change Password Modal Start -->
+                <div class="modal fade back-blur-3" id="m-change-password" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
+                        <div class="modal-content p-3 rounded-5">
+                            <div class="modal-header border-0">
+                                <h5 id="modal-header-title" class="modal-title">Change Password</h5>
                             </div>
-                            <div class="row mb-4">
-                                <div class="col-12">
-                                    <label for="m-password" class="form-label">New Password</label>
-                                    <input type="password" id="m-new-password" class="form-control">
-                                </div>
+                            <div class="modal-body">
+                                <form id="change-password-form">
+                                    <div class="row mb-4">
+                                        <div class="col-12">
+                                            <label for="m-password" class="form-label">Current Password</label>
+                                            <input type="password" id="m-current-password" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-12">
+                                            <label for="m-password" class="form-label">New Password</label>
+                                            <input type="password" id="m-new-password" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-12">
+                                            <label for="m-password" class="form-label">Confirm Password</label>
+                                            <input type="password" id="m-confirm-password" class="form-control" required>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                            <div class="row mb-4">
-                                <div class="col-12">
-                                    <label for="m-password" class="form-label">Confirm Password</label>
-                                    <input type="password" id="m-confirm-password" class="form-control">
-                                </div>
+                            <div class="modal-footer border-0">
+                                <button id="m-btn-cancel" name="m-btn-cancel" type="button" class="btn rounded-pill" onclick="close_change_password_modal()" style="width: 100px; height: 40px;">Cancel</button>
+                                <button id="m-btn-submit" name="m-btn-submit" type="submit" class="btn btn-primary rounded-pill" form="change-password-form" style="width: 150px; height: 40px;" onclick="">Save Changes</button>
                             </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button id="m-btn-submit" type="button" class="btn btn-success">Save Change</button>
+                        </div>
                     </div>
                 </div>
+                <!-- Change Password Modal End -->
             </div>
-        </div>
-        <!-- Change Password Modal End -->
 
-    </main>
+            <!-- Footer Start -->
+            <?php include_once( TEMPLATES_PATH . 'footer.php' ); ?>
+            <!-- Footer End -->
+        </div>
+        <!--  END CONTENT AREA  -->
+
+    </div>
+    <!-- Main Container End -->
 
     <!-- Global JS Start -->
     <?php include_once( TEMPLATES_PATH . 'foot.php' ); ?>
     <!-- Global JS End -->
 
     <!-- Custom JS Start -->
+    <!-- MD5 End -->
+    <script src="<?= $config[ 'urls' ][ 'plugins' ] . "md5/md5.js"; ?>"></script>
+    <!-- MD5 End -->
+    <script>
+        function open_change_password_modal() {
+            reset_change_password_modal();
+            $( '#m-change-password' ).modal( 'show' );
+        }
+
+        function close_change_password_modal() {
+            reset_change_password_modal();
+            $( '#m-change-password' ).modal( 'hide' );
+        }
+
+        function reset_change_password_modal() {
+            $( '#m-current-password' ).val( null );
+            $( '#m-new-password' ).val( null );
+            $( '#m-confirm-password' ).val( null );
+        }
+
+        $( '#change-password-form' ).submit( ( event ) => {
+            event.preventDefault();
+            password_validation();
+        } );
+
+        function password_validation() {
+            const password         = $( '#m-password' ).val();
+            const current_password = $( '#m-current-password' ).val();
+            const new_password     = $( '#m-new-password' ).val();
+            const confirm_password = $( '#m-confirm-password' ).val();
+            let res = true;
+            if ( password != md5( current_password ) ) {
+                res = false;
+                Toast.fire( {
+                    icon : 'error',
+                    title: 'Current Password Not Correct'
+                } );
+            } else if ( current_password == new_password ) {
+                res = false;
+                Toast.fire( {
+                    icon : 'error',
+                    title: 'New Password Cannot Same With Old Password'
+                } );
+            } else if ( new_password != confirm_password ) {
+                res = false;
+                Toast.fire( {
+                    icon : 'error',
+                    title: 'New Password Not Same With Confirm Password'
+                } );
+            }
+
+            if ( res ) {
+                update_password();
+            } else {
+                reset_change_password_modal();
+            }
+        }
+
+        function update_password() {
+            const update_url = `${ api_url }profile/update_password.php`;
+            const user_id  = $( '#m-user-id' ).val();
+            const password = $( '#m-new-password' ).val();
+            const sent_data = { user_id, password };
+            console.log( sent_data );
+            $.ajax( {
+                type    : 'POST',
+                url     : update_url,
+                dataType: 'JSON',
+                data    : sent_data,
+                success: ( res ) => {
+                    if ( res.result ) {
+                        $( '#m-password' ).val( md5( password ) );
+                        close_change_password_modal();
+                        Toast.fire( {
+                            icon : 'success',
+                            title: 'Change Password Success'
+                        } );
+                    }
+                    return res;
+                },
+                error: ( err ) => {
+                    Toast.fire( {
+                        icon : 'error',
+                        title: 'Change Password Error'
+                    } );
+                }
+            } );
+        }
+
+
+    </script>
     <!-- Custom JS End -->
 </body>
 </html>
