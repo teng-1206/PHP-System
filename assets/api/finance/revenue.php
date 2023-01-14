@@ -85,7 +85,6 @@
                         $finance_year_current_month = date( 'Y-m', strtotime( $finance[ 'date' ] ) );
                         if ( $finance_year_current_month == $year_month && $finance[ 'status' ] == false ) 
                             $total_income += ( float ) $finance[ 'amount' ];
-
                         if ( $finance_year_current_month == $year_month && $finance[ 'status' ] == true ) 
                             $total_expense += ( float ) $finance[ 'amount' ];
                     }
