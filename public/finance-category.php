@@ -108,7 +108,7 @@
                                     <thead>
                                         <tr>
                                             <th class="checkbox-column dt-no-sorting"> Record no. </th>
-                                            <th>Icon</th>
+                                            <!-- <th>Icon</th> -->
                                             <th>Category</th>
                                             <th>Actions</th>
                                         </tr>
@@ -134,22 +134,25 @@
                                             <input type="text" id="m-category" name="m-category" class="form-control" placeholder="Breakfast.." autocomplete="off" required />
                                         </div>
                                     </div>
-                                    <div class="row mb-4">
-                                        <div class="col-12 form-group">
-                                            <label for="m-icon" class="form-label">Icon</label>
-                                            <input type="text" id="m-icon" name="m-icon" class="form-control" placeholder="fas fa-archive" autocomplete="off" required />
-                                        </div>
-                                    </div>
-                                    <div class="row mb-4">
-                                        <div class="col-6">
-                                            <label for="m-color" class="form-label">Color</label>
-                                            <input type="color" id="m-color" name="m-color" class="form-control form-control-color" autocomplete="off" required />
-                                        </div>
-                                        <div class="col-6">
-                                            <label for="m-background-color" class="form-label">Background Color</label>
-                                            <input type="color" id="m-background-color" name="m-background-color" class="form-control form-control-color" autocomplete="off" required />
-                                        </div>
-                                    </div>
+                                    <!-- <div class="row mb-4"> -->
+                                        <!-- <div class="col-12 form-group"> -->
+                                            <!-- <label for="m-icon" class="form-label">Icon</label> -->
+                                            <!-- <input type="text" id="m-icon" name="m-icon" class="form-control" placeholder="fas fa-archive" autocomplete="off" required /> -->
+                                            <input type="hidden" id="m-icon" name="m-icon" class="form-control" placeholder="fas fa-archive" autocomplete="off" required value="a" />
+                                        <!-- </div> -->
+                                    <!-- </div> -->
+                                    <!-- <div class="row mb-4"> -->
+                                        <!-- <div class="col-6"> -->
+                                            <!-- <label for="m-color" class="form-label">Color</label> -->
+                                            <!-- <input type="color" id="m-color" name="m-color" class="form-control form-control-color" autocomplete="off" required /> -->
+                                            <input type="hidden" id="m-color" name="m-color" class="form-control form-control-color" autocomplete="off" required value="#fff" />
+                                        <!-- </div> -->
+                                        <!-- <div class="col-6"> -->
+                                            <!-- <label for="m-background-color" class="form-label">Background Color</label> -->
+                                            <!-- <input type="color" id="m-background-color" name="m-background-color" class="form-control form-control-color" autocomplete="off" required /> -->
+                                            <input type="hidden" id="m-color" name="m-color" class="form-control form-control-color" autocomplete="off" required value="#fff" />
+                                        <!-- </div> -->
+                                    <!-- </div> -->
                                     <div class="row">
                                         <div class="col-12 text-end">
                                             <button id="m-btn-reset" name="m-btn-reset" type="reset" class="btn rounded-pill" form="finance-category-form" style="width: 100px; height: 40px;" onclick="reset_modal()">Reset</button>
