@@ -26,9 +26,9 @@
                     <li>
                         <a href="finance"> Record </a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="finance-report"> Report </a>
-                    </li>
+                    </li> -->
                     <li>
                         <a href="finance-category"> Category </a>
                     </li>
