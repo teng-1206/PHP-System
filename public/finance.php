@@ -32,6 +32,18 @@
     <link rel="stylesheet" type="text/css" href="<?= $config[ 'urls' ][ 'css' ] . "custom/finance.css"; ?> ">
     <!-- Finance CSS End -->
 
+    <style>
+        #category-area {
+            margin-top: -160px;
+        }
+
+        @media only screen and (max-width: 450px) {
+            #category-area {
+                margin-top: unset;
+            }
+        }
+    </style>
+
     <!-- Custom CSS End -->
 </head>
 <body>
@@ -77,7 +89,7 @@
             <div class="layout-px-spacing">
                 <div class="row layout-top-spacing">
                     <div class="summary-area col-12 col-sm-3 layout-spacing justify-content-center">
-                        <div id="finance-summary-widget" class="widget">
+                        <div id="" class="widget finance-summary-widget">
                             <div class="widget-heading">Incomes</div>
                             <div class="widget-content row">
                                 <div class="row mb-3 col-12">
@@ -95,7 +107,7 @@
                         </div>
                     </div>
                     <div class="summary-area col-12 col-sm-3 layout-spacing justify-content-center">
-                        <div id="finance-summary-widget" class="widget">
+                        <div id="" class="widget finance-summary-widget">
                             <div class="widget-heading">Expenses</div>
                             <div class="widget-content row">
                                 <div class="row mb-3 col-12">
@@ -113,7 +125,7 @@
                         </div>
                     </div>
                     <div class="summary-area col-12 col-sm-3 layout-spacing justify-content-center">
-                        <div id="finance-summary-widget" class="widget">
+                        <div id="" class="widget finance-summary-widget">
                             <div class="widget-heading">Earnings</div>
                             <div class="widget-content row">
                                 <div class="row mb-3 col-12">
@@ -156,15 +168,15 @@
                         </div>
                     </div>
                     <div id="category-area" class="col-12 col-sm-3 layout-spacing justify-content-center">
-                            <div id="finance-category-summary-widget" class="widget">
-                                <div class="widget-heading">
-                                    Category
-                                </div>
-                                <div id="finance-category-list" class="widget-content">
-                                    <small>No Data Available </small>
-                                </div>
+                        <div id="finance-category-summary-widget" class="widget">
+                            <div class="widget-heading">
+                                Category
+                            </div>
+                            <div id="finance-category-list" class="widget-content">
+                                <small>No Data Available </small>
                             </div>
                         </div>
+                    </div>
                 </div>
 
                 <!-- Finance Record Modal Start -->

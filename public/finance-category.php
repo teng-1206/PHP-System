@@ -99,7 +99,7 @@
             <div class="layout-px-spacing">
                 <div class="row layout-top-spacing">
                     <div class="col-xl-9 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
-                        <div class="widget">
+                        <div id="table-area" class="widget">
                             <div class="widget-heading">
                                 <h5 class="mb-4">Finance Category</h5>
                             </div>
@@ -210,6 +210,9 @@
     <!-- Data Table Start -->
     <script src="<?= $config[ 'urls' ][ 'plugins' ] . "table/datatable/datatables.min.js"; ?>"></script>
     <!-- Data Table End -->
+
+    <script src="<?= $config[ 'urls' ][ 'plugins' ] . "blockui/jquery.blockUI.min.js"; ?>"></script>
+
 
     <!-- Finance Category JS Start -->
     <script src="<?= $config[ 'urls' ][ 'js' ] . "custom/finance_category.js"; ?>"></script>

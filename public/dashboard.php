@@ -67,7 +67,7 @@
                 <div class="row layout-top-spacing">
                     <!-- Revenue Chart Start -->
                     <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
-                        <div class="widget widget-chart-one">
+                        <div id="revenue-widget" class="widget widget-chart-one">
                             <div class="widget-heading">
                                 <h5 class="">2023 Revenue</h5>
                                 <div class="task-action">
@@ -92,7 +92,7 @@
                     <!-- Revenue Chart End -->
                     <!-- Expenses Category Start -->
                     <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
-                        <div class="widget widget-chart-two">
+                        <div id="expenses-category-widget" class="widget widget-chart-two">
                             <div class="widget-heading">
                                 <h5 class="">Expenses by Category</h5>
                             </div>
@@ -255,6 +255,8 @@
     <!-- Global JS End -->
 
     <script src="<?= $config[ 'urls' ][ 'plugins' ] . "apex/apexcharts.min.js"; ?>"></script>
+    <script src="<?= $config[ 'urls' ][ 'plugins' ] . "blockui/jquery.blockUI.min.js"; ?>"></script>
+
     <script src="<?= '' // $config[ 'urls' ][ 'js' ] . "custom/dashboard.js"; ?>"></script>
 
     <script>
@@ -268,6 +270,30 @@
         */
         var revenue_chart = null;
         function load_revenue( choice ) {
+            $( '#revenue-widget' ).block( {
+                message: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>',
+                fadeIn: 800, 
+                fadeOut: 800,
+                centerX: 0,
+                centerY: 0,
+                overlayCSS: {
+                    backgroundColor: '#191e3a',
+                    opacity: 0.8,
+                    cursor: 'wait',
+                    borderRadius: '1rem',
+                },
+                css: {
+                    width: '100%',
+                    top: '50%',
+                    left: '',
+                    right: '0px',
+                    bottom: 0,
+                    border: 0,
+                    color: '#25d5e4',
+                    padding: 0,
+                    backgroundColor: 'transparent'
+                }
+            } ); 
             revenue_chart != null ? revenue_chart.destroy() : null;
             const revenue_url = `${ api_url }finance/revenue.php`;
             const fk_user_id = $( '#m-user-id' ).val();
@@ -282,6 +308,7 @@
                     if ( res.result ) {
                         // console.log( res.data );
                         display_revenue( res.data );
+                        $('#revenue-widget').unblock();
                     }
                     return res;
                 },
@@ -439,7 +466,7 @@
                         },
                         offsetX: -22,
                         offsetY: 0,
-                        decimalsInFloat: 2,
+                        // decimalsInFloat: 2,
                         style: {
                             fontSize: '12px',
                             fontFamily: 'Nunito, sans-serif',
@@ -534,7 +561,40 @@
             ==================================
         */
         var expenses_category_chart = null;
+        function generateRandomColor(){
+            let maxVal = 0xFFFFFF; // 16777215
+            let randomNumber = Math.random() * maxVal; 
+            randomNumber = Math.floor(randomNumber);
+            randomNumber = randomNumber.toString(16);
+            let randColor = randomNumber.padStart(6, 0);   
+            return `#${randColor.toUpperCase()}`
+        }
+
         function load_category() {
+            $( '#expenses-category-widget' ).block( {
+                message: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>',
+                fadeIn: 800, 
+                fadeOut: 800,
+                centerX: 0,
+                centerY: 0,
+                overlayCSS: {
+                    backgroundColor: '#191e3a',
+                    opacity: 0.8,
+                    cursor: 'wait',
+                    borderRadius: '1rem',
+                },
+                css: {
+                    width: '100%',
+                    top: '50%',
+                    left: '',
+                    right: '0px',
+                    bottom: 0,
+                    border: 0,
+                    color: '#25d5e4',
+                    padding: 0,
+                    backgroundColor: 'transparent'
+                }
+            } ); 
             expenses_category_chart != null ? expenses_category_chart.destroy() : null;
             const summary_url = `${ api_url }finance_category/summary.php`;
             const fk_user_id = $( '#m-user-id' ).val();
@@ -548,6 +608,7 @@
                     if ( res.result ) {
                         // console.log( res.data );
                         res.data.length > 0 ? display_category( res.data ) : null;
+                        $('#expenses-category-widget').unblock();
                     }
                     return res;
                 },
@@ -558,15 +619,6 @@
                     } );
                 }
             } );
-        }
-
-        function generateRandomColor(){
-            let maxVal = 0xFFFFFF; // 16777215
-            let randomNumber = Math.random() * maxVal; 
-            randomNumber = Math.floor(randomNumber);
-            randomNumber = randomNumber.toString(16);
-            let randColor = randomNumber.padStart(6, 0);   
-            return `#${randColor.toUpperCase()}`
         }
 
         function display_category( data ) {

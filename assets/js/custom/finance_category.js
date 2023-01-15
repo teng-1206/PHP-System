@@ -50,13 +50,37 @@ const table = $( '#table-finance-category' ).DataTable( {
             "sSearchPlaceholder": "Search",
         "sLengthMenu": "Results :  _MENU_",
         },
-        "lengthMenu": [ 10, 20, 50 ],
-        "pageLength": 10 
+        "lengthMenu": [ 8, 20, 50 ],
+        "pageLength": 8 
     } );
 multiCheck( table );
 
 // CRUD Functions
 function read_all_finance_category() {
+    $( '#table-area' ).block( {
+        message: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>',
+        fadeIn: 800, 
+        fadeOut: 800,
+        centerX: 0,
+        centerY: 0,
+        overlayCSS: {
+            backgroundColor: '#191e3a',
+            opacity: 0.8,
+            cursor: 'wait',
+            borderRadius: '1rem',
+        },
+        css: {
+            width: '100%',
+            top: '50%',
+            left: '',
+            right: '0px',
+            bottom: 0,
+            border: 0,
+            color: '#25d5e4',
+            padding: 0,
+            backgroundColor: 'transparent'
+        }
+    } ); 
     table.clear().draw();
     const read_all_url = `${ api_url }finance_category/read_all.php`;
     const fk_user_id = $( '#m-user-id' ).val();
@@ -84,6 +108,8 @@ function read_all_finance_category() {
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
                             </button>`,
                         ] ).draw( false );
+                        table.order( [ 1, 'asc' ] ).draw();
+                        $('#table-area').unblock();
                     } );
                 }
             }

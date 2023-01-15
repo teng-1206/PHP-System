@@ -66,12 +66,12 @@ const table = $( '#table-finance' ).DataTable( {
         },
         "lengthMenu": [ 8, 20, 50 ],
         "pageLength": 8 
-    } );
+} );
 multiCheck( table );
 
 // CRUD Functions
 function read_finance_summary() {
-    $( '#finance-summary-widget' ).block( {
+    $( '.finance-summary-widget' ).block( {
         message: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>',
         fadeIn: 800, 
         fadeOut: 800,
@@ -80,13 +80,14 @@ function read_finance_summary() {
         overlayCSS: {
             backgroundColor: '#191e3a',
             opacity: 0.8,
-            cursor: 'wait'
+            cursor: 'wait',
+            borderRadius: '1rem',
         },
         css: {
             width: '100%',
-            top: '15px',
+            top: '50%',
             left: '',
-            right: '10px',
+            right: '0px',
             bottom: 0,
             border: 0,
             color: '#25d5e4',
@@ -109,7 +110,7 @@ function read_finance_summary() {
                 $( '#total-income' ).html( total_income );
                 $( '#total-expense' ).html( total_expense );
                 $( '#total-earning' ).html( total_earning );
-                $('#finance-summary-widget').unblock();
+                $('.finance-summary-widget').unblock();
             }
             return res;
         },
@@ -123,6 +124,7 @@ function read_finance_summary() {
 }
 
 function read_finance_category_summary() {
+    $( '#finance-category-list' ).empty();
     $( '#finance-category-summary-widget' ).block( {
         message: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>',
         fadeIn: 800, 
@@ -132,13 +134,14 @@ function read_finance_category_summary() {
         overlayCSS: {
             backgroundColor: '#191e3a',
             opacity: 0.8,
-            cursor: 'wait'
+            cursor: 'wait',
+            borderRadius: '1rem',
         },
         css: {
             width: '100%',
-            top: '15px',
+            top: '50%',
             left: '',
-            right: '10px',
+            right: '0px',
             bottom: 0,
             border: 0,
             color: '#25d5e4',
@@ -146,8 +149,6 @@ function read_finance_category_summary() {
             backgroundColor: 'transparent'
         }
     } );
-    $( '#finance-category-list' ).empty();
-
     const summary_url = `${ api_url }finance_category/summary.php`;
     const fk_user_id = $( '#m-user-id' ).val();
     const sent_data = { fk_user_id };
@@ -166,16 +167,18 @@ function read_finance_category_summary() {
                     data.forEach( ( row_data ) => {
                         index++;
                         const { category, income, expense } = row_data;
+                        const income_color = income == '0.00' ? 'text-dark' : 'text-success';
+                        const expense_color = expense == '0.00' ? 'text-dark' : 'text-danger';
                         const element =   `
                                     <div class="row mb-3">
                                         <div class="col-12">
                                             <small class="fw-bold fst-italic">${ category }</small><br/>
                                         </div>
                                         <div class="col-6">
-                                            <span class="fw-bold text-success">RM ${ income }</span>
+                                            <span class="fw-bold ${ income_color }">RM ${ income }</span>
                                         </div>
                                         <div class="col-6">
-                                            <span class="fw-bold text-danger">RM ${ expense }</span>
+                                            <span class="fw-bold ${ expense_color }">RM ${ expense }</span>
                                         </div>
                                     </div>
                                     `;
@@ -197,7 +200,7 @@ function read_finance_category_summary() {
 }
 
 function read_all_finance() {
-    $( '#table-finance-widget' ).block( {
+    $( '#table-area' ).block( {
         message: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>',
         fadeIn: 800, 
         fadeOut: 800,
@@ -206,13 +209,19 @@ function read_all_finance() {
         overlayCSS: {
             backgroundColor: '#191e3a',
             opacity: 0.8,
-            cursor: 'wait'
+            cursor: 'wait',
+            borderRadius: '1rem',
+            width: '98%',
+            height: '97%',
+            top: '0px',
+            left: '1%',
+            right: '0px',
         },
         css: {
             width: '100%',
-            top: '15px',
+            top: '50%',
             left: '',
-            right: '10px',
+            right: '0px',
             bottom: 0,
             border: 0,
             color: '#25d5e4',
@@ -253,7 +262,7 @@ function read_all_finance() {
                     } );
                 }
                 table.order( 1 ).draw()
-                $('#table-finance-widget').unblock();
+                $('#table-area').unblock();
             }
             return res;
         },
