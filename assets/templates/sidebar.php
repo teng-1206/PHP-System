@@ -3,6 +3,7 @@
     <nav id="sidebar">
         <div class="shadow-bottom"></div>
         <ul class="list-unstyled menu-categories" id="accordionExample">
+            <!-- Dashboard Start -->
             <li class="menu">
                 <a href="dashboard" aria-expanded="false" class="dropdown-toggle">
                     <div class="">
@@ -11,7 +12,9 @@
                     </div>
                 </a>
             </li>
+            <!-- Dashboard End -->
 
+            <!-- Finance Start -->
             <li class="menu">
                 <a href="#finance" data-active="false" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                     <div class="">
@@ -34,6 +37,7 @@
                     </li>
                 </ul>
             </li>
+            <!-- Finance End -->
 
             <!-- <li class="menu">
                 <a href="finance" aria-expanded="false" class="dropdown-toggle">
