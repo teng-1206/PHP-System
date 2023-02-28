@@ -33,9 +33,6 @@
                 $temp_expense_total = 0;
                 foreach ( $all_finance as $finance )
                 {
-                    // $current_year_month = date( 'Y-m' );
-                    // $finance_year_current_month = date( 'Y-m', strtotime( $finance[ 'date' ] ) );
-
                     if ( $finance_category[ 'id' ] == $finance[ 'fk_category_id' ] ) 
                     {
                         $finance[ 'status' ] ? $temp_expense_total += $finance[ 'amount' ] : $temp_income_total += $finance[ 'amount' ];
