@@ -5,11 +5,14 @@
 
     if ( isset( $_POST ) )
     {
+        $select_date = htmlspecialchars( $_POST[ 'select_date' ] );
+        $fk_user_id = htmlspecialchars( $_POST[ 'fk_user_id' ] );
+
         $finance = new Finance();
-        $finance->set( 'fk_user_id', htmlspecialchars( $_POST[ 'fk_user_id' ] ) );
+        $finance->set( 'fk_user_id', $fk_user_id );
 
         $finance_controller = new Finance_Controller();
-        $all_finance = $finance_controller->read_all_by_user_id( $conn, $finance );
+        $all_finance = $finance_controller->read_all_by_user_id( $conn, $finance, $select_date );
         $all_finance = $crypto->decrypt_all_object( $all_finance );
         
         if ( ! is_null( $all_finance ) )
@@ -20,12 +23,10 @@
             $total_earning = 0;
             foreach ( $all_finance as $finance )
             {
-                $current_year_month = date( 'Y-m' );
-                $finance_year_current_month = date( 'Y-m', strtotime( $finance[ 'date' ] ) );
-                if ( $finance_year_current_month == $current_year_month && $finance[ 'status' ] == false ) 
+                if ( $finance[ 'status' ] == false ) 
                     $total_income += ( float ) $finance[ 'amount' ];
 
-                if ( $finance_year_current_month == $current_year_month && $finance[ 'status' ] == true ) 
+                if ( $finance[ 'status' ] == true ) 
                     $total_expense += ( float ) $finance[ 'amount' ];
             }
             $total_earning = $total_income - $total_expense;

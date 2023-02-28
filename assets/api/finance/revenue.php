@@ -3,11 +3,11 @@
     include_once( MODULES_PATH . "finance.php" );
     include_once( MODULES_PATH . "common.php" );
 
-    if ( isset( $_POST ) && isset( $_POST[ 'fk_user_id' ] ) && isset( $_POST[ 'choice' ] ) )
+    if ( isset( $_POST ) && isset( $_POST[ 'fk_user_id' ] ) && isset( $_POST[ 'select_date' ] ) )
     {
-        // Define user id & choice
+        // Define user id & select date
         $user_id = htmlspecialchars( $_POST[ 'fk_user_id' ] );
-        $choice = htmlspecialchars( $_POST[ 'choice' ] );
+        $select_date = htmlspecialchars( $_POST[ 'select_date' ] );
 
         // Setup income, expense, label
         $incomes = array();
@@ -18,13 +18,13 @@
         $finance = new Finance();
         $finance->set( 'fk_user_id', $user_id );
         $finance_controller = new Finance_Controller();
-        $all_finance = $finance_controller->read_all_by_user_id( $conn, $finance );
+        $all_finance = $finance_controller->read_all_by_user_id( $conn, $finance, $select_date );
         $all_finance = $crypto->decrypt_all_object( $all_finance );
 
         // 
-        switch ( $choice ) 
+        switch ( $select_date ) 
         {
-            case 'weekly':
+            case 'This Week':
                 $labels = array( 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun' );
                 $current_date = date( 'D' ) != 'Mon' ? date( 'Y-m-d', strtotime( 'last Monday' ) ) : date( 'Y-m-d' );
                 for ( $i = 1; $i < 8; $i++ ) 
@@ -46,7 +46,7 @@
                     $current_date = date( 'Y-m-d', strtotime( $current_date . ' +1 day' ) );
                 }
                 break;
-            case 'monthly':
+            case 'This Month':
                 $current_month = date( 'n' );
                 $current_year = date( 'Y' );
                 $days = cal_days_in_month( CAL_GREGORIAN, $current_month, $current_year );
@@ -70,7 +70,7 @@
                     array_push( $labels, $i );
                 }
                 break;
-            case 'yearly':
+            case 'This Year':
                 $labels = array( 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' );
                 $current_year = date( 'Y' );
                 for ( $i = 1; $i < 13; $i++ ) 
@@ -78,8 +78,7 @@
                     $total_income = 0;
                     $total_expense = 0;
                     $m = ( strlen( ( string ) $i ) > 1 ) ? '0' . $i  : $i ;
-                    $year_month = ( $choice == 'yearly' ) ? date( 'Y-m', strtotime( date( 'Y-'. $m ) ) ) : date( 'Y-m', strtotime( date( 'Y-'. $m ) . ' -1 year') );
-                    
+                    $year_month = ( $select_date == 'This Year' ) ? date( 'Y-m', strtotime( date( 'Y-'. $m ) ) ) : date( 'Y-m', strtotime( date( 'Y-'. $m ) . ' -1 year') );
                     foreach ( $all_finance as $finance )
                     {
                         $finance_year_current_month = date( 'Y-m', strtotime( $finance[ 'date' ] ) );

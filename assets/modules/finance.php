@@ -114,12 +114,37 @@
             return null;
         }
 
-        public function read_all_by_user_id ( $conn, Finance $object )
+        public function read_all_by_user_id ( $conn, Finance $object, $select_date = "Today" )
         {
+            $where = "";
+            switch ( $select_date ) 
+            {
+                case "This Week":
+                    $where = "AND YEARWEEK( finance.date, 1 ) = YEARWEEK( NOW(), 1 )";
+                    break;
+                case "This Month":
+                    $where = "AND MONTH( finance.date ) = MONTH( CURRENT_TIMESTAMP ) AND YEAR( finance.date ) = YEAR( CURRENT_TIMESTAMP )";
+                    break;
+                case "This Year":
+                    $where = "AND YEAR( finance.date ) = YEAR( CURRENT_TIMESTAMP )";
+                    break;
+                case "Last 30 Days":
+                    $where = "AND finance.date >= DATE_SUB( CURDATE(), INTERVAL 1 MONTH ) AND finance.date <= CURDATE()";
+                    break;
+                case "Last 90 Days":
+                    $where = "AND finance.date >= DATE_SUB( CURDATE(), INTERVAL 3 MONTH ) AND finance.date <= CURDATE()";
+                    break;
+                case "All":
+                    $where = "";
+                    break;
+                default:
+                    $where = "AND finance.date >= DATE_FORMAT( NOW(), '%Y-%m-%d 00:00:00' ) AND finance.date < DATE_FORMAT( DATE_ADD( NOW(), INTERVAL 1 DAY ), '%Y-%m-%d 00:00:00' )";
+                    break;
+            }
             $sql = "SELECT finance.*, finance_category.category, finance_category.color_code, finance_category.background_color_code, finance_category.icon_code FROM finance
                     INNER JOIN finance_category
                     ON finance.fk_category_id = finance_category.id
-                    WHERE finance.fk_user_id = ? AND finance.soft_delete = 0
+                    WHERE finance.fk_user_id = ? AND finance.soft_delete = 0 " . $where . "
                     ORDER BY finance.id DESC";
             $stmt = $conn->prepare( $sql );
             $result = $stmt->execute( [

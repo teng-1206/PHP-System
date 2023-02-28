@@ -148,6 +148,17 @@
                                 <button id="btn-add-record" class="btn btn-sm btn-primary rounded-pill shadow mb-3" style="" onclick="open_create_finance()">
                                     <i class="fas fa-plus-circle"></i>
                                 </button>
+                                <div class="float-right">
+                                    <select id="select-date" name="select-date" class=" form-control form-control-sm" >
+                                        <option value="Today" selected >Today</option>
+                                        <option value="This Week">This Week</option>
+                                        <option value="This Month">This Month</option>
+                                        <option value="This Year">This Year</option>
+                                        <option value="Last 30 Days">Last 30 Days</option>
+                                        <option value="Last 90 Days">Last 90 Days</option>
+                                        <option value="All">All</option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="widget-content">
                                 <table id="table-finance" class="table style-1 dt-table-hover non-hover">

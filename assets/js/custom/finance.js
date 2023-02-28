@@ -45,6 +45,11 @@ $( '#finance-record-form' ).submit( ( event ) => {
     }
 } );
 
+$( '#select-date' ).change( ( event ) => {
+    event.preventDefault();
+    refresh();
+} );
+
 const table = $( '#table-finance' ).DataTable( {
     headerCallback:function( e, a, t, n, s ) {
         e.getElementsByTagName( "th" )[ 0 ].innerHTML='<label class="new-control new-checkbox checkbox-outline-info m-auto">\n<input type="checkbox" class="new-control-input chk-parent select-customers-info" id="customer-all-info">\n<span class="new-control-indicator"></span><span style="visibility:hidden">c</span>\n</label>'
@@ -97,7 +102,8 @@ function read_finance_summary() {
     } ); 
     const summary_url = `${ api_url }finance/summary.php`;
     const fk_user_id = $( '#m-user-id' ).val();
-    const sent_data = { fk_user_id };
+    const select_date = $( '#select-date' ).val();
+    const sent_data = { fk_user_id, select_date };
     $.ajax( {
         type    : 'POST',
         url     : summary_url,
@@ -151,7 +157,8 @@ function read_finance_category_summary() {
     } );
     const summary_url = `${ api_url }finance_category/summary.php`;
     const fk_user_id = $( '#m-user-id' ).val();
-    const sent_data = { fk_user_id };
+    const select_date = $( '#select-date' ).val();
+    const sent_data = { fk_user_id, select_date };
     $.ajax( {
         type    : 'POST',
         url     : summary_url,
@@ -232,7 +239,8 @@ function read_all_finance() {
     table.clear().draw();
     const read_all_url = `${ api_url }finance/read_all.php`;
     const fk_user_id = $( '#m-user-id' ).val();
-    const sent_data = { fk_user_id };
+    const select_date = $( '#select-date' ).val();
+    const sent_data = { fk_user_id, select_date };
     $.ajax( {
         type    : 'POST',
         url     : read_all_url,
@@ -240,13 +248,14 @@ function read_all_finance() {
         dataType: 'JSON',
         success: ( res ) => {
             if ( res.result ) {
+                console.log(res);
                 const data = res.data;
                 if ( data.length > 0 ) {
                     data.forEach( ( row_data ) => {
                         const { id, title, status, category, amount, date } = row_data;
                         table.row.add( [
                             `<td class="checkbox-column"> 1 </td>`,
-                            `${ date }`,
+                            `${ date.split(" ")[0] }`,
                             `${ title }`,
                             `${ category }`,
                             `<span class="${ status == 0 ? 'text-success' : 'text-danger' }">RM ${ amount }</span>`,
@@ -285,6 +294,7 @@ function read_finance() {
         dataType: 'JSON',
         data    : sent_data,
         success: ( res ) => {
+            console.log(res);
             if ( res.result ) {
                 const data = res.data;
                 const { title, date, category_id, status, amount } = data;
@@ -320,6 +330,7 @@ function create_finance() {
         dataType: 'JSON',
         data    : sent_data,
         success: ( res ) => {
+            console.log(res);
             if ( res.result ) {
                 close_modal();
                 refresh();
@@ -354,6 +365,7 @@ function update_finance() {
         dataType: 'JSON',
         data    : sent_data,
         success: ( res ) => {
+            console.log(res);
             if ( res.result ) {
                 close_modal();
                 refresh();
@@ -383,6 +395,7 @@ function delete_finance() {
         dataType: 'JSON',
         data    : sent_data,
         success: ( res ) => {
+            console.log(res);
             if ( res.result ) {
                 close_delete_modal();
                 refresh();
