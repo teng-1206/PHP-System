@@ -14,7 +14,7 @@
         $finance = $finance_controller->convert( $finance );
 
         $finance->set( 'title', $crypto->encrypt( htmlspecialchars( $_POST[ 'title' ] ) ) );
-        $finance->set( 'date', $crypto->encrypt( htmlspecialchars( $_POST[ 'date' ] ) ) );
+        $finance->set( 'date', htmlspecialchars( $_POST[ 'date' ] ) );
         $finance->set( 'status', $crypto->encrypt( htmlspecialchars( $_POST[ 'status' ] ) ) );
         $finance->set( 'amount', $crypto->encrypt( htmlspecialchars( $_POST[ 'amount' ] ) ) );
         $finance->set( 'fk_category_id', htmlspecialchars( $_POST[ 'fk_category_id' ] ) );
