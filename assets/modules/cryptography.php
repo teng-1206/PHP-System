@@ -46,7 +46,7 @@
             $key_array = array_keys( $object );
             foreach ( $key_array as $key )
             {
-                if ( ! $this->str_contains( $key, 'id' ) && ! $this->str_contains( $key, 'date' ) && ! $this->str_contains( $key, 'soft_delete' ) && ! $this->str_contains( $key, 'create_at' ) && ! $this->str_contains( $key, 'update_at' ) )
+                if ( ! $this->str_contains( $key, 'id' ) && ! $this->str_contains( $key, 'date' ) && ! $this->str_contains( $key, 'due_date' ) && ! $this->str_contains( $key, 'soft_delete' ) && ! $this->str_contains( $key, 'create_at' ) && ! $this->str_contains( $key, 'update_at' ) )
                 {
                     $object[ $key ] = $this->encrypt( $object[ $key ] );
                 }
@@ -81,7 +81,7 @@
             $key_array = array_keys( $object );
             foreach ( $key_array as $key )
             {
-                if ( ! $this->str_contains( $key, 'id' ) && ! $this->str_contains( $key, 'date' ) && ! $this->str_contains( $key, 'soft_delete' ) && ! $this->str_contains( $key, 'create_at' ) && ! $this->str_contains( $key, 'update_at' ) )
+                if ( ! $this->str_contains( $key, 'id' ) && ! $this->str_contains( $key, 'date' ) && ! $this->str_contains( $key, 'due_date' ) && ! $this->str_contains( $key, 'soft_delete' ) && ! $this->str_contains( $key, 'create_at' ) && ! $this->str_contains( $key, 'update_at' ) )
                 {
                     $object[ $key ] = $this->decrypt( $object[ $key ] );
                 }
