@@ -10,7 +10,7 @@
         $task_status->set( 'fk_task_project_id', $fk_task_project_id );
 
         $task_status_controller = new Task_Status_Controller();
-        $all_task_status = $task_status_controller->read_all_by_user_id( $conn, $task_status );
+        $all_task_status = $task_status_controller->read_all_by_task_project_id( $conn, $task_status );
         $all_task_status = $crypto->decrypt_all_object( $all_task_status );
 
         if ( ! is_null( $all_task_status ) )
