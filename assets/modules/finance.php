@@ -1,20 +1,86 @@
 <?php
 
+    /**
+     * The Finance class represents a financial transaction, including its
+     * ID, title, date, status, amount, category ID, user ID, and create/update timestamps.
+     */
     class Finance
     {
+        /**
+         * The ID of the financial transaction.
+         *
+         * @var int
+         */
         private $id;
+
+        /**
+         * The title of the financial transaction.
+         *
+         * @var string
+         */
         private $title;
+
+        /**
+         * The date of the financial transaction.
+         *
+         * @var string
+         */
         private $date;
+
+        /**
+         * The status of the financial transaction.
+         *
+         * @var string
+         */
         private $status;
+
+        /**
+         * The amount of the financial transaction.
+         *
+         * @var float
+         */
         private $amount;
+
+        /**
+         * The ID of the category that the financial transaction belongs to.
+         *
+         * @var int
+         */
         private $fk_category_id;
+
+        /**
+         * The ID of the user that the financial transaction belongs to.
+         *
+         * @var int
+         */
         private $fk_user_id;
+
+        /**
+         * A flag indicating whether the financial transaction has been soft-deleted.
+         *
+         * @var bool
+         */
         private $soft_delete;
+
+        /**
+         * The timestamp of when the financial transaction was created.
+         *
+         * @var string
+         */
         private $create_at;
+
+        /**
+         * The timestamp of when the financial transaction was last updated.
+         *
+         * @var string
+         */
         private $update_at;
 
         /**
-         * Get Method
+         * Get the value of a specific attribute.
+         *
+         * @param string $attribute The name of the attribute to retrieve.
+         * @return mixed The value of the attribute.
          */
         public function get ( string $attribute )
         {
@@ -54,7 +120,11 @@
         }
 
         /**
-         * Set Method
+         * Set the value of a specific attribute.
+         *
+         * @param string $attribute The name of the attribute to set.
+         * @param mixed $value The value to set the attribute to.
+         * @return void
          */
         public function set ( string $attribute, $value )
         {
@@ -94,8 +164,18 @@
         }
     }
 
+    /**
+     * Controller for the Finance model.
+     */
     class Finance_Controller
     {
+        /**
+         * Reads all finance data from the database.
+         *
+         * @param object $conn The database connection object.
+         *
+         * @return array|null Returns an array containing all finance data or null if there is an error.
+         */
         public function read_all ( $conn )
         {
             $sql = "SELECT finance.*, finance_category.category, finance_category.color_code, finance_category.background_color_code, finance_category.icon_code FROM finance
@@ -114,6 +194,15 @@
             return null;
         }
 
+        /**
+         * Reads all finance data from the database for a specific user and date range.
+         *
+         * @param object   $conn        The database connection object.
+         * @param Finance  $object      The Finance object representing the user and date range.
+         * @param string   $select_date The selected date range.
+         *
+         * @return array|null Returns an array containing all finance data for the specified user and date range or null if there is an error.
+         */
         public function read_all_by_user_id ( $conn, Finance $object, $select_date = "Today" )
         {
             $where = "";
@@ -159,6 +248,14 @@
             return null;
         }
 
+        /**
+         * Reads a single finance record from the database.
+         *
+         * @param object  $conn   The database connection object.
+         * @param Finance $object The Finance object representing the record to read.
+         *
+         * @return array|null Returns an array containing the finance data or null if there is an error.
+         */
         public function read ( $conn, Finance $object )
         {
             $sql = "SELECT * FROM finance
@@ -177,6 +274,14 @@
             return null;
         }
 
+        /**
+         * Inserts a new finance record into the database.
+         *
+         * @param object  $conn   The database connection object.
+         * @param Finance $object The Finance object representing the record to create.
+         *
+         * @return int|null Returns the ID of the newly inserted record or null if there is an error.
+         */
         public function create ( $conn, Finance $object )
         {
             $sql = "INSERT INTO finance( title, date, status, amount, fk_category_id, fk_user_id )
@@ -194,6 +299,14 @@
             return $last_id;
         }
 
+        /**
+         * Updates an existing finance record in the database.
+         *
+         * @param object  $conn   The database connection object.
+         * @param Finance $object The Finance object representing the record to update.
+         *
+         * @return bool Returns true if the update was successful, false otherwise.
+         */
         public function update ( $conn, Finance $object )
         {
             $sql = "UPDATE finance
@@ -211,6 +324,14 @@
             return $result ? true : false;
         }
 
+        /**
+         * Deletes an existing finance record from the database.
+         *
+         * @param object  $conn   The database connection object.
+         * @param Finance $object The Finance object representing the record to delete.
+         *
+         * @return bool Returns true if the delete was successful, false otherwise.
+         */
         public function delete ( $conn, Finance $object )
         {
             $sql = "UPDATE finance
@@ -225,7 +346,11 @@
         }
 
         /**
-         * Convert Method
+         * Converts an array of finance data into a Finance object.
+         *
+         * @param array $object The finance data array.
+         *
+         * @return Finance Returns a Finance object.
          */
         public function convert ( array $object )
         {
@@ -244,7 +369,10 @@
         }
 
         /**
-         * Convert All Method
+         * Converts an array of objects using the convert method for each object
+         *
+         * @param array $array The array of objects to convert
+         * @return array The array of converted objects
          */
         public function convert_all ( array $array )
         {
