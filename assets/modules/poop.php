@@ -60,10 +60,35 @@
 
     class Poop_Controller 
     {
-        public function read_all_by_user_id ( $conn, Poop $object )
+        public function read_all_by_user_id ( $conn, Poop $object, $select_date = "Today" )
         {
+            $where = "";
+            switch ( $select_date ) 
+            {
+                case "This Week":
+                    $where = "AND YEARWEEK( date, 1 ) = YEARWEEK( NOW(), 1 )";
+                    break;
+                case "This Month":
+                    $where = "AND MONTH( date ) = MONTH( CURRENT_TIMESTAMP ) AND YEAR( date ) = YEAR( CURRENT_TIMESTAMP )";
+                    break;
+                case "This Year":
+                    $where = "AND YEAR( date ) = YEAR( CURRENT_TIMESTAMP )";
+                    break;
+                case "Last 30 Days":
+                    $where = "AND date >= DATE_SUB( CURDATE(), INTERVAL 1 MONTH ) AND date <= CURDATE()";
+                    break;
+                case "Last 90 Days":
+                    $where = "AND date >= DATE_SUB( CURDATE(), INTERVAL 3 MONTH ) AND date <= CURDATE()";
+                    break;
+                case "All":
+                    $where = "";
+                    break;
+                default:
+                    $where = "AND date >= DATE_FORMAT( NOW(), '%Y-%m-%d 00:00:00' ) AND date < DATE_FORMAT( DATE_ADD( NOW(), INTERVAL 1 DAY ), '%Y-%m-%d 00:00:00' )";
+                    break;
+            }
             $sql = "SELECT * FROM poop
-                    WHERE fk_user_id = ? AND soft_delete = 0
+                    WHERE fk_user_id = ? AND soft_delete = 0 "  . $where . "
                     ORDER BY id DESC";
             $stmt = $conn->prepare( $sql );
             $result = $stmt->execute( [
