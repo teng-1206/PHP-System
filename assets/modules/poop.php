@@ -154,6 +154,42 @@
             return $result;
         }
 
+         /**
+         * Converts an array of poop data into a Poop object.
+         *
+         * @param array $object The poop data array.
+         *
+         * @return Poop Returns a Poop object.
+         */
+        public function convert ( array $object )
+        {
+            $new_object = new Poop();
+            $new_object->set( 'id', $object[ 'id' ] );
+            $new_object->set( 'date', $object[ 'date' ] );
+            $new_object->set( 'fk_user_id', $object[ 'fk_user_id' ] );
+            $new_object->set( 'soft_delete', $object[ 'soft_delete' ] );
+            $new_object->set( 'create_at', $object[ 'create_at' ] );
+            $new_object->set( 'update_at', $object[ 'update_at' ] );
+            return $new_object;
+        }
+
+        /**
+         * Converts an array of objects using the convert method for each object
+         *
+         * @param array $array The array of objects to convert
+         * @return array The array of converted objects
+         */
+        public function convert_all ( array $array )
+        {
+            $new_array = array();
+            foreach ( $array as $object )
+            {
+                $new_object = $this->convert( $object );
+                array_push( $new_array, $new_object );
+            }
+            return $new_array;
+        }
+
     }
 
 
