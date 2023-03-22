@@ -9,7 +9,7 @@
 
         $finance_category_controller = new Finance_Category_Controller();
         $all_finance_category = $finance_category_controller->read_all_by_user_id( $conn, $finance_category );
-        $all_finance_category = $crypto->decrypt_all_object( $all_finance_category );
+        ! is_null( $all_finance_category ) ? $all_finance_category = $crypto->decrypt_all_object( $all_finance_category ) : null;
 
         if ( ! is_null( $all_finance_category ) )
         {
