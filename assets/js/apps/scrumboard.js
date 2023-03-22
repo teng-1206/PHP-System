@@ -1,5 +1,3 @@
-$(function() {
-
     /*
     =========================================
     |                                       |
@@ -363,12 +361,10 @@ $(function() {
       })
     }
 
-$_editList();
-$_deleteList();
-$_clearList();
-addTask();
-$_taskEdit();
-$_taskDelete();
-$_taskSortable();
-
-});
+// $_editList();
+// $_deleteList();
+// $_clearList();
+// addTask();
+// $_taskEdit();
+// $_taskDelete();
+// $_taskSortable();
