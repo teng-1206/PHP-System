@@ -82,7 +82,7 @@
         {
             $sql = "SELECT * FROM task_status
                     WHERE fk_task_project_id = ? AND soft_delete = 0
-                    ORDER BY id DESC";
+                    ORDER BY fk_order_id ASC";
             $stmt = $conn->prepare( $sql );
             $result = $stmt->execute( [
                 $object->get( 'fk_task_project_id' ),
