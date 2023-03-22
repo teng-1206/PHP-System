@@ -11,7 +11,7 @@
 
         $task_project_controller = new Task_Project_Controller();
         $all_task_project = $task_project_controller->read_all_by_user_id( $conn, $task_project );
-        $all_task_project = $crypto->decrypt_all_object( $all_task_project );
+        ! is_null( $all_task_project ) ? $all_task_project = $crypto->decrypt_all_object( $all_task_project ) : null;
 
         if ( ! is_null( $all_task_project ) )
         {

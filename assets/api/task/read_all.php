@@ -11,7 +11,7 @@
 
         $task_controller = new Task_Controller();
         $all_task = $task_controller->read_all_by_task_status_id( $conn, $task );
-        $all_task = $crypto->decrypt_all_object( $all_task );
+        ! is_null( $all_task ) ? $all_task = $crypto->decrypt_all_object( $all_task ) : null;
 
         if ( ! is_null( $all_task ) )
         {
