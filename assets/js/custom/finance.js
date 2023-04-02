@@ -101,9 +101,11 @@ function read_finance_summary() {
         }
     } ); 
     const summary_url = `${ api_url }finance/summary.php`;
+    // const fk_wallet_id = $( '#m-user-id' ).val();
+    const fk_wallet_id = 1;
     const fk_user_id = $( '#m-user-id' ).val();
     const select_date = $( '#select-date' ).val();
-    const sent_data = { fk_user_id, select_date };
+    const sent_data = { fk_wallet_id, fk_user_id, select_date };
     $.ajax( {
         type    : 'POST',
         url     : summary_url,
@@ -156,9 +158,11 @@ function read_finance_category_summary() {
         }
     } );
     const summary_url = `${ api_url }finance_category/summary.php`;
-    const fk_user_id = $( '#m-user-id' ).val();
-    const select_date = $( '#select-date' ).val();
-    const sent_data = { fk_user_id, select_date };
+   // const fk_wallet_id = $( '#m-user-id' ).val();
+   const fk_wallet_id = 1;
+   const fk_user_id = $( '#m-user-id' ).val();
+   const select_date = $( '#select-date' ).val();
+   const sent_data = { fk_wallet_id, fk_user_id, select_date };
     $.ajax( {
         type    : 'POST',
         url     : summary_url,
@@ -239,8 +243,10 @@ function read_all_finance() {
     table.clear().draw();
     const read_all_url = `${ api_url }finance/read_all.php`;
     const fk_user_id = $( '#m-user-id' ).val();
+    const fk_wallet_id = 1;
+    // const fk_wallet_id = $( '#m-user-id' ).val();
     const select_date = $( '#select-date' ).val();
-    const sent_data = { fk_user_id, select_date };
+    const sent_data = { fk_wallet_id, fk_user_id, select_date };
     $.ajax( {
         type    : 'POST',
         url     : read_all_url,
@@ -299,7 +305,7 @@ function read_finance() {
                 const data = res.data;
                 const { title, date, category_id, status, amount } = data;
                 $( '#m-title' ).val( title );
-                $( '#m-date' ).val( date );
+                $( '#m-date' ).val( get_date( date ) );
                 $( '#m-category' ).val( category_id );
                 $( '#m-status' ).val( status );
                 $( '#m-amount' ).val( amount );
@@ -320,10 +326,12 @@ function create_finance() {
     const title          = $( '#m-title' ).val();
     const date           = $( '#m-date' ).val();
     const fk_category_id = $( '#m-category' ).val();
+    // const fk_wallet_id     = $( '#m-user-id' ).val();
+    const fk_wallet_id     = 1;
     const fk_user_id     = $( '#m-user-id' ).val();
     const status         = $( '#m-status' ).val();
     const amount         = $( '#m-amount' ).val();
-    const sent_data = { title, date, fk_category_id, fk_user_id, status, amount };
+    const sent_data = { title, date, fk_category_id, fk_wallet_id, fk_user_id, status, amount };
     $.ajax( {
         type    : 'POST',
         url     : create_url,
@@ -356,9 +364,11 @@ function update_finance() {
     const title          = $( '#m-title' ).val();
     const date           = $( '#m-date' ).val();
     const fk_category_id = $( '#m-category' ).val();
+    // const fk_wallet_id = $( '#m-category' ).val();
+    const fk_wallet_id = 1;
     const status         = $( '#m-status' ).val();
     const amount         = $( '#m-amount' ).val();
-    const sent_data = { id, title, date, fk_category_id, status, amount };
+    const sent_data = { id, title, date, fk_category_id, fk_wallet_id, status, amount };
     $.ajax( {
         type    : 'POST',
         url     : update_url,
@@ -415,10 +425,50 @@ function delete_finance() {
     } );
 }
 
+function read_wallet() {
+    const read_url = `${ api_url }wallet/read.php`;
+    // const id = $( '#m-id' ).val();
+    const id = 1;
+    const sent_data = { id };
+    $.ajax( {
+        type    : 'POST',
+        url     : read_url,
+        dataType: 'JSON',
+        data    : sent_data,
+        success: ( res ) => {
+            console.log(res);
+            if ( res.result ) {
+                const data = res.data;
+                // const { title, date, category_id, status, amount } = data;
+                // $( '#m-title' ).val( title );
+                // $( '#m-date' ).val( date );
+                // $( '#m-category' ).val( category_id );
+                // $( '#m-status' ).val( status );
+                // $( '#m-amount' ).val( amount );
+            }
+            return res;
+        },
+        error: ( err ) => {
+            Toast.fire( {
+                icon : 'error',
+                title: 'Read Wallet Error'
+            } );
+        }
+    } );
+}
+
+function get_date( date ) {
+    var new_date = new Date( date );
+    var formattedDate = new_date.getFullYear() + "-" + ( new_date.getMonth() + 1 ).toString().padStart( 2, "0" ) + "-" + new_date.getDate().toString().padStart( 2, "0" );
+    return formattedDate;
+} 
+
 function refresh() {
     read_all_finance();
     read_finance_summary();
     read_finance_category_summary();
+
+    read_wallet();
 }
 
 refresh();
