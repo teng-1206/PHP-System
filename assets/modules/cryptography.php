@@ -7,6 +7,7 @@
         protected $secret_iv;
         protected $key;
         protected $iv;
+        protected $pass_array;
 
         public function __construct ()
         {
@@ -15,6 +16,7 @@
             $this->set( 'secret_iv', 'system' );
             $this->set( 'key', hash( 'sha256', $this->get( 'secret_key' ) ) );
             $this->set( 'iv', substr( hash( 'sha256', $this->get( 'secret_iv' ) ), 0, 16 ) );
+            $this->set( 'pass_array', array( "due_date", "purchase_date", "soft_delete", "create_at", "update_at" ) );
         }
 
         public function str_contains ( string $haystack, string $needle ) {
@@ -46,7 +48,7 @@
             $key_array = array_keys( $object );
             foreach ( $key_array as $key )
             {
-                if ( ! $this->str_contains( $key, 'id' ) && ! $this->str_contains( $key, 'date' ) && ! $this->str_contains( $key, 'due_date' ) && ! $this->str_contains( $key, 'soft_delete' ) && ! $this->str_contains( $key, 'create_at' ) && ! $this->str_contains( $key, 'update_at' ) )
+                if ( ! in_array( $key, $this->pass_array ) && ! $this->str_contains( $key, 'id' ) && ! $this->str_contains( $key, 'date' ) )
                 {
                     $object[ $key ] = $this->encrypt( $object[ $key ] );
                 }
@@ -81,7 +83,7 @@
             $key_array = array_keys( $object );
             foreach ( $key_array as $key )
             {
-                if ( ! $this->str_contains( $key, 'id' ) && ! $this->str_contains( $key, 'date' ) && ! $this->str_contains( $key, 'due_date' ) && ! $this->str_contains( $key, 'soft_delete' ) && ! $this->str_contains( $key, 'create_at' ) && ! $this->str_contains( $key, 'update_at' ) )
+                if ( ! in_array( $key, $this->pass_array ) && ! $this->str_contains( $key, 'id' ) && ! $this->str_contains( $key, 'date' ) )
                 {
                     $object[ $key ] = $this->decrypt( $object[ $key ] );
                 }
@@ -119,6 +121,9 @@
                 case 'iv':
                     return $this->iv;
                     break;
+                case 'pass_array':
+                    return $this->pass_array;
+                    break;
                 default:
                     break;
             }
@@ -142,6 +147,9 @@
                     break;
                 case 'iv':
                     $this->iv = $value;
+                    break;
+                case 'pass_array':
+                    $this->pass_array = $value;
                     break;
                 default:
                     break;
