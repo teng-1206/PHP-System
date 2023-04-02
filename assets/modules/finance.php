@@ -53,6 +53,13 @@
          *
          * @var int
          */
+        private $fk_wallet_id;
+
+        /**
+         * The ID of the user that the financial transaction belongs to.
+         *
+         * @var int
+         */
         private $fk_user_id;
 
         /**
@@ -104,6 +111,9 @@
                 case 'fk_category_id':
                     return $this->fk_category_id;
                     break;
+                case 'fk_wallet_id':
+                    return $this->fk_wallet_id;
+                    break;
                 case 'fk_user_id':
                     return $this->fk_user_id;
                     break;
@@ -148,6 +158,9 @@
                 case 'fk_category_id':
                     $this->fk_category_id = $value;
                     break;
+                case 'fk_wallet_id':
+                    $this->fk_wallet_id = $value;
+                    break;
                 case 'fk_user_id':
                     $this->fk_user_id = $value;
                     break;
@@ -176,23 +189,23 @@
          *
          * @return array|null Returns an array containing all finance data or null if there is an error.
          */
-        public function read_all ( $conn )
-        {
-            $sql = "SELECT finance.*, finance_category.category, finance_category.color_code, finance_category.background_color_code, finance_category.icon_code FROM finance
-                    INNER JOIN finance_category
-                    ON finance.fk_category_id = finance_category.id
-                    WHERE finance.soft_delete = 0
-                    ORDER BY finance.id DESC";
-            $stmt = $conn->prepare( $sql );
-            $result = $stmt->execute();
-            $num_row = $stmt->rowCount();
-            if ( $result ) 
-            {
-                $result = $stmt->fetchAll();
-                return $result;
-            }
-            return null;
-        }
+        // public function read_all ( $conn )
+        // {
+        //     $sql = "SELECT finance.*, finance_category.category, finance_category.color_code, finance_category.background_color_code, finance_category.icon_code FROM finance
+        //             INNER JOIN finance_category
+        //             ON finance.fk_category_id = finance_category.id
+        //             WHERE finance.soft_delete = 0
+        //             ORDER BY finance.id DESC";
+        //     $stmt = $conn->prepare( $sql );
+        //     $result = $stmt->execute();
+        //     $num_row = $stmt->rowCount();
+        //     if ( $result ) 
+        //     {
+        //         $result = $stmt->fetchAll();
+        //         return $result;
+        //     }
+        //     return null;
+        // }
 
         /**
          * Reads all finance data from the database for a specific user and date range.
@@ -233,10 +246,11 @@
             $sql = "SELECT finance.*, finance_category.category, finance_category.color_code, finance_category.background_color_code, finance_category.icon_code FROM finance
                     INNER JOIN finance_category
                     ON finance.fk_category_id = finance_category.id
-                    WHERE finance.fk_user_id = ? AND finance.soft_delete = 0 " . $where . "
+                    WHERE finance.fk_wallet_id = ? AND finance.fk_user_id = ? AND finance.soft_delete = 0 " . $where . "
                     ORDER BY finance.id DESC";
             $stmt = $conn->prepare( $sql );
             $result = $stmt->execute( [
+                $object->get( 'fk_wallet_id' ),
                 $object->get( 'fk_user_id' ),
             ] );
             $num_row = $stmt->rowCount();
@@ -284,8 +298,8 @@
          */
         public function create ( $conn, Finance $object )
         {
-            $sql = "INSERT INTO finance( title, date, status, amount, fk_category_id, fk_user_id )
-                    VALUES( ?, ?, ?, ?, ?, ? )";
+            $sql = "INSERT INTO finance( title, date, status, amount, fk_category_id, fk_wallet_id, fk_user_id )
+                    VALUES( ?, ?, ?, ?, ?, ?, ? )";
             $stmt = $conn->prepare( $sql );
             $result = $stmt->execute( [
                 $object->get( 'title' ),
@@ -293,6 +307,7 @@
                 $object->get( 'status' ),
                 $object->get( 'amount' ),
                 $object->get( 'fk_category_id' ),
+                $object->get( 'fk_wallet_id' ),
                 $object->get( 'fk_user_id' ),
             ] );
             $last_id = $result ? $conn->lastInsertId() : null;
@@ -310,7 +325,7 @@
         public function update ( $conn, Finance $object )
         {
             $sql = "UPDATE finance
-                    SET title = ?, date = ?, status = ?, amount = ?, fk_category_id = ?, update_at = CURRENT_TIMESTAMP
+                    SET title = ?, date = ?, status = ?, amount = ?, fk_category_id = ?, fk_wallet_id = ?, update_at = CURRENT_TIMESTAMP
                     WHERE id = ?";
             $stmt = $conn->prepare( $sql );
             $result = $stmt->execute( [
@@ -319,6 +334,7 @@
                 $object->get( 'status' ),
                 $object->get( 'amount' ),
                 $object->get( 'fk_category_id' ),
+                $object->get( 'fk_wallet_id' ),
                 $object->get( 'id' ),
             ] );
             return $result ? true : false;
@@ -361,6 +377,7 @@
             $new_object->set( 'status', $object[ 'status' ] );
             $new_object->set( 'amount', $object[ 'amount' ] );
             $new_object->set( 'fk_category_id', $object[ 'fk_category_id' ] );
+            $new_object->set( 'fk_wallet_id', $object[ 'fk_wallet_id' ] );
             $new_object->set( 'fk_user_id', $object[ 'fk_user_id' ] );
             $new_object->set( 'soft_delete', $object[ 'soft_delete' ] );
             $new_object->set( 'create_at', $object[ 'create_at' ] );
