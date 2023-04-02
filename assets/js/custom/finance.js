@@ -75,6 +75,7 @@ const table = $( '#table-finance' ).DataTable( {
 multiCheck( table );
 
 // CRUD Functions
+// Finance 
 function read_finance_summary() {
     $( '.finance-summary-widget' ).block( {
         message: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>',
@@ -425,6 +426,32 @@ function delete_finance() {
     } );
 }
 
+// Wallet
+function read_all_wallet() {
+    const read_url = `${ api_url }wallet/read_all.php`;
+    const fk_user_id = $( '#m-user-id' ).val();
+    const sent_data = { fk_user_id };
+    $.ajax( {
+        type    : 'POST',
+        url     : read_url,
+        dataType: 'JSON',
+        data    : sent_data,
+        success: ( res ) => {
+            console.log(res);
+            if ( res.result ) {
+                const data = res.data;
+            }
+            return res;
+        },
+        error: ( err ) => {
+            Toast.fire( {
+                icon : 'error',
+                title: 'Read All Wallet Error'
+            } );
+        }
+    } );
+}
+
 function read_wallet() {
     const read_url = `${ api_url }wallet/read.php`;
     // const id = $( '#m-id' ).val();
@@ -452,6 +479,110 @@ function read_wallet() {
             Toast.fire( {
                 icon : 'error',
                 title: 'Read Wallet Error'
+            } );
+        }
+    } );
+}
+
+function create_wallet() {
+    const create_url = `${ api_url }wallet/create.php`;
+    // const title          = $( '#m-title' ).val();
+    // const date           = $( '#m-date' ).val();
+    // const fk_category_id = $( '#m-category' ).val();
+    // const fk_wallet_id     = $( '#m-user-id' ).val();
+    // const fk_wallet_id     = 1;
+    const fk_user_id     = $( '#m-user-id' ).val();
+    // const status         = $( '#m-status' ).val();
+    // const amount         = $( '#m-amount' ).val();
+    const sent_data = { title, date, fk_category_id, fk_wallet_id, fk_user_id, status, amount };
+    $.ajax( {
+        type    : 'POST',
+        url     : create_url,
+        dataType: 'JSON',
+        data    : sent_data,
+        success: ( res ) => {
+            console.log(res);
+            if ( res.result ) {
+                close_modal();
+                refresh();
+                Toast.fire( {
+                    icon : 'success',
+                    title: 'Create Wallet Success'
+                } );
+            }
+            return res;
+        },
+        error: ( err ) => {
+            Toast.fire( {
+                icon : 'error',
+                title: 'Create Error'
+            } );
+        }
+    } );
+}
+
+function update_wallet() {
+    const update_url = `${ api_url }wallet/update.php`;
+    const id             = $( '#m-id' ).val();
+    // const title          = $( '#m-title' ).val();
+    // const date           = $( '#m-date' ).val();
+    // const fk_category_id = $( '#m-category' ).val();
+    // const fk_wallet_id = $( '#m-category' ).val();
+    const fk_wallet_id = 1;
+    // const status         = $( '#m-status' ).val();
+    // const amount         = $( '#m-amount' ).val();
+    const sent_data = { id, title, date, fk_category_id, fk_wallet_id, status, amount };
+    $.ajax( {
+        type    : 'POST',
+        url     : update_url,
+        dataType: 'JSON',
+        data    : sent_data,
+        success: ( res ) => {
+            console.log(res);
+            if ( res.result ) {
+                close_modal();
+                refresh();
+                Toast.fire( {
+                    icon : 'success',
+                    title: 'Update Wallet Success'
+                } );
+            }
+            return res;
+        },
+        error: ( err ) => {
+            Toast.fire( {
+                icon : 'error',
+                title: 'Update Wallet Error'
+            } );
+        }
+    } );
+}
+
+function delete_wallet() {
+    const id = $( '#m-id-delete' ).val();
+    const delete_url = `${ api_url }wallet/delete.php`;
+    const sent_data = { id };
+    $.ajax( {
+        type    : 'POST',
+        url     : delete_url,
+        dataType: 'JSON',
+        data    : sent_data,
+        success: ( res ) => {
+            console.log(res);
+            if ( res.result ) {
+                close_delete_modal();
+                refresh();
+                Toast.fire( {
+                    icon : 'success',
+                    title: 'Delete Success'
+                } );
+            }
+            return res;
+        },
+        error: ( err ) => {
+            Toast.fire( {
+                icon : 'error',
+                title: 'Delete Error'
             } );
         }
     } );
