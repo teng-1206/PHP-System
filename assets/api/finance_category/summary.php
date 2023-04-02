@@ -7,10 +7,12 @@
 
     if ( isset( $_POST ) )
     {
+        $fk_wallet_id = htmlspecialchars( $_POST[ 'fk_wallet_id' ] );
         $fk_user_id = htmlspecialchars( $_POST[ 'fk_user_id' ] );
         $select_date = htmlspecialchars( $_POST[ 'select_date' ] );
 
         $finance = new Finance();
+        $finance->set( 'fk_wallet_id', $fk_wallet_id );
         $finance->set( 'fk_user_id', $fk_user_id );
 
         $finance_controller = new Finance_Controller();
