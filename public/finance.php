@@ -88,6 +88,8 @@
         <div id="content" class="main-content">
             <div class="layout-px-spacing">
                 <div class="row layout-top-spacing">
+
+                    <!-- Summary Area START -->
                     <div class="summary-area col-12 col-sm-3 layout-spacing justify-content-center">
                         <div id="" class="widget finance-summary-widget">
                             <div class="widget-heading">Incomes</div>
@@ -142,6 +144,9 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Summary Area END -->
+
+                    <!-- Table Area START -->
                     <div id="table-area" class="col-12 col-sm-9 layout-spacing">
                         <div class="widget">
                             <div class="widget-heading">
@@ -178,6 +183,9 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Table Area START -->
+
+                    <!-- Category Area START -->
                     <div id="category-area" class="col-12 col-sm-3 layout-spacing justify-content-center">
                         <div id="finance-category-summary-widget" class="widget">
                             <div class="widget-heading">
@@ -188,6 +196,8 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Category Area END -->
+
                 </div>
 
                 <!-- Finance Record Modal Start -->
@@ -199,28 +209,28 @@
                             </div>
                             <div class="modal-body">
                                 <form id="finance-record-form">
-                                    <input type="hidden" id="m-id" name="m-id" value="">
-                                    <input type="hidden" id="m-user-id" name="m-user-id" value="<?= $user->get( 'id' ) ?>">
+                                    <input type="hidden" id="id" name="id" value="">
+                                    <input type="hidden" id="user-id" name="user-id" value="<?= $user->get( 'id' ) ?>">
                                     <div class="row ">
                                         <div class="col-12 mb-4">
-                                            <label for="m-title" class="form-label">Title</label>
-                                            <input type="text" id="m-title" name="m-title" class="form-control" placeholder="Breakfast.." autocomplete="off" required />
+                                            <label for="title" class="form-label">Title</label>
+                                            <input type="text" id="title" name="title" class="form-control" placeholder="Breakfast.." autocomplete="off" required />
                                         </div>
                                         <div class="col-12 col-lg-6 mb-4">
-                                            <label for="m-date" class="form-label">Date</label>
-                                            <input type="date" id="m-date" name="m-date" class="form-control" placeholder="DD/MM/YYYY" value="<?= date( 'Y-m-d' ) ?>" required>
+                                            <label for="date" class="form-label">Date</label>
+                                            <input type="date" id="date" name="date" class="form-control" placeholder="DD/MM/YYYY" value="<?= date( 'Y-m-d' ) ?>" required>
                                         </div>
                                         <div class="col-12 col-lg-6 mb-4">
-                                            <label for="m-status" class="form-label">Status</label>
-                                            <select id="m-status" name="m-status" class="form-control" required >
+                                            <label for="status" class="form-label">Status</label>
+                                            <select id="status" name="status" class="form-control" required >
                                                 <option value="" selected >Select Status</option>
                                                 <option value="0">Income</option>
                                                 <option value="1">Expense</option>
                                             </select>
                                         </div>
                                         <div class="col-12 col-lg-6 mb-4">
-                                            <label for="m-category" class="form-label">Category</label>
-                                            <select id="m-category" name="m-category" class="form-control" required >
+                                            <label for="category" class="form-label">Category</label>
+                                            <select id="category" name="category" class="form-control" required >
                                                 <option value="" selected >Select Category</option>
                                                 <?php
                                                     include_once( MODULES_PATH . "finance_category.php" );
@@ -239,18 +249,18 @@
                                             </select>
                                         </div>
                                         <div class="col-12 col-lg-6 mb-4">
-                                            <label for="m-amount" class="form-label">Amount</label>
+                                            <label for="amount" class="form-label">Amount</label>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text">RM</span>
-                                                <input type="text" id="m-amount" name="m-amount" class="form-control text-end" placeholder="0.00" autocomplete="off" required >
+                                                <input type="text" id="amount" name="amount" class="form-control text-end" placeholder="0.00" autocomplete="off" required >
                                             </div>
                                         </div>
                                     </div>
                                 </form>
                             </div>
                             <div class="modal-footer border-0">
-                                <button id="m-btn-cancel" name="m-btn-cancel" type="button" class="btn rounded-pill" onclick="close_modal()" style="width: 100px; height: 40px;">Cancel</button>
-                                <button id="m-btn-submit" name="m-btn-submit" type="submit" class="btn btn-primary rounded-pill" form="finance-record-form" style="width: 100px; height: 40px;" onclick="">Submit</button>
+                                <button type="button" class="btn rounded-pill" onclick="close_finance_modal()" style="width: 100px; height: 40px;">Cancel</button>
+                                <button type="submit" class="btn btn-primary rounded-pill" form="finance-record-form" style="width: 100px; height: 40px;" onclick="">Submit</button>
                             </div>
                         </div>
                     </div>
@@ -258,15 +268,15 @@
                 <!-- Finance Record Modal End -->
 
                 <!-- Finance Record Delete Modal Start -->
-                <div class="modal fade back-blur-3" id="m-finance-record-delete" tabindex="-1" aria-hidden="true">
+                <div class="modal fade back-blur-3" id="m-finance-delete-record" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
                         <div class="modal-content p-3 rounded-5">
                             <div class="modal-header border-0">
                                 <h5 class="modal-title">Confirmation</h5>
                             </div>
                             <div class="modal-body">
-                                <form>
-                                    <input type="hidden" id="m-id-delete" name="m-id-delete" value="">
+                                <form id="finance-record-delete-form">
+                                    <input type="hidden" id="id" name="id" value="">
                                     <div class="row mb-4">
                                         <div class="col-12">
                                             <label class="form-label">Do you want to delete this record ?</label>
@@ -275,13 +285,143 @@
                                 </form>
                             </div>
                             <div class="modal-footer border-0">
-                                <button type="button" class="btn rounded-pill" onclick="close_delete_modal()" style="width: 100px; height: 40px;">Cancel</button>
+                                <button type="button" class="btn rounded-pill" onclick="close_finance_delete_modal()" style="width: 100px; height: 40px;">Cancel</button>
                                 <button type="button" class="btn btn-danger rounded-pill" style="width: 100px; height: 40px;" onclick="delete_finance()">Delete</button>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- Finance Record Delete Modal End -->
+
+                <!-- Finance Category Record Modal Start -->
+                <div class="modal fade back-blur-3" id="m-finance-category-record" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
+                        <div class="modal-content p-3 rounded-5">
+                            <div class="modal-header border-0">
+                                <h5 id="modal-header-title" class="modal-title">Add Finance Category</h5>
+                            </div>
+                            <div class="modal-body">
+                                <form id="finance-category-record-form">
+                                    <input type="hidden" id="id" name="id" value="">
+                                    <input type="hidden" id="user-id" name="user-id" value="<?= $user->get( 'id' ) ?>">
+                                    <div class="row ">
+                                        <div class="col-12 mb-4">
+                                            <label for="name" class="form-label">Name</label>
+                                            <input type="text" id="name" name="name" class="form-control" placeholder="Foods & Drinks" autocomplete="off" required />
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer border-0">
+                                <button type="button" class="btn rounded-pill" onclick="close_wallet_modal()" style="width: 100px; height: 40px;">Cancel</button>
+                                <button type="submit" class="btn btn-primary rounded-pill" form="wallet-record-form" style="width: 100px; height: 40px;" onclick="">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Finance Category Record Modal End -->
+
+                <!-- Finance Category Record Delete Modal Start -->
+                <div class="modal fade back-blur-3" id="m-finance-category-delete-record" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
+                        <div class="modal-content p-3 rounded-5">
+                            <div class="modal-header border-0">
+                                <h5 class="modal-title">Confirmation</h5>
+                            </div>
+                            <div class="modal-body">
+                                <form id="finance-category-record-delete-form">
+                                    <input type="hidden" id="id" name="id" value="">
+                                    <div class="row mb-4">
+                                        <div class="col-12">
+                                            <label class="form-label">Do you want to delete this category ?</label>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer border-0">
+                                <button type="button" class="btn rounded-pill" onclick="close_finance_category_delete_modal()" style="width: 100px; height: 40px;">Cancel</button>
+                                <button type="button" class="btn btn-danger rounded-pill" style="width: 100px; height: 40px;" onclick="delete_finance_category()">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Finance Category Record Delete Modal End -->
+
+                <!-- Wallet Record Modal Start -->
+                <div class="modal fade back-blur-3" id="m-wallet-record" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
+                        <div class="modal-content p-3 rounded-5">
+                            <div class="modal-header border-0">
+                                <h5 id="modal-header-title" class="modal-title">Add Wallet</h5>
+                            </div>
+                            <div class="modal-body">
+                                <form id="wallet-record-form">
+                                    <input type="hidden" id="id" name="id" value="">
+                                    <input type="hidden" id="user-id" name="user-id" value="<?= $user->get( 'id' ) ?>">
+                                    <input type="hidden" id="status" name="status" value="Optional">
+                                    <div class="row ">
+                                        <div class="col-12 mb-4">
+                                            <label for="name" class="form-label">Name</label>
+                                            <input type="text" id="name" name="name" class="form-control" placeholder="Cash" autocomplete="off" required />
+                                        </div>
+                                        <div class="col-12 col-lg-6 mb-4">
+                                            <label for="date" class="form-label">Date</label>
+                                        </div>
+                                        <div class="col-12 col-lg-6 mb-4">
+                                            <label for="category" class="form-label">Category</label>
+                                            <select id="category" name="category" class="form-control" required >
+                                                <option value="" selected >Select Category</option>
+                                                <option value="Cash">Cash</option>
+                                                <option value="Bank">Bank</option>
+                                                <option value="Credit Card">Credit Card</option>
+                                                <option value="Debit">Debit</option>
+                                                <option value="eWallet">eWallet</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-12 col-lg-6 mb-4">
+                                            <label for="amount" class="form-label">Initial Amount</label>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text">RM</span>
+                                                <input type="text" id="amount" name="amount" class="form-control text-end" placeholder="0.00" autocomplete="off" required value="0" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer border-0">
+                                <button type="button" class="btn rounded-pill" onclick="close_wallet_modal()" style="width: 100px; height: 40px;">Cancel</button>
+                                <button type="submit" class="btn btn-primary rounded-pill" form="wallet-record-form" style="width: 100px; height: 40px;" onclick="">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Wallet Record Modal End -->
+
+                <!-- Wallet Record Delete Modal Start -->
+                <div class="modal fade back-blur-3" id="m-wallet-delete-record" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
+                        <div class="modal-content p-3 rounded-5">
+                            <div class="modal-header border-0">
+                                <h5 class="modal-title">Confirmation</h5>
+                            </div>
+                            <div class="modal-body">
+                                <form id="wallet-record-delete-form">
+                                    <input type="hidden" id="id" name="id" value="">
+                                    <div class="row mb-4">
+                                        <div class="col-12">
+                                            <label class="form-label">Do you want to delete this wallet ?</label>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer border-0">
+                                <button type="button" class="btn rounded-pill" onclick="close_wallet_delete_modal()" style="width: 100px; height: 40px;">Cancel</button>
+                                <button type="button" class="btn btn-danger rounded-pill" style="width: 100px; height: 40px;" onclick="delete_wallet()">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Wallet Record Delete Modal End -->
             </div>
 
             <!-- Footer Start -->

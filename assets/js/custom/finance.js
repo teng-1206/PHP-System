@@ -1,40 +1,70 @@
-function open_modal() {
-    reset_modal();
+const finance_record_form        = $( '#finance-record-form' );
+const finance_record_delete_form = $( '#finance-record-delete-form' );
+const wallet_record_form         = $( '#wallet-record-form' );
+const wallet_record_delete_form  = $( '#wallet-record-delete-form' );
+
+
+/**
+ * Resets the form inside the finance modal, clearing all values.
+ */
+function reset_finance_modal() {
+    finance_record_form.find( '#title' ).val( '' );
+    finance_record_form.find( '#date' ).val( get_current_day() );
+    finance_record_form.find( '#category' ).prop( 'selectedIndex', 0 );
+    finance_record_form.find( '#status' ).prop( 'selectedIndex', 0 );
+    finance_record_form.find( '#amount' ).val( '' );
+}
+
+/**
+ * Opens the finance modal and resets its form.
+ */
+function open_finance_modal() {
+    reset_finance_modal();
     $( '#m-finance-record' ).modal( 'show' );
 }
 
-function close_modal() {
+/**
+ * Closes the finance modal.
+ */
+function close_finance_modal() {
     $( '#m-finance-record' ).modal( 'hide' );
 }
 
-function close_delete_modal() {
-    $( '#m-finance-record-delete' ).modal( 'hide' );
+/**
+ * Closes the delete finance modal.
+ */
+function close_finance_delete_modal() {
+    $( '#m-finance-delete-record' ).modal( 'hide' );
 }
 
-function reset_modal() {
-    $( '#m-title' ).val( '' );
-    $( '#m-date' ).val( get_current_day() );
-    $( '#m-category' ).prop( 'selectedIndex', 0 );
-    $( '#m-status' ).prop( 'selectedIndex', 0 );
-    $( '#m-amount' ).val( '' );
-}
-
+/**
+ * Opens the finance modal with a header title for adding a new finance record.
+ */
 function open_create_finance() {
     $( '#modal-header-title' ).text( 'Add Finance' );
-    open_modal();
+    open_finance_modal();
 }
 
+/**
+ * Opens the finance modal with a header title for editing an existing finance record.
+ * @param {string} id - The ID of the finance record to edit.
+ */
 function open_update_finance( id ) {
-    $('#modal-header-title').text( 'Edit Finance' );
-    $( '#m-id' ).val( id );
-    open_modal();
+    $( '#modal-header-title' ).text( 'Edit Finance' );
+    finance_record_form.find( '#id' ).val( id );
+    open_finance_modal();
     read_finance();
 }
 
+/**
+ * Opens the delete finance modal for the specified finance record ID.
+ * @param {string} id - The ID of the finance record to delete.
+ */
 function open_delete_finance( id ) {
-    $( '#m-finance-record-delete' ).modal( 'show' );
-    $( '#m-id-delete' ).val( id );
+    $( '#m-finance-delete-record' ).modal( 'show' );
+    finance_record_delete_form.find( '#id' ).val( id );
 }
+
 
 $( '#finance-record-form' ).submit( ( event ) => {
     event.preventDefault();
@@ -49,6 +79,7 @@ $( '#select-date' ).change( ( event ) => {
     event.preventDefault();
     refresh();
 } );
+
 
 const table = $( '#table-finance' ).DataTable( {
     headerCallback:function( e, a, t, n, s ) {
@@ -104,9 +135,9 @@ function read_finance_summary() {
     const summary_url = `${ api_url }finance/summary.php`;
     // const fk_wallet_id = $( '#m-user-id' ).val();
     const fk_wallet_id = 1;
-    const fk_user_id = $( '#m-user-id' ).val();
-    const select_date = $( '#select-date' ).val();
-    const sent_data = { fk_wallet_id, fk_user_id, select_date };
+    const fk_user_id   = finance_record_form.find( '#user-id' ).val();
+    const select_date  = $( '#select-date' ).val();
+    const sent_data    = { fk_wallet_id, fk_user_id, select_date };
     $.ajax( {
         type    : 'POST',
         url     : summary_url,
@@ -159,11 +190,11 @@ function read_finance_category_summary() {
         }
     } );
     const summary_url = `${ api_url }finance_category/summary.php`;
-   // const fk_wallet_id = $( '#m-user-id' ).val();
-   const fk_wallet_id = 1;
-   const fk_user_id = $( '#m-user-id' ).val();
-   const select_date = $( '#select-date' ).val();
-   const sent_data = { fk_wallet_id, fk_user_id, select_date };
+    // const fk_wallet_id = $( '#m-user-id' ).val();
+    const fk_wallet_id = 1;
+    const fk_user_id   = finance_record_form.find( '#user-id' ).val();
+    const select_date  = $( '#select-date' ).val();
+    const sent_data    = { fk_wallet_id, fk_user_id, select_date };
     $.ajax( {
         type    : 'POST',
         url     : summary_url,
@@ -243,7 +274,7 @@ function read_all_finance() {
     } ); 
     table.clear().draw();
     const read_all_url = `${ api_url }finance/read_all.php`;
-    const fk_user_id = $( '#m-user-id' ).val();
+    const fk_user_id   = finance_record_form.find( '#user-id' ).val();
     const fk_wallet_id = 1;
     // const fk_wallet_id = $( '#m-user-id' ).val();
     const select_date = $( '#select-date' ).val();
@@ -278,7 +309,7 @@ function read_all_finance() {
                     } );
                 }
                 table.order( 1 ).draw()
-                $('#table-area').unblock();
+                $( '#table-area' ).unblock();
             }
             return res;
         },
@@ -293,7 +324,7 @@ function read_all_finance() {
 
 function read_finance() {
     const read_url = `${ api_url }finance/read.php`;
-    const id = $( '#m-id' ).val();
+    const id = finance_record_form.find( '#id' ).val();
     const sent_data = { id };
     $.ajax( {
         type    : 'POST',
@@ -305,11 +336,11 @@ function read_finance() {
             if ( res.result ) {
                 const data = res.data;
                 const { title, date, category_id, status, amount } = data;
-                $( '#m-title' ).val( title );
-                $( '#m-date' ).val( get_date( date ) );
-                $( '#m-category' ).val( category_id );
-                $( '#m-status' ).val( status );
-                $( '#m-amount' ).val( amount );
+                finance_record_form.find( '#title' ).val( title );
+                finance_record_form.find( '#date' ).val( get_date( date ) );
+                finance_record_form.find( '#category' ).val( category_id );
+                finance_record_form.find( '#status' ).val( status );
+                finance_record_form.find( '#amount' ).val( amount );
             }
             return res;
         },
@@ -324,14 +355,14 @@ function read_finance() {
 
 function create_finance() {
     const create_url = `${ api_url }finance/create.php`;
-    const title          = $( '#m-title' ).val();
-    const date           = $( '#m-date' ).val();
-    const fk_category_id = $( '#m-category' ).val();
+    const title          = finance_record_form.find( '#title' ).val();
+    const date           = finance_record_form.find( '#date' ).val();
+    const fk_category_id = finance_record_form.find( '#category' ).val();
     // const fk_wallet_id     = $( '#m-user-id' ).val();
-    const fk_wallet_id     = 1;
-    const fk_user_id     = $( '#m-user-id' ).val();
-    const status         = $( '#m-status' ).val();
-    const amount         = $( '#m-amount' ).val();
+    const fk_wallet_id = 1;
+    const fk_user_id   = finance_record_form.find( '#user-id' ).val();
+    const status       = finance_record_form.find( '#status' ).val();
+    const amount       = finance_record_form.find( '#amount' ).val();
     const sent_data = { title, date, fk_category_id, fk_wallet_id, fk_user_id, status, amount };
     $.ajax( {
         type    : 'POST',
@@ -341,7 +372,7 @@ function create_finance() {
         success: ( res ) => {
             console.log(res);
             if ( res.result ) {
-                close_modal();
+                close_finance_modal();
                 refresh();
                 Toast.fire( {
                     icon : 'success',
@@ -361,14 +392,14 @@ function create_finance() {
 
 function update_finance() {
     const update_url = `${ api_url }finance/update.php`;
-    const id             = $( '#m-id' ).val();
-    const title          = $( '#m-title' ).val();
-    const date           = $( '#m-date' ).val();
-    const fk_category_id = $( '#m-category' ).val();
+    const id             = finance_record_form.find( '#id' ).val();
+    const title          = finance_record_form.find( '#title' ).val();
+    const date           = finance_record_form.find( '#date' ).val();
+    const fk_category_id = finance_record_form.find( '#category' ).val();
     // const fk_wallet_id = $( '#m-category' ).val();
     const fk_wallet_id = 1;
-    const status         = $( '#m-status' ).val();
-    const amount         = $( '#m-amount' ).val();
+    const status         = finance_record_form.find( '#status' ).val();
+    const amount         = finance_record_form.find( '#amount' ).val();
     const sent_data = { id, title, date, fk_category_id, fk_wallet_id, status, amount };
     $.ajax( {
         type    : 'POST',
@@ -378,7 +409,7 @@ function update_finance() {
         success: ( res ) => {
             console.log(res);
             if ( res.result ) {
-                close_modal();
+                close_finance_modal();
                 refresh();
                 Toast.fire( {
                     icon : 'success',
@@ -397,7 +428,7 @@ function update_finance() {
 }
 
 function delete_finance() {
-    const id = $( '#m-id-delete' ).val();
+    const id = finance_record_delete_form.find( '#id' ).val();
     const delete_url = `${ api_url }finance/delete.php`;
     const sent_data = { id };
     $.ajax( {
@@ -408,7 +439,7 @@ function delete_finance() {
         success: ( res ) => {
             console.log(res);
             if ( res.result ) {
-                close_delete_modal();
+                close_finance_delete_modal();
                 refresh();
                 Toast.fire( {
                     icon : 'success',
@@ -426,7 +457,297 @@ function delete_finance() {
     } );
 }
 
+
+// Finance Category
+
+// /**
+//  * Resets the form inside the wallet modal, clearing all values.
+//  */
+// function reset_wallet_modal() {
+//     wallet_record_form.find( '#title' ).val( '' );
+//     wallet_record_form.find( '#date' ).val( get_current_day() );
+//     wallet_record_form.find( '#category' ).prop( 'selectedIndex', 0 );
+//     wallet_record_form.find( '#status' ).prop( 'selectedIndex', 0 );
+//     wallet_record_form.find( '#amount' ).val( '' );
+// }
+
+// /**
+//  * Opens the wallet modal and resets its form.
+//  */
+// function open_wallet_modal() {
+//     reset_wallet_modal();
+//     $( '#m-wallet-record' ).modal( 'show' );
+// }
+
+// /**
+//  * Closes the wallet modal.
+//  */
+// function close_wallet_modal() {
+//     $( '#m-wallet-record' ).modal( 'hide' );
+// }
+
+// /**
+//  * Closes the delete wallet modal.
+//  */
+// function close_wallet_delete_modal() {
+//     $( '#m-wallet-delete-record' ).modal( 'hide' );
+// }
+
+// /**
+//  * Opens the wallet modal with a header title for adding a new wallet record.
+//  */
+// function open_create_wallet() {
+//     $( '#modal-header-title' ).text( 'Add Wallet' );
+//     open_wallet_modal();
+// }
+
+// /**
+//  * Opens the wallet modal with a header title for editing an existing wallet record.
+//  * @param {string} id - The ID of the wallet record to edit.
+//  */
+// function open_update_wallet( id ) {
+//     $( '#modal-header-title' ).text( 'Edit Wallet' );
+//     wallet_record_form.find( '#id' ).val( id );
+//     open_wallet_modal();
+//     read_wallet();
+// }
+
+// /**
+//  * Opens the delete wallet modal for the specified wallet record ID.
+//  * @param {string} id - The ID of the wallet record to delete.
+//  */
+// function open_delete_wallet( id ) {
+//     $( '#m-wallet-delete-record' ).modal( 'show' );
+//     wallet_record_delete_form.find( '#id' ).val( id );
+// }
+
+
+// function read_all_wallet() {
+//     const read_url = `${ api_url }wallet/read_all.php`;
+//     const fk_user_id = $( '#m-user-id' ).val();
+//     const sent_data = { fk_user_id };
+//     $.ajax( {
+//         type    : 'POST',
+//         url     : read_url,
+//         dataType: 'JSON',
+//         data    : sent_data,
+//         success: ( res ) => {
+//             console.log(res);
+//             if ( res.result ) {
+//                 const data = res.data;
+//             }
+//             return res;
+//         },
+//         error: ( err ) => {
+//             Toast.fire( {
+//                 icon : 'error',
+//                 title: 'Read All Wallet Error'
+//             } );
+//         }
+//     } );
+// }
+
+// function read_wallet() {
+//     const read_url = `${ api_url }wallet/read.php`;
+//     // const id = $( '#m-id' ).val();
+//     const id = 1;
+//     const sent_data = { id };
+//     $.ajax( {
+//         type    : 'POST',
+//         url     : read_url,
+//         dataType: 'JSON',
+//         data    : sent_data,
+//         success: ( res ) => {
+//             console.log(res);
+//             if ( res.result ) {
+//                 const data = res.data;
+//                 // const { title, date, category_id, status, amount } = data;
+//                 // $( '#m-title' ).val( title );
+//                 // $( '#m-date' ).val( date );
+//                 // $( '#m-category' ).val( category_id );
+//                 // $( '#m-status' ).val( status );
+//                 // $( '#m-amount' ).val( amount );
+//             }
+//             return res;
+//         },
+//         error: ( err ) => {
+//             Toast.fire( {
+//                 icon : 'error',
+//                 title: 'Read Wallet Error'
+//             } );
+//         }
+//     } );
+// }
+
+// function create_wallet() {
+//     const create_url = `${ api_url }wallet/create.php`;
+//     // const title          = $( '#m-title' ).val();
+//     // const date           = $( '#m-date' ).val();
+//     // const fk_category_id = $( '#m-category' ).val();
+//     // const fk_wallet_id     = $( '#m-user-id' ).val();
+//     // const fk_wallet_id     = 1;
+//     const fk_user_id     = $( '#m-user-id' ).val();
+//     // const status         = $( '#m-status' ).val();
+//     // const amount         = $( '#m-amount' ).val();
+//     const sent_data = { title, date, fk_category_id, fk_wallet_id, fk_user_id, status, amount };
+//     $.ajax( {
+//         type    : 'POST',
+//         url     : create_url,
+//         dataType: 'JSON',
+//         data    : sent_data,
+//         success: ( res ) => {
+//             console.log(res);
+//             if ( res.result ) {
+//                 close_finance_modal();
+//                 refresh();
+//                 Toast.fire( {
+//                     icon : 'success',
+//                     title: 'Create Wallet Success'
+//                 } );
+//             }
+//             return res;
+//         },
+//         error: ( err ) => {
+//             Toast.fire( {
+//                 icon : 'error',
+//                 title: 'Create Error'
+//             } );
+//         }
+//     } );
+// }
+
+// function update_wallet() {
+//     const update_url = `${ api_url }wallet/update.php`;
+//     const id             = $( '#m-id' ).val();
+//     // const title          = $( '#m-title' ).val();
+//     // const date           = $( '#m-date' ).val();
+//     // const fk_category_id = $( '#m-category' ).val();
+//     // const fk_wallet_id = $( '#m-category' ).val();
+//     const fk_wallet_id = 1;
+//     // const status         = $( '#m-status' ).val();
+//     // const amount         = $( '#m-amount' ).val();
+//     const sent_data = { id, title, date, fk_category_id, fk_wallet_id, status, amount };
+//     $.ajax( {
+//         type    : 'POST',
+//         url     : update_url,
+//         dataType: 'JSON',
+//         data    : sent_data,
+//         success: ( res ) => {
+//             console.log(res);
+//             if ( res.result ) {
+//                 close_finance_modal();
+//                 refresh();
+//                 Toast.fire( {
+//                     icon : 'success',
+//                     title: 'Update Wallet Success'
+//                 } );
+//             }
+//             return res;
+//         },
+//         error: ( err ) => {
+//             Toast.fire( {
+//                 icon : 'error',
+//                 title: 'Update Wallet Error'
+//             } );
+//         }
+//     } );
+// }
+
+// function delete_wallet() {
+//     const id = $( '#m-id-delete' ).val();
+//     const delete_url = `${ api_url }wallet/delete.php`;
+//     const sent_data = { id };
+//     $.ajax( {
+//         type    : 'POST',
+//         url     : delete_url,
+//         dataType: 'JSON',
+//         data    : sent_data,
+//         success: ( res ) => {
+//             console.log(res);
+//             if ( res.result ) {
+//                 close_finance_delete_modal();
+//                 refresh();
+//                 Toast.fire( {
+//                     icon : 'success',
+//                     title: 'Delete Success'
+//                 } );
+//             }
+//             return res;
+//         },
+//         error: ( err ) => {
+//             Toast.fire( {
+//                 icon : 'error',
+//                 title: 'Delete Error'
+//             } );
+//         }
+//     } );
+// }
+
+
 // Wallet
+
+// /**
+//  * Resets the form inside the wallet modal, clearing all values.
+//  */
+// function reset_wallet_modal() {
+//     wallet_record_form.find( '#title' ).val( '' );
+//     wallet_record_form.find( '#date' ).val( get_current_day() );
+//     wallet_record_form.find( '#category' ).prop( 'selectedIndex', 0 );
+//     wallet_record_form.find( '#status' ).prop( 'selectedIndex', 0 );
+//     wallet_record_form.find( '#amount' ).val( '' );
+// }
+
+// /**
+//  * Opens the wallet modal and resets its form.
+//  */
+// function open_wallet_modal() {
+//     reset_wallet_modal();
+//     $( '#m-wallet-record' ).modal( 'show' );
+// }
+
+// /**
+//  * Closes the wallet modal.
+//  */
+// function close_wallet_modal() {
+//     $( '#m-wallet-record' ).modal( 'hide' );
+// }
+
+// /**
+//  * Closes the delete wallet modal.
+//  */
+// function close_wallet_delete_modal() {
+//     $( '#m-wallet-delete-record' ).modal( 'hide' );
+// }
+
+// /**
+//  * Opens the wallet modal with a header title for adding a new wallet record.
+//  */
+// function open_create_wallet() {
+//     $( '#modal-header-title' ).text( 'Add Wallet' );
+//     open_wallet_modal();
+// }
+
+// /**
+//  * Opens the wallet modal with a header title for editing an existing wallet record.
+//  * @param {string} id - The ID of the wallet record to edit.
+//  */
+// function open_update_wallet( id ) {
+//     $( '#modal-header-title' ).text( 'Edit Wallet' );
+//     wallet_record_form.find( '#id' ).val( id );
+//     open_wallet_modal();
+//     read_wallet();
+// }
+
+// /**
+//  * Opens the delete wallet modal for the specified wallet record ID.
+//  * @param {string} id - The ID of the wallet record to delete.
+//  */
+// function open_delete_wallet( id ) {
+//     $( '#m-wallet-delete-record' ).modal( 'show' );
+//     wallet_record_delete_form.find( '#id' ).val( id );
+// }
+
+
 function read_all_wallet() {
     const read_url = `${ api_url }wallet/read_all.php`;
     const fk_user_id = $( '#m-user-id' ).val();
@@ -503,7 +824,7 @@ function create_wallet() {
         success: ( res ) => {
             console.log(res);
             if ( res.result ) {
-                close_modal();
+                close_finance_modal();
                 refresh();
                 Toast.fire( {
                     icon : 'success',
@@ -540,7 +861,7 @@ function update_wallet() {
         success: ( res ) => {
             console.log(res);
             if ( res.result ) {
-                close_modal();
+                close_finance_modal();
                 refresh();
                 Toast.fire( {
                     icon : 'success',
@@ -570,7 +891,7 @@ function delete_wallet() {
         success: ( res ) => {
             console.log(res);
             if ( res.result ) {
-                close_delete_modal();
+                close_finance_delete_modal();
                 refresh();
                 Toast.fire( {
                     icon : 'success',
