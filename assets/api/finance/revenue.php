@@ -6,7 +6,8 @@
     if ( isset( $_POST ) && isset( $_POST[ 'fk_user_id' ] ) && isset( $_POST[ 'select_date' ] ) )
     {
         // Define user id & select date
-        $user_id = htmlspecialchars( $_POST[ 'fk_user_id' ] );
+        $fk_wallet_id = htmlspecialchars( $_POST[ 'fk_wallet_id' ] );
+        $fk_user_id = htmlspecialchars( $_POST[ 'fk_user_id' ] );
         $select_date = htmlspecialchars( $_POST[ 'select_date' ] );
 
         // Setup income, expense, label
@@ -16,7 +17,8 @@
 
         // Get all finance records
         $finance = new Finance();
-        $finance->set( 'fk_user_id', $user_id );
+        $finance->set( 'fk_wallet_id', $fk_wallet_id );
+        $finance->set( 'fk_user_id', $fk_user_id );
         $finance_controller = new Finance_Controller();
         $all_finance = $finance_controller->read_all_by_user_id( $conn, $finance, $select_date );
         $all_finance = $crypto->decrypt_all_object( $all_finance );

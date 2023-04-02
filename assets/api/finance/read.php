@@ -10,39 +10,81 @@
 
         $finance_controller = new Finance_Controller();
         $finance = $finance_controller->read( $conn, $finance );
+        if ( is_null( $finance ) )
+        {
+            echo json_encode( array( "result" => false, "message" => "Finance record not found" ) );
+            die();
+        }
+
         $finance = $crypto->decrypt_object( $finance );
+        if ( is_null( $finance ) )
+        {
+            echo json_encode( array( "result" => $finance, "message" => "Finance record decrypt error" ) );
+            die();
+        }
+
         $finance = $finance_controller->convert( $finance );
+        if ( is_null( $finance ) )
+        {
+            echo json_encode( array( "result" => $finance, "message" => "Finance record convert error" ) );
+            die();
+        }
 
         $finance_category = new Finance_Category();
         $finance_category->set( 'id', $finance->get( 'fk_category_id' ) );
+        
 
         $finance_category_controller = new Finance_Category_Controller();
         $finance_category = $finance_category_controller->read( $conn, $finance_category );
+        if ( is_null( $finance_category ) )
+        {
+            echo json_encode( array( "result" => $finance, "message" => "Finance category record not found" ) );
+            die();
+        }
         $finance_category = $crypto->decrypt_object( $finance_category );
+        if ( is_null( $finance_category ) )
+        {
+            echo json_encode( array( "result" => $finance, "message" => "Finance category record decrypt error" ) );
+            die();
+        }
         $finance_category = $finance_category_controller->convert( $finance_category );
+        if ( is_null( $finance_category ) )
+        {
+            echo json_encode( array( "result" => $finance, "message" => "Finance category record convert error" ) );
+            die();
+        }
 
         if ( ! is_null( $finance ) && ! is_null( $finance_category ) )
         {
             $res = array(
                 "result"      => true,
+                "message" => "Get data success",
                 "data" => array(
-                    "id"          => $finance->get( 'id' ),
-                    "title"       => $finance->get( 'title' ),
-                    "date"        => $finance->get( 'date' ),
-                    "status"      => $finance->get( 'status' ),
-                    "category_id" => $finance_category->get( 'id' ),
-                    "category"    => $finance_category->get( 'category' ),
-                    "color_code"  => $finance_category->get( 'color_code' ),
-                    "icon_code"   => $finance_category->get( 'icon_code' ),
-                    "fk_user_id"  => $finance->get( 'fk_user_id' ),
-                    "amount"      => $finance->get( 'amount' ),
+                    "id"           => $finance->get( 'id' ),
+                    "title"        => $finance->get( 'title' ),
+                    "date"         => $finance->get( 'date' ),
+                    "status"       => $finance->get( 'status' ),
+                    "category_id"  => $finance_category->get( 'id' ),
+                    "category"     => $finance_category->get( 'category' ),
+                    "color_code"   => $finance_category->get( 'color_code' ),
+                    "icon_code"    => $finance_category->get( 'icon_code' ),
+                    "fk_wallet_id" => $finance->get( 'fk_wallet_id' ),
+                    "fk_user_id"   => $finance->get( 'fk_user_id' ),
+                    "amount"       => $finance->get( 'amount' ),
                 ),
             );
             echo json_encode( $res );
+            die();
         }
         else
         {
             echo json_encode( array( "result" => false ) );
+            die();
         }
     }
+    else 
+    {
+        echo json_encode( array( "result" => false, "message" => "Cannot la" ) );
+        die();
+    } 
 ?>
