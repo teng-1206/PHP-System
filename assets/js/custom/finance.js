@@ -1,7 +1,9 @@
-const finance_record_form        = $( '#finance-record-form' );
-const finance_record_delete_form = $( '#finance-record-delete-form' );
-const wallet_record_form         = $( '#wallet-record-form' );
-const wallet_record_delete_form  = $( '#wallet-record-delete-form' );
+const finance_record_form                 = $( '#finance-record-form' );
+const finance_record_delete_form          = $( '#finance-record-delete-form' );
+const finance_category_record_form        = $( '#finance-category-record-form' );
+const finance_category_record_delete_form = $( '#finance-category-record-delete-form' );
+const wallet_record_form                  = $( '#wallet-record-form' );
+const wallet_record_delete_form           = $( '#wallet-record-delete-form' );
 
 
 /**
@@ -459,233 +461,261 @@ function delete_finance() {
 
 
 // Finance Category
-
 // /**
-//  * Resets the form inside the wallet modal, clearing all values.
+//  * Resets the form inside the finance category modal, clearing all values.
 //  */
-// function reset_wallet_modal() {
-//     wallet_record_form.find( '#title' ).val( '' );
-//     wallet_record_form.find( '#date' ).val( get_current_day() );
-//     wallet_record_form.find( '#category' ).prop( 'selectedIndex', 0 );
-//     wallet_record_form.find( '#status' ).prop( 'selectedIndex', 0 );
-//     wallet_record_form.find( '#amount' ).val( '' );
-// }
-
-// /**
-//  * Opens the wallet modal and resets its form.
-//  */
-// function open_wallet_modal() {
-//     reset_wallet_modal();
-//     $( '#m-wallet-record' ).modal( 'show' );
+// function reset_finance_category_modal() {
+//     finance_category_record_form.find( '#title' ).val( '' );
+//     finance_category_record_form.find( '#date' ).val( get_current_day() );
+//     finance_category_record_form.find( '#category' ).prop( 'selectedIndex', 0 );
+//     finance_category_record_form.find( '#status' ).prop( 'selectedIndex', 0 );
+//     finance_category_record_form.find( '#amount' ).val( '' );
 // }
 
 // /**
-//  * Closes the wallet modal.
+//  * Opens the finance_category modal and resets its form.
 //  */
-// function close_wallet_modal() {
-//     $( '#m-wallet-record' ).modal( 'hide' );
+// function open_finance_category_modal() {
+//     reset_finance_category_modal();
+//     $( '#m-finance-category-record' ).modal( 'show' );
 // }
 
 // /**
-//  * Closes the delete wallet modal.
+//  * Closes the finance_category modal.
 //  */
-// function close_wallet_delete_modal() {
-//     $( '#m-wallet-delete-record' ).modal( 'hide' );
+// function close_finance_category_modal() {
+//     $( '#m-finance-category-record' ).modal( 'hide' );
 // }
 
 // /**
-//  * Opens the wallet modal with a header title for adding a new wallet record.
+//  * Closes the delete finance_category modal.
 //  */
-// function open_create_wallet() {
-//     $( '#modal-header-title' ).text( 'Add Wallet' );
-//     open_wallet_modal();
+// function close_finance_category_delete_modal() {
+//     $( '#m-finance-category-delete-record' ).modal( 'hide' );
 // }
 
 // /**
-//  * Opens the wallet modal with a header title for editing an existing wallet record.
-//  * @param {string} id - The ID of the wallet record to edit.
+//  * Opens the finance_category modal with a header title for adding a new finance_category record.
 //  */
-// function open_update_wallet( id ) {
-//     $( '#modal-header-title' ).text( 'Edit Wallet' );
-//     wallet_record_form.find( '#id' ).val( id );
-//     open_wallet_modal();
-//     read_wallet();
+// function open_create_finance_category() {
+//     $( '#modal-header-title' ).text( 'Add Finance Category' );
+//     open_finance_category_modal();
 // }
 
 // /**
-//  * Opens the delete wallet modal for the specified wallet record ID.
-//  * @param {string} id - The ID of the wallet record to delete.
+//  * Opens the finance category modal with a header title for editing an existing finance category record.
+//  * @param {string} id - The ID of the finance category record to edit.
 //  */
-// function open_delete_wallet( id ) {
-//     $( '#m-wallet-delete-record' ).modal( 'show' );
-//     wallet_record_delete_form.find( '#id' ).val( id );
+// function open_update_finance_category( id ) {
+//     $( '#modal-header-title' ).text( 'Edit Finance Category' );
+//     finance_category_record_form.find( '#id' ).val( id );
+//     open_finance_category_modal();
+//     read_finance_category();
+// }
+
+// /**
+//  * Opens the delete finance_category modal for the specified finance_category record ID.
+//  * @param {string} id - The ID of the finance_category record to delete.
+//  */
+// function open_delete_finance_category( id ) {
+//     $( '#m-finance-category-delete-record' ).modal( 'show' );
+//     finance_category_record_delete_form.find( '#id' ).val( id );
 // }
 
 
-// function read_all_wallet() {
-//     const read_url = `${ api_url }wallet/read_all.php`;
-//     const fk_user_id = $( '#m-user-id' ).val();
-//     const sent_data = { fk_user_id };
-//     $.ajax( {
-//         type    : 'POST',
-//         url     : read_url,
-//         dataType: 'JSON',
-//         data    : sent_data,
-//         success: ( res ) => {
-//             console.log(res);
-//             if ( res.result ) {
-//                 const data = res.data;
-//             }
-//             return res;
-//         },
-//         error: ( err ) => {
-//             Toast.fire( {
-//                 icon : 'error',
-//                 title: 'Read All Wallet Error'
-//             } );
-//         }
-//     } );
-// }
+function read_all_finance_category() {
+    // $( '#table-area' ).block( {
+    //     message: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>',
+    //     fadeIn: 800, 
+    //     fadeOut: 800,
+    //     centerX: 0,
+    //     centerY: 0,
+    //     overlayCSS: {
+    //         backgroundColor: '#191e3a',
+    //         opacity: 0.8,
+    //         cursor: 'wait',
+    //         borderRadius: '1rem',
+    //     },
+    //     css: {
+    //         width: '100%',
+    //         top: '50%',
+    //         left: '',
+    //         right: '0px',
+    //         bottom: 0,
+    //         border: 0,
+    //         color: '#25d5e4',
+    //         padding: 0,
+    //         backgroundColor: 'transparent'
+    //     }
+    // } ); 
+    // table.clear().draw();
+    const read_all_url = `${ api_url }finance_category/read_all.php`;
+    const fk_user_id = finance_category_record_form.find( '#user-id' ).val();
+    const sent_data = { fk_user_id };
+    $.ajax( {
+        type    : 'POST',
+        url     : read_all_url,
+        dataType: 'JSON',
+        data    : sent_data,
+        success: ( res ) => {
+            if ( res.result ) {
+                const data = res.data;
+                if ( data.length > 0 ) {
+                    data.forEach( ( row_data ) => {
+                        const { id, category, color_code, background_color_code, icon_code } = row_data;
+                        // const index = table.rows().count() + 1;
+                        // table.row.add( [
+                        //     `${ index }`,
+                        //     // `<i class="${ icon_code } p-3 rounded-circle" style="color: ${ color_code }; background-color: ${ background_color_code }" width="25px" height="17px"></i>`,
+                        //     `${ category }`,
+                        //     `<button onclick="open_update_finance_category( ${ id } );" class="btn btn-primary rounded-pill" data-toggle="tooltip" data-placement="top" title="Edit">
+                        //         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                        //     </button>
+                        //     <button onclick="open_delete_finance_category( ${ id } )" class="btn btn-danger rounded-pill" data-toggle="tooltip" data-placement="top" title="Delete">
+                        //         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                        //     </button>`,
+                        // ] ).draw( false );
+                        // table.order( [ 1, 'asc' ] ).draw();
+                        // $('#table-area').unblock();
+                    } );
+                }
+            }
+            return res;
+        },
+        error: ( err ) => {
+            Toast.fire( {
+                icon : 'error',
+                title: 'Read All Error'
+            } );
+        }
+    } );
+}
 
-// function read_wallet() {
-//     const read_url = `${ api_url }wallet/read.php`;
-//     // const id = $( '#m-id' ).val();
-//     const id = 1;
-//     const sent_data = { id };
-//     $.ajax( {
-//         type    : 'POST',
-//         url     : read_url,
-//         dataType: 'JSON',
-//         data    : sent_data,
-//         success: ( res ) => {
-//             console.log(res);
-//             if ( res.result ) {
-//                 const data = res.data;
-//                 // const { title, date, category_id, status, amount } = data;
-//                 // $( '#m-title' ).val( title );
-//                 // $( '#m-date' ).val( date );
-//                 // $( '#m-category' ).val( category_id );
-//                 // $( '#m-status' ).val( status );
-//                 // $( '#m-amount' ).val( amount );
-//             }
-//             return res;
-//         },
-//         error: ( err ) => {
-//             Toast.fire( {
-//                 icon : 'error',
-//                 title: 'Read Wallet Error'
-//             } );
-//         }
-//     } );
-// }
+function read_finance_category() {
+    const read_url = `${ api_url }finance_category/read.php`;
+    const id = finance_category_record_form.find( '#id' ).val();
+    const sent_data = { id };
+    $.ajax( {
+        type    : 'POST',
+        url     : read_url,
+        dataType: 'JSON',
+        data    : sent_data,
+        success: ( res ) => {
+            if ( res.result ) {
+                const data = res.data;
+                const { category, color_code, background_color_code, icon_code } = data;
+                finance_category_record_form.find( '#category' ).val( category );
+                finance_category_record_form.find( '#color' ).val( color_code );
+                finance_category_record_form.find( '#background-color' ).val( background_color_code );
+                finance_category_record_form.find( '#icon' ).val( icon_code );
+            }
+            return res;
+        },
+        error: ( err ) => {
+            Toast.fire( {
+                icon : 'error',
+                title: 'Read Error'
+            } );
+        }
+    } );
+}
 
-// function create_wallet() {
-//     const create_url = `${ api_url }wallet/create.php`;
-//     // const title          = $( '#m-title' ).val();
-//     // const date           = $( '#m-date' ).val();
-//     // const fk_category_id = $( '#m-category' ).val();
-//     // const fk_wallet_id     = $( '#m-user-id' ).val();
-//     // const fk_wallet_id     = 1;
-//     const fk_user_id     = $( '#m-user-id' ).val();
-//     // const status         = $( '#m-status' ).val();
-//     // const amount         = $( '#m-amount' ).val();
-//     const sent_data = { title, date, fk_category_id, fk_wallet_id, fk_user_id, status, amount };
-//     $.ajax( {
-//         type    : 'POST',
-//         url     : create_url,
-//         dataType: 'JSON',
-//         data    : sent_data,
-//         success: ( res ) => {
-//             console.log(res);
-//             if ( res.result ) {
-//                 close_finance_modal();
-//                 refresh();
-//                 Toast.fire( {
-//                     icon : 'success',
-//                     title: 'Create Wallet Success'
-//                 } );
-//             }
-//             return res;
-//         },
-//         error: ( err ) => {
-//             Toast.fire( {
-//                 icon : 'error',
-//                 title: 'Create Error'
-//             } );
-//         }
-//     } );
-// }
+function create_finance_category() {
+    const create_url = `${ api_url }finance_category/create.php`;
+    const fk_user_id            = finance_category_record_form.find( '#user-id' ).val();
+    const category              = finance_category_record_form.find( '#category' ).val();
+    const color_code            = finance_category_record_form.find( '#color' ).val();
+    const background_color_code = finance_category_record_form.find( '#background-color' ).val();
+    const icon_code             = finance_category_record_form.find( '#icon' ).val();
+    const sent_data = { fk_user_id, category, color_code, background_color_code, icon_code };
+    $.ajax( {
+        type    : 'POST',
+        url     : create_url,
+        dataType: 'JSON',
+        data    : sent_data,
+        success: ( res ) => {
+            if ( res.result ) {
+                refresh();
+                Toast.fire( {
+                    icon : 'success',
+                    title: 'Create Success'
+                } );
+            }
+            return res;
+        },
+        error: ( err ) => {
+            Toast.fire( {
+                icon : 'error',
+                title: 'Create Error'
+            } );
+        }
+    } );
+}
 
-// function update_wallet() {
-//     const update_url = `${ api_url }wallet/update.php`;
-//     const id             = $( '#m-id' ).val();
-//     // const title          = $( '#m-title' ).val();
-//     // const date           = $( '#m-date' ).val();
-//     // const fk_category_id = $( '#m-category' ).val();
-//     // const fk_wallet_id = $( '#m-category' ).val();
-//     const fk_wallet_id = 1;
-//     // const status         = $( '#m-status' ).val();
-//     // const amount         = $( '#m-amount' ).val();
-//     const sent_data = { id, title, date, fk_category_id, fk_wallet_id, status, amount };
-//     $.ajax( {
-//         type    : 'POST',
-//         url     : update_url,
-//         dataType: 'JSON',
-//         data    : sent_data,
-//         success: ( res ) => {
-//             console.log(res);
-//             if ( res.result ) {
-//                 close_finance_modal();
-//                 refresh();
-//                 Toast.fire( {
-//                     icon : 'success',
-//                     title: 'Update Wallet Success'
-//                 } );
-//             }
-//             return res;
-//         },
-//         error: ( err ) => {
-//             Toast.fire( {
-//                 icon : 'error',
-//                 title: 'Update Wallet Error'
-//             } );
-//         }
-//     } );
-// }
+function update_finance_category() {
+    const update_url = `${ api_url }finance_category/update.php`;
+    const id                    = finance_category_record_form.find( '#id' ).val();
+    const category              = finance_category_record_form.find( '#category' ).val();
+    const color_code            = finance_category_record_form.find( '#color' ).val();
+    const background_color_code = finance_category_record_form.find( '#background-color' ).val();
+    const icon_code             = finance_category_record_form.find( '#icon' ).val();
+    const sent_data = { id, category, color_code, background_color_code, icon_code };
+    $.ajax( {
+        type    : 'POST',
+        url     : update_url,
+        dataType: 'JSON',
+        data    : sent_data,
+        success: ( res ) => {
+            if ( res.result ) {
+                refresh();
+                Toast.fire( {
+                    icon : 'success',
+                    title: 'Update Success'
+                } );
+            }
+            return res;
+        },
+        error: ( err ) => {
+            Toast.fire( {
+                icon : 'error',
+                title: 'Update Error'
+            } );
+        }
+    } );
 
-// function delete_wallet() {
-//     const id = $( '#m-id-delete' ).val();
-//     const delete_url = `${ api_url }wallet/delete.php`;
-//     const sent_data = { id };
-//     $.ajax( {
-//         type    : 'POST',
-//         url     : delete_url,
-//         dataType: 'JSON',
-//         data    : sent_data,
-//         success: ( res ) => {
-//             console.log(res);
-//             if ( res.result ) {
-//                 close_finance_delete_modal();
-//                 refresh();
-//                 Toast.fire( {
-//                     icon : 'success',
-//                     title: 'Delete Success'
-//                 } );
-//             }
-//             return res;
-//         },
-//         error: ( err ) => {
-//             Toast.fire( {
-//                 icon : 'error',
-//                 title: 'Delete Error'
-//             } );
-//         }
-//     } );
-// }
+}
+
+function delete_finance_category() {
+    const id = finance_category_record_delete_form.find( '#id' ).val();
+    const delete_url = `${ api_url }finance_category/delete.php`;
+    const sent_data = { id };
+    $.ajax( {
+        type    : 'POST',
+        url     : delete_url,
+        dataType: 'JSON',
+        data    : sent_data,
+        success: ( res ) => {
+            if ( res.result ) {
+                close_finance_category_delete_modal();
+                refresh();
+                Toast.fire( {
+                    icon : 'success',
+                    title: 'Delete Finance Category Success'
+                } );
+            }
+            return res;
+        },
+        error: ( err ) => {
+            Toast.fire( {
+                icon : 'error',
+                title: 'Delete Finance Category Error'
+            } );
+        }
+    } );
+}
 
 
 // Wallet
-
 // /**
 //  * Resets the form inside the wallet modal, clearing all values.
 //  */
