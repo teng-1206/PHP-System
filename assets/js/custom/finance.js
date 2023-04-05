@@ -5,6 +5,8 @@ const finance_category_record        = $( '#m-finance-category-record' );
 const finance_category_record_delete = $( '#m-finance-category-delete-record' );
 const wallet_record                  = $( '#m-wallet-record' );
 const wallet_record_delete           = $( '#m-wallet-delete-record' );
+const select_wallet                  = $( '#m-select-wallet' );
+const manage_finance_category_record = $( '#m-manage-finance-category' );
 
 // ! Finance 
 /**
@@ -455,6 +457,21 @@ function delete_finance() {
 
 //  ! Finance Category
 /**
+ * Opens the finance_category modal and resets its form.
+ */
+function open_manage_finance_category_modal() {
+    read_all_finance_category();
+    manage_finance_category_record.modal( 'show' );
+}
+
+/**
+ * Closes the finance_category modal.
+ */
+function close_manage_finance_category_modal() {
+    manage_finance_category_record.modal( 'hide' );
+}
+
+/**
  * Resets the form inside the finance category modal, clearing all values.
  */
 function reset_finance_category_modal() {
@@ -720,6 +737,15 @@ $( '#finance-category-record-form' ).submit( ( event ) => {
 
 
 // ! Wallet
+function open_select_wallet_modal() {
+    read_all_wallet();
+    select_wallet.modal( 'show' );
+}
+
+function close_select_wallet_modal() {
+    select_wallet.modal( 'hide' );
+}
+
 /**
  * Resets the form inside the wallet modal, clearing all values.
  */
@@ -792,9 +818,35 @@ function read_all_wallet() {
         data    : sent_data,
         success: ( res ) => {
             console.log( res );
-            // if ( res.result ) {
-            //     const data = res.data;
-            // }
+            if ( res.result ) {
+                // const data = res.data;
+                // const {} = data;
+                // const wallet_element = `
+                //                         <div class="card component-card_4">
+                //                             <div class="card-body">
+                //                                 <div class="user-profile col-4">
+                //                                     <img src="assets/img/90x90.jpg" class="" alt="..." width="70" height="70">
+                //                                 </div>
+                //                                 <div class="user-info col">
+                //                                     <h5 class="card-user_name">Cash</h5>
+                //                                     <span class="card-user_occupation">Cash</span>
+                //                                 </div>
+                //                                 <div class="float-right pt-3 pr-3" style="place-self: self-start;" >
+                //                                         <div class="dropdown d-inline-block">
+                //                                             <a class="dropdown-toggle" href="#" role="button" id="pendingTask" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                //                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                //                                             </a>
+                //                                             <div class="dropdown-menu left" aria-labelledby="pendingTask" style="will-change: transform; position: absolute; transform: translate3d(-141px, 19px, 0px); top: 0px; left: 0px;" x-placement="bottom-end">
+                //                                                 <a class="dropdown-item" href="javascript:void(0);">Select</a>
+                //                                                 <a class="dropdown-item" href="javascript:void(0);">Update</a>
+                //                                                 <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                //                                             </div>
+                //                                         </div>
+                //                                     </div>
+                //                             </div>
+                //                         </div>
+                // `;
+            }
             return res;
         },
         error: ( err ) => {
