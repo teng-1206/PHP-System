@@ -9,7 +9,7 @@
         $finance->set( 'title', $crypto->encrypt( htmlspecialchars( $_POST[ 'title' ] ) ) );
         $finance->set( 'date', htmlspecialchars( $_POST[ 'date' ] ) );
         $finance->set( 'status', $crypto->encrypt( htmlspecialchars( $_POST[ 'status' ] ) ) );
-        $finance->set( 'amount', $crypto->encrypt( number_format( htmlspecialchars( $_POST[ 'amount' ] ) ), 2, '.', ',' ) );
+        $finance->set( 'amount', $crypto->encrypt( number_format( $_POST[ 'amount' ] , 2, '.', ',' ) ) );
         $finance->set( 'fk_category_id', htmlspecialchars( $_POST[ 'fk_category_id' ] ) );
         $finance->set( 'fk_wallet_id', htmlspecialchars( $_POST[ 'fk_wallet_id' ] ) );
         $finance->set( 'fk_user_id', htmlspecialchars( $_POST[ 'fk_user_id' ] ) );
