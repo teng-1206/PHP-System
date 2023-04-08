@@ -1,6 +1,6 @@
 <?php
     include_once( realpath( dirname( __FILE__ ) . "/../../config/config.php" ) );
-    include_once( MODULES_PATH . "/wallet.php" );
+    include_once( MODULES_PATH . "wallet.php" );
 
     if ( isset( $_POST[ 'id' ] ) )
     {
@@ -13,7 +13,10 @@
         $wallet = $wallet_data_connector->convert( $wallet );
 
         $wallet->set( 'name', $crypto->encrypt( $_POST[ 'name' ] ) );
-        $wallet->set( 'amount', $crypto->encrypt( $_POST[ 'amount' ] ) );
+        $wallet->set( 'status', $crypto->encrypt( $_POST[ 'status' ] ) );
+        $wallet->set( 'category', $crypto->encrypt( $_POST[ 'category' ] ) );
+        $wallet->set( 'amount', $crypto->encrypt( number_format( $_POST[ 'amount' ] , 2, '.', ',' ) ) );
+
         $res = $wallet_data_connector->update( $conn, $wallet );
 
         if ( $res )

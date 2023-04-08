@@ -1,6 +1,6 @@
 <?php
     include_once( realpath( dirname( __FILE__ ) . "/../../config/config.php" ) );
-    include_once( MODULES_PATH . '/wallet.php' );
+    include_once( MODULES_PATH . "wallet.php" );
 
     if ( isset( $_POST[ 'fk_user_id' ] ) )
     {

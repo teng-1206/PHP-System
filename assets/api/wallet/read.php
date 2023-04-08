@@ -1,6 +1,6 @@
 <?php
     include_once( realpath( dirname( __FILE__ ) . "/../../config/config.php" ) );
-    include_once( MODULES_PATH . "/wallet.php" );
+    include_once( MODULES_PATH . "wallet.php" );
 
     if ( isset( $_POST[ 'id' ] ) )
     {
@@ -19,6 +19,8 @@
                 "data" => array(
                     "id"         => $wallet->get( 'id' ),
                     "name"       => $wallet->get( 'name' ),
+                    "status"       => $wallet->get( 'status' ),
+                    "category"       => $wallet->get( 'category' ),
                     "amount"     => $wallet->get( 'amount' ),
                     "fk_user_id" => $wallet->get( 'fk_user_id' ),
                 ),
