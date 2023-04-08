@@ -35,6 +35,7 @@
             "plugins"   => "https://" . DOMAIN_NAME . "/assets/plugins/",
             "templates" => "https://" . DOMAIN_NAME . "/assets/templates/",
             "uploads"   => "https://" . DOMAIN_NAME . "/assets/uploads/",
+            "vendor"   => "https://" . DOMAIN_NAME . "/assets/vendor/",
         ),
         "paths" => array(
             "resources" => "/path/to/assets",
@@ -79,8 +80,12 @@
 
     defined( 'UPLOADS_PATH' )
         or define( 'UPLOADS_PATH', ASSETS_PATH . '//uploads//' );
+        
+    defined( 'VENDOR_PATH' )
+        or define( 'VENDOR_PATH', ASSETS_PATH . '//vendor//' );
 
     include_once( MODULES_PATH . 'cryptography.php' );
+    include_once( VENDOR_PATH . 'autoload.php' );
     $crypto = new Cryptography();
 
     session_start();
