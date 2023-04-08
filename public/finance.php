@@ -26,22 +26,16 @@
     <link rel="stylesheet" type="text/css" href="<?= $config[ 'urls' ][ 'plugins' ] . "table/datatable/datatables.min.css"; ?>">
     <link rel="stylesheet" type="text/css" href="<?= $config[ 'urls' ][ 'plugins' ] . "table/datatable/custom_dt_custom.css"; ?>">
     <link rel="stylesheet" type="text/css" href="<?= $config[ 'urls' ][ 'plugins' ] . "table/datatable/dt-global_style.min.css"; ?>">
+
+    <link rel="stylesheet" type="text/css" href="<?= $config[ 'urls' ][ 'css' ] . "components/custom-list-group.css"; ?>">
     <!-- Data Table End -->
 
     <!-- Finance CSS Start -->
     <link rel="stylesheet" type="text/css" href="<?= $config[ 'urls' ][ 'css' ] . "custom/finance.css"; ?> ">
     <!-- Finance CSS End -->
 
-    <style>
-        /* #category-area {
-            margin-top: -160px;
-        } */
 
-        /* @media only screen and (max-width: 450px) {
-            #category-area {
-                margin-top: unset;
-            }
-        } */
+    <style>
 
         
 /*
@@ -133,8 +127,8 @@
         <!-- Sidebar End  -->
 
         <!--  -->
-        <!-- <input type="hidden" id="user-id" name="user-id" value=""> -->
-        <!-- <input type="hidden" id="wallet-id" name="wallet-id" value=""> -->
+        <input type="hidden" id="user-id" name="user-id" value="<?= $user->get( 'id' ) ?>">
+        <input type="hidden" id="wallet-id" name="wallet-id" value="1">
         <!--  -->
 
         <!-- Content Area Start -->
@@ -142,60 +136,29 @@
             <div class="layout-px-spacing">
                 <div class="row layout-top-spacing">
 
-                    <div class="col-12 col-sm-12 layout-spacing justify-content-center">
-                        <div id="" class="widget finance-summary-widget">
-                            <!-- <div class="widget-heading">Incomes</div> -->
-                            <div class="widget-content row">
-                                <div class="row col-12">
-
-                                    <button id="btn-add-record" class="btn btn-primary rounded-pill shadow" style="" onclick="open_create_finance()">
-                                        <i class="fas fa-plus-circle"></i>&nbsp;<span>Record</span>
-                                    </button>
-                                    <button id="btn-add-finance-category" class="btn btn-primary rounded-pill shadow" style="" onclick="open_create_finance_category()">
-                                        <i class="fas fa-plus-circle"></i>&nbsp;<span>Category</span>
-                                    </button>
-                                    <button id="btn-add-wallet" class="btn btn-primary rounded-pill shadow" style="" onclick="open_create_wallet()">
-                                        <i class="fas fa-plus-circle"></i>&nbsp;<span>Wallet</span>
-                                    </button>
-
-                                    <div class="float-right">
-                                    <select id="select-date" name="select-date" class=" form-control form-control-sm" >
-                                        <option value="Today" selected >Today</option>
-                                        <option value="This Week">This Week</option>
-                                        <option value="This Month">This Month</option>
-                                        <option value="This Year">This Year</option>
-                                        <option value="Last 30 Days">Last 30 Days</option>
-                                        <option value="Last 90 Days">Last 90 Days</option>
-                                        <option value="All">All</option>
-                                    </select>
-                                </div>
-
-                                    <!-- <div class="btn-group mb-4 mr-2" role="group">
-                                        <button id="btnOutline" type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Today <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
-                                        <div class="dropdown-menu" aria-labelledby="btnOutline">
-                                            <a href="javascript:void(0);" class="dropdown-item"><i class="flaticon-home-fill-1 mr-1"></i>Today</a>
-                                            <a href="javascript:void(0);" class="dropdown-item"><i class="flaticon-gear-fill mr-1"></i>Yesterday</a>
-                                            <a href="javascript:void(0);" class="dropdown-item"><i class="flaticon-bell-fill-2 mr-1"></i>This Week</a>
-                                            <a href="javascript:void(0);" class="dropdown-item"><i class="flaticon-dots mr-1"></i>Last Week</a>
-                                        </div>
-                                    </div> -->
-                
-                                </div>
-                            </div>
-                        </div>
+                    <div class="col-12 layout-spacing justify-content-center">
+                        <button id="btn-add-record" class="btn btn-primary rounded-pill shadow" style="" onclick="open_create_finance()">
+                            <i class="fas fa-plus-circle"></i>&nbsp;<span>Record</span>
+                        </button>
+                        <button id="btn-add-finance-category" class="btn btn-primary rounded-pill shadow" style="" onclick="open_create_finance_category()">
+                            <i class="fas fa-plus-circle"></i>&nbsp;<span>Category</span>
+                        </button>
+                        <button id="btn-add-wallet" class="btn btn-primary rounded-pill shadow" style="" onclick="open_create_wallet()">
+                            <i class="fas fa-plus-circle"></i>&nbsp;<span>Wallet</span>
+                        </button>
                     </div>
 
                     <!-- Summary Area START -->
                     <div class="summary-area col-12 col-sm-3 layout-spacing justify-content-center">
                         <div id="" class="widget finance-summary-widget">
-                            <div class="widget-heading">Wallet
+                            <div class="widget-heading"><span id="current-wallet-name">Wallet</span>
                                 <div class="float-right">
                                     <div class="dropdown d-inline-block">
                                         <a class="dropdown-toggle" href="#" role="button" id="pendingTask" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
                                         </a>
                                         <div class="dropdown-menu left" aria-labelledby="pendingTask" style="will-change: transform; position: absolute; transform: translate3d(-141px, 19px, 0px); top: 0px; left: 0px;" x-placement="bottom-end">
-                                            <a class="dropdown-item" href="javascript:void(open_select_wallet_modal());">Change</a>
+                                            <a class="dropdown-item" href="javascript:void(open_manage_wallet_modal());">Change</a>
                                         </div>
                                     </div>
                                 </div>
@@ -276,20 +239,28 @@
                     <div id="table-area" class="col-12 col-sm-9 layout-spacing">
                         <div class="widget">
                             <div class="widget-heading">
+                                Records  ( <span id="select-date-label">Today</span> )
                                 <!-- <button id="btn-add-record" class="btn btn-sm btn-primary rounded-pill shadow mb-3" style="" onclick="open_create_finance()">
                                     <i class="fas fa-plus-circle"></i>
                                 </button> -->
-                                <!-- <div class="float-right">
-                                    <select id="select-date" name="select-date" class=" form-control form-control-sm" >
-                                        <option value="Today" selected >Today</option>
-                                        <option value="This Week">This Week</option>
-                                        <option value="This Month">This Month</option>
-                                        <option value="This Year">This Year</option>
-                                        <option value="Last 30 Days">Last 30 Days</option>
-                                        <option value="Last 90 Days">Last 90 Days</option>
-                                        <option value="All">All</option>
-                                    </select>
-                                </div> -->
+                                <div class="float-right">
+                                    <div class="dropdown d-inline-block">
+                                        <a class="dropdown-toggle" href="#" role="button" id="pendingTask" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                                        </a>
+                                        <div class="dropdown-menu left" aria-labelledby="pendingTask" style="will-change: transform; position: absolute; transform: translate3d(-141px, 19px, 0px); top: 0px; left: 0px;" x-placement="bottom-end">
+                                            <a class="dropdown-item" href="javascript:void( update_select_date( 'Today' ));">Today</a>
+                                            <a class="dropdown-item" href="javascript:void( update_select_date( 'This Week' ) );">This Week</a>
+                                            <a class="dropdown-item" href="javascript:void( update_select_date( 'This Month' ) );">This Month</a>
+                                            <a class="dropdown-item" href="javascript:void( update_select_date( 'This Year' ));">This Year</a>
+                                            <!-- <a class="dropdown-item" href="javascript:void( update_select_date( 'Yesterday' );">Yesterday</a> -->
+                                            <a class="dropdown-item" href="javascript:void( update_select_date( 'Last Month' ) )">Last Month</a>
+                                            <a class="dropdown-item" href="javascript:void( update_select_date( 'Last Year' ));">Last Year</a>
+                                            <a class="dropdown-item" href="javascript:void( update_select_date( 'All' ));">All</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="select-date" value="Today">
                             </div>
                             <div class="widget-content">
                                 <table id="table-finance" class="table style-1 dt-table-hover non-hover">
@@ -311,6 +282,8 @@
                     </div>
                     <!-- Table Area START -->
 
+                    
+
                     <!-- Category Area START -->
                     <div id="category-area" class="col-12 col-sm-3 layout-spacing justify-content-center">
                         <div id="finance-category-summary-widget" class="widget">
@@ -327,7 +300,6 @@
                                 </div>
                             </div>
                             <div id="finance-category-list" class="widget-content">
-                                <small>No Data Available </small>
                             </div>
                         </div>
                     </div>
@@ -467,7 +439,7 @@
                                 </form>
                             </div>
                             <div class="modal-footer border-0">
-                                <button type="button" class="btn rounded-pill" onclick="close_finance_category_modal()" style="width: 100px; height: 40px;">Cancel</button>
+                                <button type="button" class="btn rounded-pill" onclick="cancel_finance_category_modal()" style="width: 100px; height: 40px;">Cancel</button>
                                 <button type="submit" class="btn btn-primary rounded-pill" form="finance-category-record-form" style="width: 100px; height: 40px;" onclick="">Submit</button>
                             </div>
                         </div>
@@ -493,7 +465,7 @@
                                 </form>
                             </div>
                             <div class="modal-footer border-0">
-                                <button type="button" class="btn rounded-pill" onclick="close_finance_category_delete_modal()" style="width: 100px; height: 40px;">Cancel</button>
+                                <button type="button" class="btn rounded-pill" onclick="cancel_finance_category_delete_modal()" style="width: 100px; height: 40px;">Cancel</button>
                                 <button type="button" class="btn btn-danger rounded-pill" style="width: 100px; height: 40px;" onclick="delete_finance_category()">Delete</button>
                             </div>
                         </div>
@@ -540,7 +512,7 @@
                                 </form>
                             </div>
                             <div class="modal-footer border-0">
-                                <button type="button" class="btn rounded-pill" onclick="close_wallet_modal()" style="width: 100px; height: 40px;">Cancel</button>
+                                <button type="button" class="btn rounded-pill" onclick="cancel_wallet_modal()" style="width: 100px; height: 40px;">Cancel</button>
                                 <button type="submit" class="btn btn-primary rounded-pill" form="wallet-record-form" style="width: 100px; height: 40px;" onclick="">Submit</button>
                             </div>
                         </div>
@@ -566,7 +538,7 @@
                                 </form>
                             </div>
                             <div class="modal-footer border-0">
-                                <button type="button" class="btn rounded-pill" onclick="close_wallet_delete_modal()" style="width: 100px; height: 40px;">Cancel</button>
+                                <button type="button" class="btn rounded-pill" onclick="cancel_wallet_delete_modal()" style="width: 100px; height: 40px;">Cancel</button>
                                 <button type="button" class="btn btn-danger rounded-pill" style="width: 100px; height: 40px;" onclick="delete_wallet()">Delete</button>
                             </div>
                         </div>
@@ -574,77 +546,30 @@
                 </div>
                 <!-- Wallet Delete Modal End -->
 
-                <!-- Select Wallet Modal Start -->
-                <div class="modal fade back-blur-3" id="m-select-wallet" tabindex="-1" aria-hidden="true">
+                <!-- Manage Wallet Modal Start -->
+                <div class="modal fade back-blur-3" id="m-manage-wallet" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
                         <div class="modal-content p-3 rounded-5">
                             <div class="modal-header border-0">
                                 <h5 id="modal-header-title" class="modal-title">Select Wallet</h5>
                             </div>
                             <div class="modal-body">
-                                <form id="select-wallet-form">
+                                <form id="manage-wallet-form">
                                     <div class="row ">
                                         <div id="wallet-content-area" class="col-12 mb-4">
-                                            <div class="card component-card_4">
-                                                <div class="card-body">
-                                                    <div class="user-profile col-4">
-                                                        <img src="assets/img/90x90.jpg" class="" alt="..." width="70" height="70">
-                                                    </div>
-                                                    <div class="user-info col">
-                                                        <h5 class="card-user_name">Cash</h5>
-                                                        <span class="card-user_occupation">Cash</span>
-                                                        
-                                                        <!-- <p class="card-text"> Maecenas nec mi vel lacus condimentum rhoncus dignissim egestas orci. Integer blandit porta placerat. Vestibulum in ultricies. </p> -->
-                                                    </div>
-                                                    <div class="float-right pt-3 pr-3" style="place-self: self-start;" >
-                                                            <div class="dropdown d-inline-block">
-                                                                <a class="dropdown-toggle" href="#" role="button" id="pendingTask" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
-                                                                </a>
-                                                                <div class="dropdown-menu left" aria-labelledby="pendingTask" style="will-change: transform; position: absolute; transform: translate3d(-141px, 19px, 0px); top: 0px; left: 0px;" x-placement="bottom-end">
-                                                                    <a class="dropdown-item" href="javascript:void(0);">Select</a>
-                                                                    <a class="dropdown-item" href="javascript:void(0);">Update</a>
-                                                                    <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                </div>
-                                            </div>
-                                            <div class="card component-card_4">
-                                                <div class="card-body">
-                                                    <div class="user-profile col-4">
-                                                        <img src="assets/img/90x90.jpg" class="" alt="..." width="70" height="70">
-                                                    </div>
-                                                    <div class="user-info col">
-                                                        <h5 class="card-user_name">Public Bank</h5>
-                                                        <span class="card-user_occupation">Saving Account</span>
-                                                    </div>
-                                                    <div class="float-right pt-3 pr-3" style="place-self: self-start;" >
-                                                            <div class="dropdown d-inline-block">
-                                                                <a class="dropdown-toggle" href="#" role="button" id="pendingTask" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
-                                                                </a>
-                                                                <div class="dropdown-menu left" aria-labelledby="pendingTask" style="will-change: transform; position: absolute; transform: translate3d(-141px, 19px, 0px); top: 0px; left: 0px;" x-placement="bottom-end">
-                                                                    <a class="dropdown-item" href="javascript:void(0);">Update</a>
-                                                                    <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </form>
                             </div>
                             <div class="modal-footer border-0">
-                                <button type="button" class="btn rounded-pill" onclick="close_select_wallet_modal();" style="width: 100px; height: 40px;">Cancel</button>
+                                <button type="button" class="btn rounded-pill" onclick="close_manage_wallet_modal();" style="width: 100px; height: 40px;">Cancel</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- Select Wallet Modal End -->
+                <!-- Manage Wallet Modal End -->
 
-                <!-- Select Wallet Modal Start -->
+                <!-- Manage Finance Category Modal Start -->
                 <div class="modal fade back-blur-3" id="m-manage-finance-category" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
                         <div class="modal-content p-3 rounded-5">
@@ -654,29 +579,7 @@
                             <div class="modal-body">
                                 <form id="manage-finance-category-form">
                                     <div class="row ">
-                                        <div id="wallet-content-area" class="col-12 mb-4">
-                                            <div class="card component-card_4">
-                                                <div class="card-body">
-                                                    <div class="user-profile col-4">
-                                                        <img src="assets/img/90x90.jpg" class="" alt="..." width="70" height="70">
-                                                    </div>
-                                                    <div class="user-info col">
-                                                        <h5 class="card-user_name">Public Bank</h5>
-                                                        <span class="card-user_occupation">Saving Account</span>
-                                                    </div>
-                                                    <div class="float-right pt-3 pr-3" style="place-self: self-start;" >
-                                                            <div class="dropdown d-inline-block">
-                                                                <a class="dropdown-toggle" href="#" role="button" id="pendingTask" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
-                                                                </a>
-                                                                <div class="dropdown-menu left" aria-labelledby="pendingTask" style="will-change: transform; position: absolute; transform: translate3d(-141px, 19px, 0px); top: 0px; left: 0px;" x-placement="bottom-end">
-                                                                    <a class="dropdown-item" href="javascript:void(0);">Update</a>
-                                                                    <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                </div>
-                                            </div>
+                                        <div id="finance-category-content-area" class="col-12 mb-4">
                                         </div>
                                     </div>
                                 </form>
@@ -687,7 +590,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- Select Wallet Modal End -->
+                <!-- Manage Finance Category Modal End -->
 
             </div>
 
