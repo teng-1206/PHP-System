@@ -131,8 +131,7 @@ function read_finance_summary() {
         }
     } ); 
     const summary_url = `${ api_url }finance/summary.php`;
-    // const fk_wallet_id = $( '#m-user-id' ).val();
-    const fk_wallet_id = 1;
+    const fk_wallet_id = $( '#wallet-id' ).val();
     const fk_user_id   = finance_record.find( '#user-id' ).val();
     const select_date  = $( '#select-date' ).val();
     const sent_data    = { fk_wallet_id, fk_user_id, select_date };
@@ -188,8 +187,7 @@ function read_finance_category_summary() {
         }
     } );
     const summary_url = `${ api_url }finance_category/summary.php`;
-    // const fk_wallet_id = $( '#m-user-id' ).val();
-    const fk_wallet_id = 1;
+    const fk_wallet_id = $( '#wallet-id' ).val();
     const fk_user_id   = finance_record.find( '#user-id' ).val();
     const select_date  = $( '#select-date' ).val();
     const sent_data    = { fk_wallet_id, fk_user_id, select_date };
@@ -277,8 +275,7 @@ function read_all_finance() {
     table.clear().draw();
     const read_all_url = `${ api_url }finance/read_all.php`;
     const fk_user_id   = finance_record.find( '#user-id' ).val();
-    const fk_wallet_id = 1;
-    // const fk_wallet_id = $( '#m-user-id' ).val();
+    const fk_wallet_id = $( '#wallet-id' ).val();
     const select_date = $( '#select-date' ).val();
     const sent_data = { fk_wallet_id, fk_user_id, select_date };
     $.ajax( {
@@ -360,8 +357,7 @@ function create_finance() {
     const title          = finance_record.find( '#title' ).val();
     const date           = finance_record.find( '#date' ).val();
     const fk_category_id = finance_record.find( '#category' ).val();
-    // const fk_wallet_id     = $( '#m-user-id' ).val();
-    const fk_wallet_id = 1;
+    const fk_wallet_id     = $( '#wallet-id' ).val();
     const fk_user_id   = finance_record.find( '#user-id' ).val();
     const status       = finance_record.find( '#status' ).val();
     const amount       = finance_record.find( '#amount' ).val();
@@ -398,8 +394,7 @@ function update_finance() {
     const title          = finance_record.find( '#title' ).val();
     const date           = finance_record.find( '#date' ).val();
     const fk_category_id = finance_record.find( '#category' ).val();
-    // const fk_wallet_id = $( '#m-category' ).val();
-    const fk_wallet_id = 1;
+    const fk_wallet_id = $( '#wallet-id' ).val();
     const status         = finance_record.find( '#status' ).val();
     const amount         = finance_record.find( '#amount' ).val();
     const sent_data = { id, title, date, fk_category_id, fk_wallet_id, status, amount };
@@ -779,6 +774,7 @@ function select_wallet( id ) {
     $( '#wallet-id' ).val( id );
     read_wallet_summary();
     close_manage_wallet_modal();
+    refresh();
 }
 
 function open_manage_wallet_modal() {
@@ -984,7 +980,6 @@ function create_wallet() {
     const name          = wallet_record.find( '#name' ).val();
     const category = wallet_record.find( '#category' ).val();
     const fk_wallet_id     = wallet_record.find( '#id' ).val();
-    // const fk_wallet_id     = 1;
     const fk_user_id     = wallet_record.find( '#user-id' ).val();
     const status         = wallet_record.find( '#status' ).val();
     const amount         = wallet_record.find( '#amount' ).val();
@@ -1023,7 +1018,6 @@ function update_wallet() {
     const category = wallet_record.find( '#category' ).val();
     const amount   = wallet_record.find( '#amount' ).val();
     const fk_wallet_id = wallet_record.find( '#id' ).val();
-    // const fk_wallet_id = 1;
     const sent_data = { id, name, category, fk_wallet_id, amount };
     $.ajax( {
         type    : 'POST',
@@ -1105,21 +1099,12 @@ function update_select_date( value ) {
     refresh();
 }
 
-
-// Change time period
-// $( '#select-date' ).change( ( event ) => {
-//     event.preventDefault();
-//     refresh();
-// } );
-
 function refresh() {
     read_all_finance();
     read_finance_summary();
     read_finance_category_summary();
     
     read_wallet_summary();
-
-    // read_wallet();
 }
 
 refresh();
