@@ -7,7 +7,7 @@
         private $color_code;
         private $background_color_code;
         private $icon_code;
-        private $fk_category_id;
+        private $fk_user_id;
         private $soft_delete;
         private $create_at;
         private $update_at;
