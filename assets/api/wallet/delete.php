@@ -7,15 +7,15 @@
         $wallet = new Wallet();
         $wallet->set( 'id', $_POST[ 'id' ] );
 
-        $wallet_data_connector = new Wallet_Data_Connector();
-        $wallet = $wallet_data_connector->read( $conn, $wallet );
-        $wallet = $wallet_data_connector->convert( $wallet );
+        $wallet_controller = new Wallet_Controller();
+        $wallet = $wallet_controller->read( $conn, $wallet );
+        $wallet = $wallet_controller->convert( $wallet );
         if ( $wallet->get( 'status' ) == "Default" )
         {
             echo json_encode( array( "result" => false, "message" => "This wallet cannot delete" ) );
             die();
         }
-        $res = $wallet_data_connector->delete( $conn, $wallet );
+        $res = $wallet_controller->delete( $conn, $wallet );
 
         if ( $res )
         {

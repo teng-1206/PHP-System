@@ -7,17 +7,17 @@
         $wallet = new Wallet();
         $wallet->set( 'id', $_POST[ 'id' ] );
 
-        $wallet_data_connector = new Wallet_Data_Connector();
-        $wallet = $wallet_data_connector->read( $conn, $wallet );
+        $wallet_controller = new Wallet_Controller();
+        $wallet = $wallet_controller->read( $conn, $wallet );
         $wallet = $crypto->decrypt_object( $wallet );
-        $wallet = $wallet_data_connector->convert( $wallet );
+        $wallet = $wallet_controller->convert( $wallet );
 
         $wallet->set( 'name', $crypto->encrypt( $_POST[ 'name' ] ) );
         $wallet->set( 'status', $crypto->encrypt( $_POST[ 'status' ] ) );
         $wallet->set( 'category', $crypto->encrypt( $_POST[ 'category' ] ) );
         $wallet->set( 'amount', $crypto->encrypt( number_format( $_POST[ 'amount' ] , 2, '.', ',' ) ) );
 
-        $res = $wallet_data_connector->update( $conn, $wallet );
+        $res = $wallet_controller->update( $conn, $wallet );
 
         if ( $res )
         {

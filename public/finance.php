@@ -1,11 +1,20 @@
 <?php include_once( realpath( dirname( __FILE__ ) . "//assets//config//config.php" ) ); ?>
 <?php include_once( TEMPLATES_PATH . 'validation.php' ); ?>
 <?php include_once( MODULES_PATH . 'user.php' ); ?>
+<?php include_once( MODULES_PATH . 'wallet.php' ); ?>
 <?php
     $user_controller = new User_Controller();
     $user = new User();
     $user->set( 'id', $_SESSION[ 'user_id' ] );
     $user = $user_controller->read( $conn2, $user );
+
+    $wallet_controller = new Wallet_Controller();
+    $wallet = new Wallet();
+    $wallet->set( 'fk_user_id', $_SESSION[ 'user_id' ] );
+    $wallet->set( 'status', $crypto->encrypt( 'Default' ) );
+    $wallet = $wallet_controller->read_default_wallet( $conn, $wallet );
+    $wallet = $crypto->decrypt_object( $wallet );
+    $wallet = $wallet_controller->convert( $wallet );
 ?>
 
 <!DOCTYPE html>
@@ -128,7 +137,8 @@
 
         <!--  -->
         <input type="hidden" id="user-id" name="user-id" value="<?= $user->get( 'id' ) ?>">
-        <input type="hidden" id="wallet-id" name="wallet-id" value="1">
+        <input type="hidden" id="wallet-id" name="wallet-id" value="<?= $wallet->get( 'id' ) ?>">
+        
         <!--  -->
 
         <!-- Content Area Start -->

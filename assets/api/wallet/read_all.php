@@ -7,8 +7,8 @@
         $wallet = new Wallet();
         $wallet->set( 'fk_user_id', $_POST[ 'fk_user_id' ] );
 
-        $wallet_data_connector = new Wallet_Data_Connector();
-        $all_wallet = $wallet_data_connector->read_all_by_user_id( $conn, $wallet );
+        $wallet_controller = new Wallet_Controller();
+        $all_wallet = $wallet_controller->read_all_by_user_id( $conn, $wallet );
         $all_wallet = $crypto->decrypt_all_object( $all_wallet );
 
         if ( ! is_null( $all_wallet ) )

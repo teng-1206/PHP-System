@@ -11,8 +11,8 @@
         $wallet->set( 'amount', $crypto->encrypt( number_format( $_POST[ 'amount' ] , 2, '.', ',' ) ) );
         $wallet->set( 'fk_user_id', $_POST[ 'fk_user_id' ] );
 
-        $wallet_data_connector = new Wallet_Data_Connector();
-        $wallet_id = $wallet_data_connector->create( $conn, $wallet );
+        $wallet_controller = new Wallet_Controller();
+        $wallet_id = $wallet_controller->create( $conn, $wallet );
 
         if ( isset( $wallet_id ) )
         {
