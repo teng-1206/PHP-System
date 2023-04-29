@@ -50,9 +50,9 @@
                     <!-- <li>
                         <a href="finance-report"> Report </a>
                     </li> -->
-                    <li class="<?= $current_page == 'finance-category.php' ? 'active' : '' ?>">
+                    <!-- <li class="<?= ''//$current_page == 'finance-category.php' ? 'active' : '' ?>">
                         <a href="finance-category"> Category </a>
-                    </li>
+                    </li> -->
                 </ul>
             </li>
             <!-- Finance End -->
