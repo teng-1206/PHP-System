@@ -15,7 +15,7 @@
 
         $finance_controller = new Finance_Controller();
         $all_finance = $finance_controller->read_all_by_user_id( $conn, $finance, $select_date );
-        $all_finance = $crypto->decrypt_all_object( $all_finance );
+        // $all_finance = $crypto->decrypt_all_object( $all_finance );
         
         if ( ! is_null( $all_finance ) )
         {

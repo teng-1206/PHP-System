@@ -16,7 +16,7 @@
             die();
         }
 
-        $finance = $crypto->decrypt_object( $finance );
+        // $finance = $crypto->decrypt_object( $finance );
         if ( is_null( $finance ) )
         {
             echo json_encode( array( "result" => $finance, "message" => "Finance record decrypt error" ) );
@@ -33,7 +33,7 @@
         $wallet = new Wallet();
         $wallet->set( 'id', $finance->get( 'fk_wallet_id' ) );
 
-        $wallet_data_connector = new Wallet_Data_Connector();
+        $wallet_data_connector = new Wallet_Controller();
         $wallet = $wallet_data_connector->read( $conn, $wallet );
         if ( is_null( $wallet ) )
         {
@@ -48,7 +48,8 @@
             die();
         }
 
-        $total = ( float ) $crypto->decrypt( $wallet->get( 'amount' ) );
+        // $total = ( float ) $crypto->decrypt( $wallet->get( 'amount' ) );
+        $total = ( float ) ( $wallet->get( 'amount' ) );
         $old_amount = ( float ) $finance->get( 'amount' );
         $new_amount = ( float ) $_POST[ 'amount' ];
 
@@ -75,13 +76,17 @@
             $total = $total + $new_amount;
         }
         $total = number_format( $total, 2, '.', ',' );
-        $wallet->set( 'amount', $crypto->encrypt( $total ) );
+        // $wallet->set( 'amount', $crypto->encrypt( $total ) );
+        $wallet->set( 'amount', ( $total ) );
         $wallet_res = $wallet_data_connector->update( $conn, $wallet );
 
-        $finance->set( 'title', $crypto->encrypt( htmlspecialchars( $_POST[ 'title' ] ) ) );
+        // $finance->set( 'title', $crypto->encrypt( htmlspecialchars( $_POST[ 'title' ] ) ) );
+        $finance->set( 'title', ( htmlspecialchars( $_POST[ 'title' ] ) ) );
         $finance->set( 'date', htmlspecialchars( $_POST[ 'date' ] ) );
-        $finance->set( 'status', $crypto->encrypt( htmlspecialchars( $_POST[ 'status' ] ) ) );
-        $finance->set( 'amount', $crypto->encrypt( number_format( htmlspecialchars( $_POST[ 'amount' ] ) , 2, '.', ',' ) ) );
+        // $finance->set( 'status', $crypto->encrypt( htmlspecialchars( $_POST[ 'status' ] ) ) );
+        $finance->set( 'status', ( htmlspecialchars( $_POST[ 'status' ] ) ) );
+        // $finance->set( 'amount', $crypto->encrypt( number_format( htmlspecialchars( $_POST[ 'amount' ] ) , 2, '.', ',' ) ) );
+        $finance->set( 'amount', ( number_format( htmlspecialchars( $_POST[ 'amount' ] ) , 2, '.', ',' ) ) );
         $finance->set( 'fk_category_id', htmlspecialchars( $_POST[ 'fk_category_id' ] ) );
         $finance->set( 'fk_wallet_id', htmlspecialchars( $_POST[ 'fk_wallet_id' ] ) );
         $finance_res = $finance_controller->update( $conn, $finance );

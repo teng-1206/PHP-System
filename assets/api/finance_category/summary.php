@@ -17,14 +17,14 @@
 
         $finance_controller = new Finance_Controller();
         $all_finance = $finance_controller->read_all_by_user_id( $conn, $finance, $select_date );
-        $all_finance = $crypto->decrypt_all_object( $all_finance );
+        // $all_finance = $crypto->decrypt_all_object( $all_finance );
 
         $finance_category = new Finance_Category();
         $finance_category->set( 'fk_user_id', htmlspecialchars( $_POST[ 'fk_user_id' ] ) );
 
         $finance_category_controller = new Finance_Category_Controller();
         $all_finance_category = $finance_category_controller->read_all_by_user_id( $conn, $finance_category );
-        $all_finance_category = $crypto->decrypt_all_object( $all_finance_category );
+        // $all_finance_category = $crypto->decrypt_all_object( $all_finance_category );
         
         $data = array();
         if ( ! is_null( $all_finance_category ) && ! is_null( $all_finance ) )

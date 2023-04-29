@@ -16,7 +16,7 @@
             die();
         }
 
-        $finance = $crypto->decrypt_object( $finance );
+        // $finance = $crypto->decrypt_object( $finance );
         if ( is_null( $finance ) )
         {
             echo json_encode( array( "result" => $finance, "message" => "Finance record decrypt error" ) );
@@ -41,7 +41,7 @@
             echo json_encode( array( "result" => $finance, "message" => "Finance category record not found" ) );
             die();
         }
-        $finance_category = $crypto->decrypt_object( $finance_category );
+        // $finance_category = $crypto->decrypt_object( $finance_category );
         if ( is_null( $finance_category ) )
         {
             echo json_encode( array( "result" => $finance, "message" => "Finance category record decrypt error" ) );

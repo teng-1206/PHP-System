@@ -9,7 +9,11 @@
 
         $wallet_controller = new Wallet_Controller();
         $all_wallet = $wallet_controller->read_all_by_user_id( $conn, $wallet );
-        $all_wallet = $crypto->decrypt_all_object( $all_wallet );
+        // $all_wallet = $crypto->decrypt_all_object( $all_wallet );
+        
+        usort( $all_wallet, function( $a, $b ) {
+            return strcmp( $a[ 'name' ], $b[ 'name' ] );
+        } );
 
         if ( ! is_null( $all_wallet ) )
         {

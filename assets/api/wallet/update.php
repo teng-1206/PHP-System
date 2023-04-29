@@ -9,13 +9,17 @@
 
         $wallet_controller = new Wallet_Controller();
         $wallet = $wallet_controller->read( $conn, $wallet );
-        $wallet = $crypto->decrypt_object( $wallet );
+        // $wallet = $crypto->decrypt_object( $wallet );
         $wallet = $wallet_controller->convert( $wallet );
 
-        $wallet->set( 'name', $crypto->encrypt( $_POST[ 'name' ] ) );
-        $wallet->set( 'status', $crypto->encrypt( $_POST[ 'status' ] ) );
-        $wallet->set( 'category', $crypto->encrypt( $_POST[ 'category' ] ) );
-        $wallet->set( 'amount', $crypto->encrypt( number_format( $_POST[ 'amount' ] , 2, '.', ',' ) ) );
+        // $wallet->set( 'name', $crypto->encrypt( $_POST[ 'name' ] ) );
+        $wallet->set( 'name', ( $_POST[ 'name' ] ) );
+        // $wallet->set( 'status', $crypto->encrypt( $_POST[ 'status' ] ) );
+        $wallet->set( 'status', ( $_POST[ 'status' ] ) );
+        // $wallet->set( 'category', $crypto->encrypt( $_POST[ 'category' ] ) );
+        $wallet->set( 'category', ( $_POST[ 'category' ] ) );
+        // $wallet->set( 'amount', $crypto->encrypt( number_format( $_POST[ 'amount' ] , 2, '.', ',' ) ) );
+        $wallet->set( 'amount', ( number_format( $_POST[ 'amount' ] , 2, '.', ',' ) ) );
 
         $res = $wallet_controller->update( $conn, $wallet );
 

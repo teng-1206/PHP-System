@@ -9,7 +9,7 @@
 
         $wallet_controller = new Wallet_Controller();
         $wallet = $wallet_controller->read( $conn, $wallet );
-        $wallet = $crypto->decrypt_object( $wallet );
+        // $wallet = $crypto->decrypt_object( $wallet );
         $wallet = $wallet_controller->convert( $wallet );
 
         if ( ! is_null( $wallet ) )
@@ -19,8 +19,8 @@
                 "data" => array(
                     "id"         => $wallet->get( 'id' ),
                     "name"       => $wallet->get( 'name' ),
-                    "status"       => $wallet->get( 'status' ),
-                    "category"       => $wallet->get( 'category' ),
+                    "status"     => $wallet->get( 'status' ),
+                    "category"   => $wallet->get( 'category' ),
                     "amount"     => $wallet->get( 'amount' ),
                     "fk_user_id" => $wallet->get( 'fk_user_id' ),
                 ),

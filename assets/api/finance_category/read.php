@@ -10,7 +10,7 @@
 
         $finance_category_controller = new Finance_Category_Controller();
         $finance_category = $finance_category_controller->read( $conn, $finance_category );
-        $finance_category = $crypto->decrypt_object( $finance_category );
+        // $finance_category = $crypto->decrypt_object( $finance_category );
         $finance_category = $finance_category_controller->convert( $finance_category );
 
         if ( ! is_null( $finance_category ) )
