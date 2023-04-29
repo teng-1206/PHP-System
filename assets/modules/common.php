@@ -8,6 +8,12 @@
             return sprintf( '%0.2f', round( $value, 2 ) );
         }
 
+        public static function format_two_decimal( $value )
+        {
+            return number_format( $value, 2, '.', ',' );
+        }
+
+
     }
 
 ?>
