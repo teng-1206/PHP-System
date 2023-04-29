@@ -16,7 +16,7 @@ function reset_finance_modal() {
     finance_record.find( '#title' ).val( '' );
     finance_record.find( '#date' ).val( get_current_day() );
     finance_record.find( '#category' ).prop( 'selectedIndex', 0 );
-    finance_record.find( '#status' ).prop( 'selectedIndex', 0 );
+    finance_record.find( '#status' ).prop( 'selectedIndex', 2 );
     finance_record.find( '#amount' ).val( '' );
 }
 
