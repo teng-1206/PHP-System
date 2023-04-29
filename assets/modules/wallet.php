@@ -115,7 +115,7 @@
         {
             $sql = "SELECT * FROM wallet
                     WHERE fk_user_id = ? AND soft_delete = 0
-                    ORDER BY id DESC";
+                    ORDER BY name ASC";
             $stmt = $conn->prepare( $sql );
             $result = $stmt->execute( [
                 $object->get( 'fk_user_id' ),
