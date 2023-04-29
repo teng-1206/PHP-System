@@ -1,10 +1,4 @@
 <?php include_once( realpath( dirname( __FILE__ ) . "//assets//config//config.php" ) ); ?>
-<?php
-    if ( isset( $_SESSION[ 'user_id' ] ) )
-    {
-        echo "<script>location.href='" . $config[ 'urls' ][ 'base' ] . "dashboard'</script>";
-    }
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +10,7 @@
 
     <link rel="icon" type="image/x-icon" sizes="32x32" href="<?= $config[ 'urls' ][ 'img' ] . "icon.ico"; ?>" />
     
-    <title> System | Login </title>
+    <title> System | Register </title>
 
     <!-- Global CSS Start -->
     <!-- Material Bootstrap 5 Start -->
@@ -45,10 +39,10 @@
                 <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                     <div class="card bg-dark text-white" style="border-radius: 1rem;">
                         <div class="card-body p-5 text-center">
-                            <form id="login-form" class="mb-md-5 mt-md-4 pb-3">
+                            <form id="register-form" class="mb-md-5 mt-md-4 pb-3">
                                 <img class="mb-3" src="<?= $config[ 'urls' ][ 'img' ] . "icon-128x128.png"; ?>" height="100px" width="100px" alt="Icon">
-                                <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
-                                <p class="text-white-50 mb-5">Please enter your username and password</p>
+                                <h2 class="fw-bold mb-2 text-uppercase">Register</h2>
+                                <p class="text-white-50 mb-5">Please fill in</p>
                                 <div class="form-outline form-white mb-4">
                                     <input type="text" id="username" name="username" class="form-control form-control-lg" autocomplete="off" required />
                                     <label class="form-label" for="username">Username</label>
@@ -57,13 +51,17 @@
                                     <input type="password" id="password" name="password" class="form-control form-control-lg" autocomplete="off" required />
                                     <label class="form-label" for="password">Password</label>
                                 </div>
+                                <div class="form-outline form-white mb-4">
+                                    <input type="password" id="confirm-password" name="confirm-password" class="form-control form-control-lg" autocomplete="off" required />
+                                    <label class="form-label" for="confirm-password">Confirm Password</label>
+                                </div>
                             </form>
                             <div>
-                                <button id="btn-login" class="btn btn-outline-light btn-lg px-5" type="button">Login</button>
+                                <button id="btn-register" class="btn btn-outline-light btn-lg px-5" type="button">Register</button>
                             </div>
                             <hr>
                             <div>
-                                <button id="btn-register" class="btn btn-outline-light btn-lg px-5" type="button" onclick="window.location.href='register'">Register</button>
+                                <button id="btn-back" class="btn btn-outline-light btn-lg px-5" type="button" onclick="window.location.href='login'">Back</button>
                             </div>
                         </div>
                     </div>
@@ -90,7 +88,7 @@
     <!-- Font Awesome 5 End -->
 
     <!-- Custom JS Start -->
-    <script src="<?= $config[ 'urls' ][ 'js' ] . "custom/login.js"; ?>"></script>
+    <script src="<?= $config[ 'urls' ][ 'js' ] . "custom/register.js"; ?>"></script>
     <!-- Custom JS End -->
 
 </body>
