@@ -5,10 +5,10 @@
     if ( isset( $_POST ) && isset( $_POST[ 'fk_user_id' ] ) )
     {
         $item = new Item();
-        $item->set( 'name', $crypto->encrypt( htmlspecialchars( $_POST[ 'name' ] ) ) );
-        $item->set( 'description', $crypto->encrypt( htmlspecialchars( $_POST[ 'description' ] ) ) );
-        $item->set( 'status',$crypto->encrypt(  htmlspecialchars( $_POST[ 'status' ] ) ) );
-        $item->set( 'price', $crypto->encrypt( htmlspecialchars( $_POST[ 'price' ] ) ) );
+        $item->set( 'name', htmlspecialchars( $_POST[ 'name' ] ) );
+        $item->set( 'description', htmlspecialchars( $_POST[ 'description' ] ) );
+        $item->set( 'status', htmlspecialchars( $_POST[ 'status' ] ) );
+        $item->set( 'price', htmlspecialchars( $_POST[ 'price' ] ) );
         $item->set( 'purchase_date', htmlspecialchars( $_POST[ 'purchase_date' ] ) );
         $item->set( 'fk_user_id', htmlspecialchars( $_POST[ 'fk_user_id' ] ) );
 

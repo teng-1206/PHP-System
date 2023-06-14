@@ -9,7 +9,7 @@
 
         $item_controller = new Item_Controller();
         $item = $item_controller->read( $conn, $item );
-        $item = $crypto->decrypt_object( $item );
+        // $item = $crypto->decrypt_object( $item );
         $item = $item_controller->convert( $item );
 
         if ( ! is_null( $item ) )
