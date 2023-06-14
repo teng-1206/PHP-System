@@ -22,6 +22,7 @@
                     "description"   => $item->get( 'description' ),
                     "status"        => $item->get( 'status' ),
                     "purchase_date" => $item->get( 'purchase_date' ),
+                    "amount"         => $item->get( 'amount' ),
                     "fk_user_id"    => $item->get( 'fk_user_id' ),
                 ),
             );

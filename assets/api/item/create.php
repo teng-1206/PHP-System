@@ -8,7 +8,7 @@
         $item->set( 'name', htmlspecialchars( $_POST[ 'name' ] ) );
         $item->set( 'description', htmlspecialchars( $_POST[ 'description' ] ) );
         $item->set( 'status', htmlspecialchars( $_POST[ 'status' ] ) );
-        $item->set( 'price', htmlspecialchars( $_POST[ 'price' ] ) );
+        $item->set( 'amount', htmlspecialchars( $_POST[ 'amount' ] ) );
         $item->set( 'purchase_date', htmlspecialchars( $_POST[ 'purchase_date' ] ) );
         $item->set( 'fk_user_id', htmlspecialchars( $_POST[ 'fk_user_id' ] ) );
 

@@ -10,7 +10,7 @@
         $item->set( 'fk_user_id', $fk_user_id );
 
         $item_controller = new Item_Controller();
-        $all_item = $item_controller->read_all_by_user_id( $conn, $item, $select_date );
+        $all_item = $item_controller->read_all_by_user_id( $conn, $item );
         // $all_item = $crypto->decrypt_all_object( $all_item );
 
         if ( ! is_null( $all_item ) )
