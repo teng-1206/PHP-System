@@ -130,15 +130,66 @@
                 </div>
             </div>
 
+            <!-- Item Modal Start -->
+            <div class="modal fade back-blur-3" id="m-item-record" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
+                        <div class="modal-content p-3 rounded-5">
+                            <div class="modal-header border-0">
+                                <h5 id="modal-header-title" class="modal-title">Add Item</h5>
+                            </div>
+                            <div class="modal-body">
+                                <form id="item-record-form">
+                                    <input type="hidden" id="id" name="id" value="">
+                                    <input type="hidden" id="user-id" name="user-id" value="<?= $user->get( 'id' ) ?>">
+                                    <div class="row ">
+                                        <div class="col-12 mb-4">
+                                            <label for="name" class="form-label">Name</label>
+                                            <input type="text" id="name" name="name" class="form-control" placeholder="Breakfast.." autocomplete="off" required />
+                                        </div>
+                                        <div class="col-12 mb-4">
+                                            <label for="description" class="form-label">Description</label>
+                                            <input type="text" id="description" name="description" class="form-control" placeholder="Breakfast.." autocomplete="off" />
+                                        </div>
+                                        <div class="col-12 col-lg-6 mb-4">
+                                            <label for="purchase-date" class="form-label">Purchase Date</label>
+                                            <input type="date" id="purchase-date" name="purchase-date" class="form-control" placeholder="DD/MM/YYYY" value="<?= date( 'Y-m-d' ) ?>" required>
+                                        </div>
+                                        <div class="col-12 col-lg-6 mb-4">
+                                            <label for="status" class="form-label">Status</label>
+                                            <select id="status" name="status" class="form-control" required >
+                                                <option value="" >Select Status</option>
+                                                <option value="0" selected>Working</option>
+                                                <option value="1">Broken</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-12 col-lg-6 mb-4">
+                                            <label for="amount" class="form-label">Amount</label>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text">RM</span>
+                                                <input type="text" id="amount" name="amount" class="form-control text-end" placeholder="0.00" autocomplete="off" required >
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer border-0">
+                                <button type="button" class="btn rounded-pill" onclick="close_item_modal()" style="width: 100px; height: 40px;">Cancel</button>
+                                <button type="submit" class="btn btn-primary rounded-pill" form="item-record-form" style="width: 100px; height: 40px;" onclick="">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Item Modal End -->
+
             <!-- Item Delete Modal Start -->
-            <div class="modal fade back-blur-3" id="m-item-delete" tabindex="-1" aria-hidden="true">
+            <div class="modal fade back-blur-3" id="m-item-delete-record" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
                     <div class="modal-content p-3 rounded-5">
                         <div class="modal-header border-0">
                             <h5 class="modal-title">Confirmation</h5>
                         </div>
                         <div class="modal-body">
-                            <form>
+                            <form id="item-record-delete-form">
                                 <input type="hidden" id="m-id-delete" name="m-id-delete" value="">
                                 <div class="row mb-4">
                                     <div class="col-12">
@@ -178,9 +229,9 @@
     <script src="<?= $config[ 'urls' ][ 'plugins' ] . "blockui/jquery.blockUI.min.js"; ?>"></script>
 
 
-    <!-- Finance Category JS Start -->
-    <script src="<?= ''// $config[ 'urls' ][ 'js' ] . "custom/item.js"; ?>"></script>
-    <!-- Finance Category JS End -->
+    <!-- Item JS Start -->
+    <script src="<?= $config[ 'urls' ][ 'js' ] . "custom/item.js"; ?>"></script>
+    <!-- Item JS End -->
 
     <!-- Custom JS End -->
 </body>
