@@ -6,7 +6,7 @@ class Item
     private $name;
     private $description;
     private $status;
-    private $price;
+    private $amount;
     private $purchase_date;
     private $fk_user_id;
     private $soft_delete;
@@ -36,8 +36,8 @@ class Item
             case 'status':
                 return $this->status;
                 break;
-            case 'price':
-                return $this->price;
+            case 'amount':
+                return $this->amount;
                 break;
             case 'purchase_date':
                 return $this->purchase_date;
@@ -80,8 +80,8 @@ class Item
             case 'status':
                 $this->status = $value;
                 break;
-            case 'price':
-                $this->price = $value;
+            case 'amount':
+                $this->amount = $value;
                 break;
             case 'purchase_date':
                 $this->purchase_date = $value;
@@ -164,14 +164,14 @@ class Item_Controller
     }
 
     public function create( $conn, Item $object ) {
-        $sql = "INSERT INTO item( name, description, status, price, purchase_date, fk_user_id )
+        $sql = "INSERT INTO item( name, description, status, amount, purchase_date, fk_user_id )
                 VALUES( ?, ?, ?, ?, ?, ? )";
         $stmt = $conn->prepare( $sql );
         $result = $stmt->execute( [
             $object->get( 'name' ),
             $object->get( 'description' ),
             $object->get( 'status' ),
-            $object->get( 'price' ),
+            $object->get( 'amount' ),
             $object->get( 'purchase_date' ),
             $object->get( 'fk_user_id' ),
         ] );
@@ -181,14 +181,14 @@ class Item_Controller
 
     public function update( $conn, Item $object)  {
         $sql = "UPDATE item
-                SET name = ?, description = ?, status = ?, price = ?, purchase_date = ?, update_at = CURRENT_TIMESTAMP
+                SET name = ?, description = ?, status = ?, amount = ?, purchase_date = ?, update_at = CURRENT_TIMESTAMP
                 WHERE id = ?";
         $stmt = $conn->prepare( $sql );
         $result = $stmt->execute( [
             $object->get( 'name' ),
             $object->get( 'description' ),
             $object->get( 'status' ),
-            $object->get( 'price' ),
+            $object->get( 'amount' ),
             $object->get( 'purchase_date' ),
             $object->get( 'id' ),
         ] );
@@ -219,7 +219,7 @@ class Item_Controller
             $new_object->set( 'name', $object[ 'name' ] );
             $new_object->set( 'description', $object[ 'description' ] );
             $new_object->set( 'status', $object[ 'status' ] );
-            $new_object->set( 'price', $object[ 'price' ] );
+            $new_object->set( 'amount', $object[ 'amount' ] );
             $new_object->set( 'purchase_date', $object[ 'purchase_date' ] );
             $new_object->set( 'fk_user_id', $object[ 'fk_user_id' ] );
             $new_object->set( 'soft_delete', $object[ 'soft_delete' ] );
