@@ -12,7 +12,7 @@
         // $wallet->set( 'category', $crypto->encrypt( $_POST[ 'category' ] ) );
         $wallet->set( 'category', ( $_POST[ 'category' ] ) );
         // $wallet->set( 'amount', $crypto->encrypt( number_format( $_POST[ 'amount' ] , 2, '.', ',' ) ) );
-        $wallet->set( 'amount', ( number_format( $_POST[ 'amount' ] , 2, '.', ',' ) ) );
+        $wallet->set( 'amount', ( number_format( $_POST[ 'amount' ] , 2, '.', '' ) ) );
         $wallet->set( 'fk_user_id', $_POST[ 'fk_user_id' ] );
 
         $wallet_controller = new Wallet_Controller();

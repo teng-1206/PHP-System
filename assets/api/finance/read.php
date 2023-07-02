@@ -70,7 +70,7 @@
                     "icon_code"    => $finance_category->get( 'icon_code' ),
                     "fk_wallet_id" => $finance->get( 'fk_wallet_id' ),
                     "fk_user_id"   => $finance->get( 'fk_user_id' ),
-                    "amount"       => $finance->get( 'amount' ),
+                    "amount"       => number_format( $finance->get( 'amount' ), 2, '.', ',' ),
                 ),
             );
             echo json_encode( $res );

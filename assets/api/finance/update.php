@@ -75,7 +75,7 @@
         {
             $total = $total + $new_amount;
         }
-        $total = number_format( $total, 2, '.', ',' );
+        $total = number_format( $total, 2, '.', '' );
         // $wallet->set( 'amount', $crypto->encrypt( $total ) );
         $wallet->set( 'amount', ( $total ) );
         $wallet_res = $wallet_data_connector->update( $conn, $wallet );
@@ -86,7 +86,7 @@
         // $finance->set( 'status', $crypto->encrypt( htmlspecialchars( $_POST[ 'status' ] ) ) );
         $finance->set( 'status', ( htmlspecialchars( $_POST[ 'status' ] ) ) );
         // $finance->set( 'amount', $crypto->encrypt( number_format( htmlspecialchars( $_POST[ 'amount' ] ) , 2, '.', ',' ) ) );
-        $finance->set( 'amount', ( number_format( htmlspecialchars( $_POST[ 'amount' ] ) , 2, '.', ',' ) ) );
+        $finance->set( 'amount', ( number_format( htmlspecialchars( $_POST[ 'amount' ] ) , 2, '.', '' ) ) );
         $finance->set( 'fk_category_id', htmlspecialchars( $_POST[ 'fk_category_id' ] ) );
         $finance->set( 'fk_wallet_id', htmlspecialchars( $_POST[ 'fk_wallet_id' ] ) );
         $finance_res = $finance_controller->update( $conn, $finance );
