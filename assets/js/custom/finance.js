@@ -906,7 +906,8 @@ function read_all_wallet() {
             if ( data.length > 0 ) {
                 let all_element = '';
                 data.forEach( ( row_data ) => {
-                    const { id, name, category } = row_data;
+                    const { id, name, category, status } = row_data;
+                    const delete_wallet = status == "Default" ? '' :  '<a class="dropdown-item" href="javascript:void( open_delete_wallet( ${ id } ) );">Delete</a>';
                     const element = `
                                     <div class="card component-card_4">
                                         <div class="card-body">
@@ -925,7 +926,7 @@ function read_all_wallet() {
                                                         <div class="dropdown-menu left" aria-labelledby="pendingTask" style="will-change: transform; position: absolute; transform: translate3d(-141px, 19px, 0px); top: 0px; left: 0px;" x-placement="bottom-end">
                                                             <a class="dropdown-item" href="javascript:void( select_wallet( ${ id } ) );">Select</a>
                                                             <a class="dropdown-item" href="javascript:void( open_update_wallet( ${ id } ) );">Update</a>
-                                                            <a class="dropdown-item" href="javascript:void( open_delete_wallet( ${ id } ) );">Delete</a>
+                                                            ${ delete_wallet }
                                                         </div>
                                                     </div>
                                                 </div>

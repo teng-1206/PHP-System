@@ -42,7 +42,7 @@
                 // Income
                 $new_total = $old_total + $amount;
             }
-            $new_total = number_format( $new_total, 2, '.', ',' );
+            $new_total = number_format( $new_total, 2, '.', '' );
             // $wallet->set( 'amount', $crypto->encrypt( $new_total ) );
             $wallet->set( 'amount', ( $new_total ) );
             $res = $wallet_data_connector->update( $conn, $wallet );

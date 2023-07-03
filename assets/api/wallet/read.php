@@ -21,7 +21,7 @@
                     "name"       => $wallet->get( 'name' ),
                     "status"     => $wallet->get( 'status' ),
                     "category"   => $wallet->get( 'category' ),
-                    "amount"     => number_format( $wallet->get( 'amount' ) , 2, '.', ',' ),
+                    "amount"     => number_format( $wallet->get( 'amount' ) , 2, '.', '' ),
                     "fk_user_id" => $wallet->get( 'fk_user_id' ),
                 ),
             );

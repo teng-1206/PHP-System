@@ -15,7 +15,7 @@
         // $wallet->set( 'name', $crypto->encrypt( $_POST[ 'name' ] ) );
         $wallet->set( 'name', ( $_POST[ 'name' ] ) );
         // $wallet->set( 'status', $crypto->encrypt( $_POST[ 'status' ] ) );
-        $wallet->set( 'status', ( $_POST[ 'status' ] ) );
+        // $wallet->set( 'status', ( $_POST[ 'status' ] ) );
         // $wallet->set( 'category', $crypto->encrypt( $_POST[ 'category' ] ) );
         $wallet->set( 'category', ( $_POST[ 'category' ] ) );
         // $wallet->set( 'amount', $crypto->encrypt( number_format( $_POST[ 'amount' ] , 2, '.', ',' ) ) );
