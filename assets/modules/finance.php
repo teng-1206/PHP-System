@@ -216,31 +216,35 @@
          *
          * @return array|null Returns an array containing all finance data for the specified user and date range or null if there is an error.
          */
-        public function read_all_by_user_id ( $conn, Finance $object, $select_date = "Today" )
+        public function read_all_by_user_id ( $conn, Finance $object, $select_date = "This Month" )
         {
             $where = "";
             switch ( $select_date ) 
             {
-                case "This Week":
-                    $where = "AND YEARWEEK( finance.date, 1 ) = YEARWEEK( NOW(), 1 )";
-                    break;
+                // case "This Week":
+                //     $where = "AND YEARWEEK( finance.date, 1 ) = YEARWEEK( NOW(), 1 )";
+                //     break;
                 case "This Month":
                     $where = "AND MONTH( finance.date ) = MONTH( CURRENT_TIMESTAMP ) AND YEAR( finance.date ) = YEAR( CURRENT_TIMESTAMP )";
                     break;
                 case "This Year":
                     $where = "AND YEAR( finance.date ) = YEAR( CURRENT_TIMESTAMP )";
                     break;
-                case "Last 30 Days":
+                case "Last Month":
                     $where = "AND finance.date >= DATE_SUB( CURDATE(), INTERVAL 1 MONTH ) AND finance.date <= CURDATE()";
                     break;
-                case "Last 90 Days":
+                case "Last Three Month":
                     $where = "AND finance.date >= DATE_SUB( CURDATE(), INTERVAL 3 MONTH ) AND finance.date <= CURDATE()";
+                    break;
+                case "Last Year":
+                    // $where = "AND YEAR( finance.date ) = YEAR( CURRENT_TIMESTAMP )";
                     break;
                 case "All":
                     $where = "";
                     break;
                 default:
-                    $where = "AND finance.date >= DATE_FORMAT( NOW(), '%Y-%m-%d 00:00:00' ) AND finance.date < DATE_FORMAT( DATE_ADD( NOW(), INTERVAL 1 DAY ), '%Y-%m-%d 00:00:00' )";
+                    $where = "AND MONTH( finance.date ) = MONTH( CURRENT_TIMESTAMP ) AND YEAR( finance.date ) = YEAR( CURRENT_TIMESTAMP )";
+                    // $where = "AND finance.date >= DATE_FORMAT( NOW(), '%Y-%m-%d 00:00:00' ) AND finance.date < DATE_FORMAT( DATE_ADD( NOW(), INTERVAL 1 DAY ), '%Y-%m-%d 00:00:00' )";
                     break;
             }
             $sql = "SELECT finance.*, finance_category.category, finance_category.color_code, finance_category.background_color_code, finance_category.icon_code FROM finance

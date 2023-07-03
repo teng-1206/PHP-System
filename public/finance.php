@@ -11,9 +11,10 @@
     $wallet_controller = new Wallet_Controller();
     $wallet = new Wallet();
     $wallet->set( 'fk_user_id', $_SESSION[ 'user_id' ] );
-    $wallet->set( 'status', $crypto->encrypt( 'Default' ) );
+    // $wallet->set( 'status', $crypto->encrypt( 'Default' ) );
+    $wallet->set( 'status', ( 'Default' ) );
     $wallet = $wallet_controller->read_default_wallet( $conn, $wallet );
-    $wallet = $crypto->decrypt_object( $wallet );
+    // $wallet = $crypto->decrypt_object( $wallet );
     $wallet = $wallet_controller->convert( $wallet );
 ?>
 
@@ -47,52 +48,52 @@
     <style>
 
         
-/*
-  Component Card 4
-*/
-.component-card_4 {
-  width: auto;
-  margin: 0 auto;
-  border: none;
-  border: 1px solid #1b2e4b;
-  border-radius: 8px; }
+        /*
+        Component Card 4
+        */
+        .component-card_4 {
+        width: auto;
+        margin: 0 auto;
+        border: none;
+        border: 1px solid #1b2e4b;
+        border-radius: 8px; }
 
-  .component-card_4:hover {
-    background: #1b2e4b;
-    /* cursor: pointer; */
-}
-  .component-card_4 .card-body {
-    padding: 0;
-    display: flex; }
-  .component-card_4 .user-profile {
-    align-self: center;
-    padding: 0 25px; }
-  .component-card_4 img {
-    border-radius: 50%; }
-  .component-card_4 .user-info {
-    padding: 24px 8px 24px 24px; }
-  .component-card_4 .card-user_name {
-    font-size: 16px;
-    font-weight: 700;
-    margin-bottom: 10px; }
-  .component-card_4 .card-user_occupation {
-    color: #888ea8;
-    font-size: 13px; }
-  .component-card_4 .card-star_rating span {
-    display: inline-block;
-    padding: 0px 8px;
-    font-size: 15px;
-    border-radius: 50px;
-    margin-bottom: 22px; }
-  .component-card_4 .card-star_rating svg {
-    width: 16px;
-    vertical-align: bottom; }
-  .component-card_4 .card-text {
-    color: #bfc9d4;
-    font-size: 14px;
-    letter-spacing: 1px;
-    font-weight: 600;
-    line-height: 23px; }
+        .component-card_4:hover {
+            background: #1b2e4b;
+            /* cursor: pointer; */
+        }
+        .component-card_4 .card-body {
+            padding: 0;
+            display: flex; }
+        .component-card_4 .user-profile {
+            align-self: center;
+            padding: 0 25px; }
+        .component-card_4 img {
+            border-radius: 50%; }
+        .component-card_4 .user-info {
+            padding: 24px 8px 24px 24px; }
+        .component-card_4 .card-user_name {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 10px; }
+        .component-card_4 .card-user_occupation {
+            color: #888ea8;
+            font-size: 13px; }
+        .component-card_4 .card-star_rating span {
+            display: inline-block;
+            padding: 0px 8px;
+            font-size: 15px;
+            border-radius: 50px;
+            margin-bottom: 22px; }
+        .component-card_4 .card-star_rating svg {
+            width: 16px;
+            vertical-align: bottom; }
+        .component-card_4 .card-text {
+            color: #bfc9d4;
+            font-size: 14px;
+            letter-spacing: 1px;
+            font-weight: 600;
+            line-height: 23px; }
     </style>
 
     <!-- Custom CSS End -->
@@ -249,7 +250,7 @@
                     <div id="table-area" class="col-12 col-sm-9 layout-spacing">
                         <div class="widget">
                             <div class="widget-heading">
-                                Records  ( <span id="select-date-label">Today</span> )
+                                Records  ( <span id="select-date-label">This Month</span> )
                                 <!-- <button id="btn-add-record" class="btn btn-sm btn-primary rounded-pill shadow mb-3" style="" onclick="open_create_finance()">
                                     <i class="fas fa-plus-circle"></i>
                                 </button> -->
@@ -259,18 +260,15 @@
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
                                         </a>
                                         <div class="dropdown-menu left" aria-labelledby="pendingTask" style="will-change: transform; position: absolute; transform: translate3d(-141px, 19px, 0px); top: 0px; left: 0px;" x-placement="bottom-end">
-                                            <a class="dropdown-item" href="javascript:void( update_select_date( 'Today' ));">Today</a>
-                                            <a class="dropdown-item" href="javascript:void( update_select_date( 'This Week' ) );">This Week</a>
                                             <a class="dropdown-item" href="javascript:void( update_select_date( 'This Month' ) );">This Month</a>
                                             <a class="dropdown-item" href="javascript:void( update_select_date( 'This Year' ));">This Year</a>
-                                            <!-- <a class="dropdown-item" href="javascript:void( update_select_date( 'Yesterday' );">Yesterday</a> -->
                                             <a class="dropdown-item" href="javascript:void( update_select_date( 'Last Month' ) )">Last Month</a>
-                                            <a class="dropdown-item" href="javascript:void( update_select_date( 'Last Year' ));">Last Year</a>
+                                            <!-- <a class="dropdown-item" href="javascript:void( update_select_date( 'Last Year' ));">Last Year</a> -->
                                             <a class="dropdown-item" href="javascript:void( update_select_date( 'All' ));">All</a>
                                         </div>
                                     </div>
                                 </div>
-                                <input type="hidden" id="select-date" value="Today">
+                                <input type="hidden" id="select-date" value="This Month">
                             </div>
                             <div class="widget-content">
                                 <table id="table-finance" class="table style-1 dt-table-hover non-hover">
@@ -291,8 +289,6 @@
                         </div>
                     </div>
                     <!-- Table Area START -->
-
-                    
 
                     <!-- Category Area START -->
                     <div id="category-area" class="col-12 col-sm-3 layout-spacing justify-content-center">
@@ -333,16 +329,13 @@
                                             <label for="title" class="form-label">Title</label>
                                             <input type="text" id="title" name="title" class="form-control" placeholder="Breakfast.." autocomplete="off" required />
                                         </div>
-                                        <div class="col-12 col-lg-6 mb-4">
-                                            <label for="date" class="form-label">Date</label>
-                                            <input type="date" id="date" name="date" class="form-control" placeholder="DD/MM/YYYY" value="<?= date( 'Y-m-d' ) ?>" required>
-                                        </div>
+                                        
                                         <div class="col-12 col-lg-6 mb-4">
                                             <label for="status" class="form-label">Status</label>
                                             <select id="status" name="status" class="form-control" required >
-                                                <option value="" selected >Select Status</option>
+                                                <option value="" >Select Status</option>
                                                 <option value="0">Income</option>
-                                                <option value="1">Expense</option>
+                                                <option value="1" selected>Expense</option>
                                             </select>
                                         </div>
                                         <div class="col-12 col-lg-6 mb-4">
@@ -352,12 +345,18 @@
                                                 <?php
                                                     include_once( MODULES_PATH . "finance_category.php" );
                                                     $finance_category_controller = new Finance_Category_Controller();
-                                                    $all_finance_category = $finance_category_controller->read_all( $conn );
+                                                    $finance_category = new Finance_Category();
+                                                    $finance_category->set( 'fk_user_id', $_SESSION[ 'user_id' ] );
+                                                    $all_finance_category = $finance_category_controller->read_all_by_user_id( $conn, $finance_category );
+                                                    // usort( $all_finance_category, function( $a, $b ) {
+                                                    //     return strcmp( $a[ 'name' ], $b[ 'name' ] );
+                                                    // } );
                                                     if ( ! is_null( $all_finance_category ) ) :
                                                         foreach ( $all_finance_category as $finance_category ) :
                                                         ?>
                                                             <option value="<?= $finance_category[ 'id' ] ?>">
-                                                                <?= $crypto->decrypt( $finance_category[ 'category' ] ) ?>
+                                                                <?= '' // $crypto->decrypt( $finance_category[ 'category' ] ) ?>
+                                                                <?= $finance_category[ 'category' ] ?>
                                                             </option>
                                                         <?php
                                                         endforeach ;
@@ -371,6 +370,35 @@
                                                 <span class="input-group-text">RM</span>
                                                 <input type="text" id="amount" name="amount" class="form-control text-end" placeholder="0.00" autocomplete="off" required >
                                             </div>
+                                        </div>
+                                    </div>
+                                    <!-- <a href="javascript:void($('#expand-option').css('display', 'flex'))">Show More</a> -->
+                                    <div id="expand-option" class="row" style="">
+                                        <div class="col-12 col-lg-6 mb-4">
+                                            <label for="wallet" class="form-label">Wallet</label>
+                                            <select id="wallet-id" name="wallet-id" class="form-control" required >
+                                                <option value="" >Select Wallet</option>
+                                                <?php
+                                                    $all_wallet = $wallet_controller->read_all_by_user_id( $conn, $wallet );
+                                                    // $all_wallet = $crypto->decrypt_all_object( $all_wallet );
+                                                    // usort( $all_wallet, function( $a, $b ) {
+                                                    //     return strcmp( $a[ 'name' ], $b[ 'name' ] );
+                                                    // } );
+                                                    if ( ! is_null( $all_wallet ) ) :
+                                                        foreach ( $all_wallet as $wallet ) :
+                                                        ?>
+                                                            <option value="<?= $wallet[ 'id' ] ?>" <?= $wallet[ 'status' ] == "Default" ? "selected" : "" ?>>
+                                                                <?= $wallet[ 'name' ] ?>
+                                                            </option>
+                                                        <?php
+                                                        endforeach ;
+                                                    endif ;
+                                                ?>
+                                            </select>
+                                        </div>
+                                        <div class="col-12 col-lg-6 mb-4">
+                                            <label for="date" class="form-label">Date</label>
+                                            <input type="date" id="date" name="date" class="form-control" placeholder="DD/MM/YYYY" value="<?= date( 'Y-m-d' ) ?>" required>
                                         </div>
                                     </div>
                                 </form>

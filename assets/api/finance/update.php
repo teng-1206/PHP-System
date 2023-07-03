@@ -64,6 +64,34 @@
             $total = $total - $old_amount;
         }
 
+        if ( $_POST[ 'fk_wallet_id' ] != $wallet->get( 'id' ) )
+        {
+            $wallet->set( 'amount', ( $total ) );
+            $wallet_res = $wallet_data_connector->update( $conn, $wallet );
+
+
+            $wallet->set( 'id', $_POST[ 'fk_wallet_id' ] );
+
+            $wallet = $wallet_data_connector->read( $conn, $wallet );
+            if ( is_null( $wallet ) )
+            {
+                echo json_encode( array( "result" => $finance, "message" => "Wallet record not found" ) );
+                die();
+            }
+            
+            $wallet = $wallet_data_connector->convert( $wallet );
+            if ( is_null( $wallet ) )
+            {
+                echo json_encode( array( "result" => $wallet, "message" => "Wallet record convert error" ) );
+                die();
+            }
+    
+            // $total = ( float ) $crypto->decrypt( $wallet->get( 'amount' ) );
+            $total = ( float ) ( $wallet->get( 'amount' ) );
+            $new_amount = ( float ) $_POST[ 'amount' ];
+        }
+
+
         // $finance->get( 'status' ) == 0 ? $total = $total - $old_amount : $total = $total + $old_amount;
         // $_POST->get( 'status' ) == 0 ? $total = $total + $new_amount : $total = $total - $new_amount;
 
@@ -94,10 +122,12 @@
         if ( $finance_res )
         {
             echo json_encode( array( "result" => true ) );
+            die();
         }
         else
         {
             echo json_encode( array( "result" => false ) );
+            die();
         }
     }
 ?>
