@@ -309,8 +309,8 @@ function read_all_finance() {
                     } );
                 }
                 table.order( 1 ).draw()
-                $( '#table-area' ).unblock();
             }
+            $( '#table-area' ).unblock();
             return res;
         },
         error: ( err ) => {
