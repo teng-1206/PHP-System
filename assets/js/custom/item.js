@@ -4,42 +4,78 @@ const item_record_delete          = $( '#m-item-delete-record' );
 // ! Item
 
 function reset_item_modal() {
-    item_record.find( '#title' ).val( '' );
-    item_record.find( '#date' ).val( get_current_day() );
-    item_record.find( '#category' ).prop( 'selectedIndex', 0 );
-    item_record.find( '#status' ).prop( 'selectedIndex', 2 );
+    item_record.find( '#name' ).val( '' );
+    item_record.find( '#description' ).val( '' );
+    item_record.find( '#status' ).prop( 'selectedIndex', 0 );
+    item_record.find( '#purchase-date' ).val( get_current_day() );
     item_record.find( '#amount' ).val( '' );
 }
 
-function close_delete_modal() {
-    $( '#m-finance-category-delete' ).modal( 'hide' );
+/**
+ * Opens the item modal and resets its form.
+ */
+function open_item_modal() {
+    reset_item_modal();
+    item_record.modal( 'show' );
 }
 
-function open_update_finance_category( id ) {
-    $( '#modal-header-title' ).text( 'Edit Category' );
-    $( '#m-id' ).val( id );
-    read_finance_category();
+/**
+ * Closes the item modal.
+ */
+function close_item_modal() {
+    item_record.modal( 'hide' );
 }
 
-function open_delete_finance_category( id ) {
-    $( '#m-finance-category-delete' ).modal( 'show' );
-    $( '#m-id-delete' ).val( id );
+/**
+ * Closes the delete item modal.
+ */
+function close_item_delete_modal() {
+    item_record_delete.modal( 'hide' );
 }
 
-$( '#finance-category-form' ).submit( ( event ) => {
+/**
+ * Opens the item modal with a header title for adding a new item record.
+ */
+function open_create_item() {
+    item_record.find( '#modal-header-title' ).text( 'Add Item' );
+    open_item_modal();
+}
+
+/**
+ * Opens the item modal with a header title for editing an existing item record.
+ * @param {string} id - The ID of the item record to edit.
+ */
+function open_update_item( id ) {
+    item_record.find( '#modal-header-title' ).text( 'Edit Item' );
+    item_record.find( '#id' ).val( id );
+    open_item_modal();
+    read_item();
+}
+
+/**
+ * Opens the delete item modal for the specified item record ID.
+ * @param {string} id - The ID of the item record to delete.
+ */
+function open_delete_item( id ) {
+    item_record_delete.modal( 'show' );
+    item_record_delete.find( '#id' ).val( id );
+}
+
+
+$( '#item-record-form' ).submit( ( event ) => {
     event.preventDefault();
-    if ( $( '#modal-header-title' ).text() == 'Add Category' ) {
-        create_finance_category();
+    if ( item_record.find( '#modal-header-title' ).text() == 'Add Item' ) {
+        create_item();
     } else {
-        update_finance_category();
+        update_item();
     }
-    
 } );
 
-const table = $( '#table-finance-category' ).DataTable( {
-    headerCallback:function( e, a, t, n, s ) {
-        e.getElementsByTagName( "th" )[ 0 ].innerHTML='<label class="new-control new-checkbox checkbox-outline-info m-auto">\n<input type="checkbox" class="new-control-input chk-parent select-customers-info" id="customer-all-info">\n<span class="new-control-indicator"></span><span style="visibility:hidden">c</span>\n</label>'
-    },
+
+const table = $( '#table-item' ).DataTable( {
+    // headerCallback:function( e, a, t, n, s ) {
+    //     e.getElementsByTagName( "th" )[ 0 ].innerHTML='<label class="new-control new-checkbox checkbox-outline-info m-auto">\n<input type="checkbox" class="new-control-input chk-parent select-customers-info" id="customer-all-info">\n<span class="new-control-indicator"></span><span style="visibility:hidden">c</span>\n</label>'
+    // },
     columnDefs:[ {
         targets:0, width:"30px", className:"", orderable:!1, render:function(e, a, t, n) {
             return'<label class="new-control new-checkbox checkbox-outline-info  m-auto">\n<input type="checkbox" class="new-control-input child-chk select-customers-info" id="customer-all-info">\n<span class="new-control-indicator"></span><span style="visibility:hidden">c</span>\n</label>'
@@ -57,11 +93,66 @@ const table = $( '#table-finance-category' ).DataTable( {
         },
         "lengthMenu": [ 8, 20, 50 ],
         "pageLength": 8 
-    } );
-multiCheck( table );
+} );
+// multiCheck( table );
 
-// CRUD Functions
-function read_all_finance_category() {
+function read_item_summary() {
+    // $( '.item-summary-widget' ).block( {
+        // message: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>',
+        // fadeIn: 800, 
+        // fadeOut: 800,
+        // centerX: 0,
+        // centerY: 0,
+        // overlayCSS: {
+        //     backgroundColor: '#191e3a',
+        //     opacity: 0.8,
+        //     cursor: 'wait',
+        //     borderRadius: '1rem',
+        // },
+        // css: {
+        //     width: '100%',
+        //     top: '50%',
+        //     left: '',
+        //     right: '0px',
+        //     bottom: 0,
+        //     border: 0,
+        //     color: '#25d5e4',
+        //     padding: 0,
+        //     backgroundColor: 'transparent'
+        // }
+    // } ); 
+    // const summary_url  = `${ api_url }item/summary.php`;
+    // const fk_wallet_id = $( '#wallet-id' ).val();
+    // const fk_user_id   = item_record.find( '#user-id' ).val();
+    // const select_date  = $( '#select-date' ).val();
+    // const sent_data    = { fk_wallet_id, fk_user_id, select_date };
+    // $.ajax( {
+    //     type    : 'POST',
+    //     url     : summary_url,
+    //     data: sent_data,
+    //     dataType: 'JSON',
+    //     success: ( res ) => {
+    //         if ( res.result ) {
+    //             const data = res.data;
+    //             const { total_income, total_expense, total_earning } = data;
+    //             $( '#total-income' ).html( total_income );
+    //             $( '#total-expense' ).html( total_expense );
+    //             $( '#total-earning' ).html( total_earning );
+    //             $('.item-summary-widget').unblock();
+    //         }
+    //         return res;
+    //     },
+    //     error: ( err ) => {
+    //         Toast.fire( {
+    //             icon : 'error',
+    //             title: 'Read Error'
+    //         } );
+    //     }
+    // } );
+}
+
+
+function read_all_item() {
     $( '#table-area' ).block( {
         message: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>',
         fadeIn: 800, 
@@ -73,6 +164,11 @@ function read_all_finance_category() {
             opacity: 0.8,
             cursor: 'wait',
             borderRadius: '1rem',
+            width: '98%',
+            height: '97%',
+            top: '0px',
+            left: '1%',
+            right: '0px',
         },
         css: {
             width: '100%',
@@ -87,36 +183,45 @@ function read_all_finance_category() {
         }
     } ); 
     table.clear().draw();
-    const read_all_url = `${ api_url }finance_category/read_all.php`;
-    const fk_user_id = $( '#m-user-id' ).val();
-    const sent_data = { fk_user_id };
+    const read_all_url = `${ api_url }item/read_all.php`;
+    const fk_user_id   = item_record.find( '#user-id' ).val();
+    const sent_data    = { fk_user_id };
     $.ajax( {
         type    : 'POST',
         url     : read_all_url,
+        data: sent_data,
         dataType: 'JSON',
-        data    : sent_data,
         success: ( res ) => {
             if ( res.result ) {
+                console.log(res);
                 const data = res.data;
                 if ( data.length > 0 ) {
                     data.forEach( ( row_data ) => {
-                        const { id, category, color_code, background_color_code, icon_code } = row_data;
-                        const index = table.rows().count() + 1;
+                        const { id, name, purchase_date, status, amount } = row_data;
+                        let currentDate = new Date();
+                        let targetDate = new Date( purchase_date );
+                        let timeDiff = currentDate.getTime() - targetDate.getTime();
+                        let days = Math.ceil( timeDiff / ( 1000 * 3600 * 24 ) );
                         table.row.add( [
-                            `${ index }`,
-                            // `<i class="${ icon_code } p-3 rounded-circle" style="color: ${ color_code }; background-color: ${ background_color_code }" width="25px" height="17px"></i>`,
-                            `${ category }`,
-                            `<button onclick="open_update_finance_category( ${ id } );" class="btn btn-primary rounded-pill" data-toggle="tooltip" data-placement="top" title="Edit">
+                            `<td class="checkbox-column"> ${ id } </td>`,
+                            `${ name }`,
+                            `<span class="${ status == "Available" ? 'text-success' : 'text-danger' }">${ status }</span>`,
+                            `${ days }`,
+                            `RM ${ amount }`,
+                            `${ get_date( purchase_date ) }`,
+                            `
+                            <button onclick="open_update_item( ${ id } );" class="btn btn-primary rounded-pill" data-toggle="tooltip" data-placement="top" title="Edit">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
                             </button>
-                            <button onclick="open_delete_finance_category( ${ id } )" class="btn btn-danger rounded-pill" data-toggle="tooltip" data-placement="top" title="Delete">
+                            <button onclick="open_delete_item( ${ id } )" class="btn btn-danger rounded-pill" data-toggle="tooltip" data-placement="top" title="Delete">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
-                            </button>`,
+                            </button>
+                            `,
                         ] ).draw( false );
-                        table.order( [ 1, 'asc' ] ).draw();
-                        $('#table-area').unblock();
                     } );
                 }
+                table.order( 1 ).draw()
+                $( '#table-area' ).unblock();
             }
             return res;
         },
@@ -129,9 +234,9 @@ function read_all_finance_category() {
     } );
 }
 
-function read_finance_category() {
-    const read_url = `${ api_url }finance_category/read.php`;
-    const id = $( '#m-id' ).val();
+function read_item() {
+    const read_url  = `${ api_url }item/read.php`;
+    const id        = item_record.find( '#id' ).val();
     const sent_data = { id };
     $.ajax( {
         type    : 'POST',
@@ -139,13 +244,15 @@ function read_finance_category() {
         dataType: 'JSON',
         data    : sent_data,
         success: ( res ) => {
+            console.log(res);
             if ( res.result ) {
                 const data = res.data;
-                const { category, color_code, background_color_code, icon_code } = data;
-                $( '#m-category' ).val( category );
-                $( '#m-color' ).val( color_code );
-                $( '#m-background-color' ).val( background_color_code );
-                $( '#m-icon' ).val( icon_code );
+                const { id, name, description, status, amount, purchase_date  } = data;
+                item_record.find( '#name' ).val( name );
+                item_record.find( '#description' ).val( description );
+                item_record.find( '#status' ).val( status );
+                item_record.find( '#amount' ).val( amount );
+                item_record.find( '#purchase-date' ).val( get_date( purchase_date ) );
             }
             return res;
         },
@@ -158,21 +265,24 @@ function read_finance_category() {
     } );
 }
 
-function create_finance_category() {
-    const create_url = `${ api_url }finance_category/create.php`;
-    const fk_user_id            = $( '#m-user-id' ).val();
-    const category              = $( '#m-category' ).val();
-    const color_code            = $( '#m-color' ).val();
-    const background_color_code = $( '#m-background-color' ).val();
-    const icon_code             = $( '#m-icon' ).val();
-    const sent_data = { fk_user_id, category, color_code, background_color_code, icon_code };
+function create_item() {
+    const create_url    = `${ api_url }item/create.php`;
+    const name          = item_record.find( '#name' ).val();
+    const description   = item_record.find( '#description' ).val();
+    const purchase_date = item_record.find( '#purchase-date' ).val();
+    const status        = item_record.find( '#status' ).val();
+    const amount        = item_record.find( '#amount' ).val();
+    const fk_user_id    = item_record.find( '#user-id' ).val();
+    const sent_data     = { name, description, purchase_date, status, amount, fk_user_id };
     $.ajax( {
         type    : 'POST',
         url     : create_url,
         dataType: 'JSON',
         data    : sent_data,
         success: ( res ) => {
+            console.log(res);
             if ( res.result ) {
+                close_item_modal();
                 refresh();
                 Toast.fire( {
                     icon : 'success',
@@ -190,21 +300,25 @@ function create_finance_category() {
     } );
 }
 
-function update_finance_category() {
-    const update_url = `${ api_url }finance_category/update.php`;
-    const id                    = $( '#m-id' ).val();
-    const category              = $( '#m-category' ).val();
-    const color_code            = $( '#m-color' ).val();
-    const background_color_code = $( '#m-background-color' ).val();
-    const icon_code             = $( '#m-icon' ).val();
-    const sent_data = { id, category, color_code, background_color_code, icon_code };
+function update_item() {
+    const update_url    = `${ api_url }item/update.php`;
+    const id            = item_record.find( '#id' ).val();
+    const name          = item_record.find( '#name' ).val();
+    const description   = item_record.find( '#description' ).val();
+    const purchase_date = item_record.find( '#purchase-date' ).val();
+    const status        = item_record.find( '#status' ).val();
+    const amount        = item_record.find( '#amount' ).val();
+    const fk_user_id    = item_record.find( '#user-id' ).val();
+    const sent_data     = { id, name, description, purchase_date, status, amount, fk_user_id };
     $.ajax( {
         type    : 'POST',
         url     : update_url,
         dataType: 'JSON',
         data    : sent_data,
         success: ( res ) => {
+            console.log(res);
             if ( res.result ) {
+                close_item_modal();
                 refresh();
                 Toast.fire( {
                     icon : 'success',
@@ -222,18 +336,19 @@ function update_finance_category() {
     } );
 }
 
-function delete_finance_category() {
-    const id = $( '#m-id-delete' ).val();
-    const delete_url = `${ api_url }finance_category/delete.php`;
-    const sent_data = { id };
+function delete_item() {
+    const id         = item_record_delete.find( '#id' ).val();
+    const delete_url = `${ api_url }item/delete.php`;
+    const sent_data  = { id };
     $.ajax( {
         type    : 'POST',
         url     : delete_url,
         dataType: 'JSON',
         data    : sent_data,
         success: ( res ) => {
+            console.log(res);
             if ( res.result ) {
-                close_delete_modal();
+                close_item_delete_modal();
                 refresh();
                 Toast.fire( {
                     icon : 'success',
@@ -251,9 +366,14 @@ function delete_finance_category() {
     } );
 }
 
+function get_date( date ) {
+    var new_date = new Date( date );
+    var formattedDate = new_date.getFullYear() + "-" + ( new_date.getMonth() + 1 ).toString().padStart( 2, "0" ) + "-" + new_date.getDate().toString().padStart( 2, "0" );
+    return formattedDate;
+} 
+
 function refresh() {
-    read_all_finance_category();
-    reset_modal();
+    read_all_item();
 }
 
 refresh();

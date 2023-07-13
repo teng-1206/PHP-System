@@ -1,5 +1,12 @@
 <?php include_once( realpath( dirname( __FILE__ ) . "//assets//config//config.php" ) ); ?>
 <?php include_once( TEMPLATES_PATH . 'validation.php' ); ?>
+<?php include_once( MODULES_PATH . 'user.php' ); ?>
+<?php
+    $user_controller = new User_Controller();
+    $user = new User();
+    $user->set( 'id', $_SESSION[ 'user_id' ] );
+    $user = $user_controller->read( $conn2, $user );
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -94,6 +101,10 @@
         <?php include_once( TEMPLATES_PATH . 'sidebar.php' ); ?>
         <!-- Sidebar End  -->
 
+        <!--  -->
+        <input type="hidden" id="user-id" name="user-id" value="<?= $user->get( 'id' ) ?>">
+        <!--  -->
+
         <!-- Content Area Start -->
         <div id="content" class="main-content">
             <div class="layout-px-spacing">
@@ -113,9 +124,11 @@
                                 <table id="table-item" class="table style-1 dt-table-hover non-hover">
                                     <thead>
                                         <tr>
-                                            <th class="checkbox-column dt-no-sorting"> Record no. </th>
+                                            <!-- <th class="checkbox-column dt-no-sorting"> Record no. </th> -->
+                                            <th>No.</th>
                                             <th>Name</th>
                                             <th>Status</th>
+                                            <th>Days</th>
                                             <th>Price</th>
                                             <th>Purchase Date</th>
                                             <th>Actions</th>
@@ -132,54 +145,54 @@
 
             <!-- Item Modal Start -->
             <div class="modal fade back-blur-3" id="m-item-record" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
-                        <div class="modal-content p-3 rounded-5">
-                            <div class="modal-header border-0">
-                                <h5 id="modal-header-title" class="modal-title">Add Item</h5>
-                            </div>
-                            <div class="modal-body">
-                                <form id="item-record-form">
-                                    <input type="hidden" id="id" name="id" value="">
-                                    <input type="hidden" id="user-id" name="user-id" value="<?= $user->get( 'id' ) ?>">
-                                    <div class="row ">
-                                        <div class="col-12 mb-4">
-                                            <label for="name" class="form-label">Name</label>
-                                            <input type="text" id="name" name="name" class="form-control" placeholder="Breakfast.." autocomplete="off" required />
-                                        </div>
-                                        <div class="col-12 mb-4">
-                                            <label for="description" class="form-label">Description</label>
-                                            <input type="text" id="description" name="description" class="form-control" placeholder="Breakfast.." autocomplete="off" />
-                                        </div>
-                                        <div class="col-12 col-lg-6 mb-4">
-                                            <label for="purchase-date" class="form-label">Purchase Date</label>
-                                            <input type="date" id="purchase-date" name="purchase-date" class="form-control" placeholder="DD/MM/YYYY" value="<?= date( 'Y-m-d' ) ?>" required>
-                                        </div>
-                                        <div class="col-12 col-lg-6 mb-4">
-                                            <label for="status" class="form-label">Status</label>
-                                            <select id="status" name="status" class="form-control" required >
-                                                <option value="" >Select Status</option>
-                                                <option value="0" selected>Working</option>
-                                                <option value="1">Broken</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-12 col-lg-6 mb-4">
-                                            <label for="amount" class="form-label">Amount</label>
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text">RM</span>
-                                                <input type="text" id="amount" name="amount" class="form-control text-end" placeholder="0.00" autocomplete="off" required >
-                                            </div>
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
+                    <div class="modal-content p-3 rounded-5">
+                        <div class="modal-header border-0">
+                            <h5 id="modal-header-title" class="modal-title">Add Item</h5>
+                        </div>
+                        <div class="modal-body">
+                            <form id="item-record-form">
+                                <input type="hidden" id="id" name="id" value="">
+                                <input type="hidden" id="user-id" name="user-id" value="<?= $user->get( 'id' ) ?>">
+                                <div class="row ">
+                                    <div class="col-12 mb-4">
+                                        <label for="name" class="form-label">Name</label>
+                                        <input type="text" id="name" name="name" class="form-control" placeholder="" autocomplete="off" required />
+                                    </div>
+                                    <div class="col-12 mb-4">
+                                        <label for="description" class="form-label">Description</label>
+                                        <input type="text" id="description" name="description" class="form-control" placeholder="" autocomplete="off" />
+                                    </div>
+                                    <div class="col-12 mb-4">
+                                        <label for="status" class="form-label">Status</label>
+                                        <select id="status" name="status" class="form-control" required >
+                                            <option value="" selected>Select Status</option>
+                                            <option value="Available">Available</option>
+                                            <option value="No Available">No Available</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12 mb-4">
+                                        <label for="amount" class="form-label">Amount</label>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text">RM</span>
+                                            <input type="text" id="amount" name="amount" class="form-control text-end" placeholder="0.00" autocomplete="off" required >
                                         </div>
                                     </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer border-0">
-                                <button type="button" class="btn rounded-pill" onclick="close_item_modal()" style="width: 100px; height: 40px;">Cancel</button>
-                                <button type="submit" class="btn btn-primary rounded-pill" form="item-record-form" style="width: 100px; height: 40px;" onclick="">Submit</button>
-                            </div>
+                                    <div class="col-12 mb-4">
+                                        <label for="purchase-date" class="form-label">Purchase Date</label>
+                                        <input type="date" id="purchase-date" name="purchase-date" class="form-control" placeholder="DD/MM/YYYY" value="<?= date( 'Y-m-d' ) ?>" required>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer border-0">
+                            <button type="button" class="btn rounded-pill" onclick="close_item_modal()" style="width: 100px; height: 40px;">Cancel</button>
+                            <button type="submit" class="btn btn-primary rounded-pill" form="item-record-form" style="width: 100px; height: 40px;" onclick="">Submit</button>
                         </div>
                     </div>
                 </div>
-                <!-- Item Modal End -->
+            </div>
+            <!-- Item Modal End -->
 
             <!-- Item Delete Modal Start -->
             <div class="modal fade back-blur-3" id="m-item-delete-record" tabindex="-1" aria-hidden="true">
@@ -190,7 +203,7 @@
                         </div>
                         <div class="modal-body">
                             <form id="item-record-delete-form">
-                                <input type="hidden" id="m-id-delete" name="m-id-delete" value="">
+                                <input type="hidden" id="id" name="id" value="">
                                 <div class="row mb-4">
                                     <div class="col-12">
                                         <label class="form-label">Do you want to delete this record ?</label>
@@ -199,7 +212,7 @@
                             </form>
                         </div>
                         <div class="modal-footer border-0">
-                            <button type="button" class="btn rounded-pill" onclick="close_delete_modal()" style="width: 100px; height: 40px;">Cancel</button>
+                            <button type="button" class="btn rounded-pill" onclick="close_item_delete_modal()" style="width: 100px; height: 40px;">Cancel</button>
                             <button type="button" class="btn btn-danger rounded-pill" style="width: 100px; height: 40px;" onclick="delete_item()">Delete</button>
                         </div>
                     </div>
