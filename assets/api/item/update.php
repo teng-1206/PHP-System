@@ -16,7 +16,7 @@
         $item->set( 'name', htmlspecialchars( $_POST[ 'name' ] ) );
         $item->set( 'description', htmlspecialchars( $_POST[ 'description' ] ) );
         $item->set( 'status', htmlspecialchars( $_POST[ 'status' ] ) );
-        $item->set( 'amount', htmlspecialchars( $_POST[ 'amount' ] ) );
+        $item->set( 'amount', number_format( htmlspecialchars( $_POST[ 'amount' ] ), 2, '.', '' ) );
         $item->set( 'purchase_date', htmlspecialchars( $_POST[ 'purchase_date' ] ) );
         $res = $item_controller->update( $conn, $item );
 
