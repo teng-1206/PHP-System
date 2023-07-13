@@ -293,7 +293,7 @@ function read_all_finance() {
                         const { id, title, status, category, amount, date } = row_data;
                         table.row.add( [
                             `<td class="checkbox-column"> 1 </td>`,
-                            `${ date.split(" ")[0] }`,
+                            `${ get_date( date ) }`,
                             `${ title }`,
                             `${ category }`,
                             `<span class="${ status == 0 ? 'text-success' : 'text-danger' }">RM ${ amount }</span>`,
