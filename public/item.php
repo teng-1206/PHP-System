@@ -182,6 +182,10 @@
                                         <label for="purchase-date" class="form-label">Purchase Date</label>
                                         <input type="date" id="purchase-date" name="purchase-date" class="form-control" placeholder="DD/MM/YYYY" value="<?= date( 'Y-m-d' ) ?>" required>
                                     </div>
+                                    <div class="col-12 mb-4">
+                                        <label for="broken-date" class="form-label">Broken Date</label>
+                                        <input type="date" id="broken-date" name="broken-date" class="form-control" placeholder="DD/MM/YYYY">
+                                    </div>
                                 </div>
                             </form>
                         </div>

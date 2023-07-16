@@ -8,6 +8,7 @@ class Item
     private $status;
     private $amount;
     private $purchase_date;
+    private $broken_date;
     private $fk_user_id;
     private $soft_delete;
     private $create_at;
@@ -41,6 +42,9 @@ class Item
                 break;
             case 'purchase_date':
                 return $this->purchase_date;
+                break;
+            case 'broken_date':
+                return $this->broken_date;
                 break;
             case 'fk_user_id':
                 return $this->fk_user_id;
@@ -85,6 +89,9 @@ class Item
                 break;
             case 'purchase_date':
                 $this->purchase_date = $value;
+                break;
+            case 'broken_date':
+                $this->broken_date = $value;
                 break;
             case 'fk_user_id':
                 $this->fk_user_id = $value;
@@ -164,8 +171,8 @@ class Item_Controller
     }
 
     public function create( $conn, Item $object ) {
-        $sql = "INSERT INTO item( name, description, status, amount, purchase_date, fk_user_id )
-                VALUES( ?, ?, ?, ?, ?, ? )";
+        $sql = "INSERT INTO item( name, description, status, amount, purchase_date, broken_date, fk_user_id )
+                VALUES( ?, ?, ?, ?, ?, ?, ? )";
         $stmt = $conn->prepare( $sql );
         $result = $stmt->execute( [
             $object->get( 'name' ),
@@ -173,6 +180,7 @@ class Item_Controller
             $object->get( 'status' ),
             $object->get( 'amount' ),
             $object->get( 'purchase_date' ),
+            $object->get( 'broken_date' ),
             $object->get( 'fk_user_id' ),
         ] );
         $last_id = $result ? $conn->lastInsertId() : null;
@@ -181,7 +189,7 @@ class Item_Controller
 
     public function update( $conn, Item $object)  {
         $sql = "UPDATE item
-                SET name = ?, description = ?, status = ?, amount = ?, purchase_date = ?, update_at = CURRENT_TIMESTAMP
+                SET name = ?, description = ?, status = ?, amount = ?, purchase_date = ?, broken_date = ?, update_at = CURRENT_TIMESTAMP
                 WHERE id = ?";
         $stmt = $conn->prepare( $sql );
         $result = $stmt->execute( [
@@ -190,6 +198,7 @@ class Item_Controller
             $object->get( 'status' ),
             $object->get( 'amount' ),
             $object->get( 'purchase_date' ),
+            $object->get( 'broken_date' ),
             $object->get( 'id' ),
         ] );
         return $result ? true : false;
@@ -205,45 +214,46 @@ class Item_Controller
         return $result;
     }
 
-     /**
-         * Converts an array of item data into a Item object.
-         *
-         * @param array $object The item data array.
-         *
-         * @return Item Returns a Item object.
-         */
-        public function convert ( array $object )
-        {
-            $new_object = new Item();
-            $new_object->set( 'id', $object[ 'id' ] );
-            $new_object->set( 'name', $object[ 'name' ] );
-            $new_object->set( 'description', $object[ 'description' ] );
-            $new_object->set( 'status', $object[ 'status' ] );
-            $new_object->set( 'amount', $object[ 'amount' ] );
-            $new_object->set( 'purchase_date', $object[ 'purchase_date' ] );
-            $new_object->set( 'fk_user_id', $object[ 'fk_user_id' ] );
-            $new_object->set( 'soft_delete', $object[ 'soft_delete' ] );
-            $new_object->set( 'create_at', $object[ 'create_at' ] );
-            $new_object->set( 'update_at', $object[ 'update_at' ] );
-            return $new_object;
-        }
+    /**
+     * Converts an array of item data into a Item object.
+     *
+     * @param array $object The item data array.
+     *
+     * @return Item Returns a Item object.
+     */
+    public function convert ( array $object )
+    {
+        $new_object = new Item();
+        $new_object->set( 'id', $object[ 'id' ] );
+        $new_object->set( 'name', $object[ 'name' ] );
+        $new_object->set( 'description', $object[ 'description' ] );
+        $new_object->set( 'status', $object[ 'status' ] );
+        $new_object->set( 'amount', $object[ 'amount' ] );
+        $new_object->set( 'purchase_date', $object[ 'purchase_date' ] );
+        $new_object->set( 'broken_date', $object[ 'broken_date' ] );
+        $new_object->set( 'fk_user_id', $object[ 'fk_user_id' ] );
+        $new_object->set( 'soft_delete', $object[ 'soft_delete' ] );
+        $new_object->set( 'create_at', $object[ 'create_at' ] );
+        $new_object->set( 'update_at', $object[ 'update_at' ] );
+        return $new_object;
+    }
 
-        /**
-         * Converts an array of objects using the convert method for each object
-         *
-         * @param array $array The array of objects to convert
-         * @return array The array of converted objects
-         */
-        public function convert_all ( array $array )
+    /**
+     * Converts an array of objects using the convert method for each object
+     *
+     * @param array $array The array of objects to convert
+     * @return array The array of converted objects
+     */
+    public function convert_all ( array $array )
+    {
+        $new_array = array();
+        foreach ( $array as $object )
         {
-            $new_array = array();
-            foreach ( $array as $object )
-            {
-                $new_object = $this->convert( $object );
-                array_push( $new_array, $new_object );
-            }
-            return $new_array;
+            $new_object = $this->convert( $object );
+            array_push( $new_array, $new_object );
         }
+        return $new_array;
+    }
 }
 
 

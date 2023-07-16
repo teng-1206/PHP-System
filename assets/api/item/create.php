@@ -10,6 +10,14 @@
         $item->set( 'status', htmlspecialchars( $_POST[ 'status' ] ) );
         $item->set( 'amount', number_format( htmlspecialchars( $_POST[ 'amount' ] ), 2, '.', '' ) );
         $item->set( 'purchase_date', htmlspecialchars( $_POST[ 'purchase_date' ] ) );
+        if ( $item->get( 'status' ) == "No Available" ) 
+        {
+            $item->set( 'broken_date', htmlspecialchars( $_POST[ 'broken_date' ] ) );
+        } 
+        else
+        {
+            $item->set( 'broken_date', NULL );
+        }
         $item->set( 'fk_user_id', htmlspecialchars( $_POST[ 'fk_user_id' ] ) );
 
         $item_controller = new Item_Controller();

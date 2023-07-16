@@ -8,6 +8,7 @@ function reset_item_modal() {
     item_record.find( '#description' ).val( '' );
     item_record.find( '#status' ).prop( 'selectedIndex', 0 );
     item_record.find( '#purchase-date' ).val( get_current_day() );
+    item_record.find( '#broken-date' ).val( get_current_day() );
     item_record.find( '#amount' ).val( '' );
 }
 
@@ -71,13 +72,21 @@ $( '#item-record-form' ).submit( ( event ) => {
     }
 } );
 
+/**
+ * Update the broken date required and disabled attribute when change the status.
+ */
+item_record.find( '#status' ).change( function() {
+    change_state_broken_date( $( this ).val() );
+});
+
+
 
 const table = $( '#table-item' ).DataTable( {
     // headerCallback:function( e, a, t, n, s ) {
     //     e.getElementsByTagName( "th" )[ 0 ].innerHTML='<label class="new-control new-checkbox checkbox-outline-info m-auto">\n<input type="checkbox" class="new-control-input chk-parent select-customers-info" id="customer-all-info">\n<span class="new-control-indicator"></span><span style="visibility:hidden">c</span>\n</label>'
     // },
     columnDefs:[ {
-        targets:0, width:"30px", className:"", orderable:!1, render:function(e, a, t, n) {
+        targets:0, width:"30px", className:"", orderable:5, render:function(e, a, t, n) {
             return'<label class="new-control new-checkbox checkbox-outline-info  m-auto">\n<input type="checkbox" class="new-control-input child-chk select-customers-info" id="customer-all-info">\n<span class="new-control-indicator"></span><span style="visibility:hidden">c</span>\n</label>'
         }
     } ],
@@ -197,16 +206,18 @@ function read_all_item() {
                 const data = res.data;
                 if ( data.length > 0 ) {
                     data.forEach( ( row_data ) => {
-                        const { id, name, purchase_date, status, amount } = row_data;
-                        let currentDate = new Date();
-                        let targetDate = new Date( purchase_date );
-                        let timeDiff = currentDate.getTime() - targetDate.getTime();
-                        let days = Math.ceil( timeDiff / ( 1000 * 3600 * 24 ) );
+                        const { id, name, purchase_date, broken_date, status, amount } = row_data;
+                        let days;
+                        if ( status == "No Available" ) {
+                            days = get_days( purchase_date, broken_date );
+                        } else {
+                            days = get_days( purchase_date );
+                        }
                         table.row.add( [
                             `<td class="checkbox-column"> ${ id } </td>`,
                             `${ name }`,
                             `<span class="${ status == "Available" ? 'text-success' : 'text-danger' }">${ status }</span>`,
-                            `${ days }`,
+                            `${ get_days_in_string( days ) }`,
                             `RM ${ amount }`,
                             `${ get_date( purchase_date ) }`,
                             `
@@ -247,12 +258,13 @@ function read_item() {
             console.log(res);
             if ( res.result ) {
                 const data = res.data;
-                const { id, name, description, status, amount, purchase_date  } = data;
+                const { id, name, description, status, amount, purchase_date, broken_date  } = data;
                 item_record.find( '#name' ).val( name );
                 item_record.find( '#description' ).val( description );
                 item_record.find( '#status' ).val( status );
                 item_record.find( '#amount' ).val( amount );
                 item_record.find( '#purchase-date' ).val( get_date( purchase_date ) );
+                change_state_broken_date( status, broken_date );
             }
             return res;
         },
@@ -270,10 +282,11 @@ function create_item() {
     const name          = item_record.find( '#name' ).val();
     const description   = item_record.find( '#description' ).val();
     const purchase_date = item_record.find( '#purchase-date' ).val();
+    const broken_date   = item_record.find( '#broken-date' ).val();
     const status        = item_record.find( '#status' ).val();
     const amount        = item_record.find( '#amount' ).val();
     const fk_user_id    = item_record.find( '#user-id' ).val();
-    const sent_data     = { name, description, purchase_date, status, amount, fk_user_id };
+    const sent_data     = { name, description, purchase_date, broken_date, status, amount, fk_user_id };
     $.ajax( {
         type    : 'POST',
         url     : create_url,
@@ -306,10 +319,11 @@ function update_item() {
     const name          = item_record.find( '#name' ).val();
     const description   = item_record.find( '#description' ).val();
     const purchase_date = item_record.find( '#purchase-date' ).val();
+    const broken_date   = item_record.find( '#broken-date' ).val();
     const status        = item_record.find( '#status' ).val();
     const amount        = item_record.find( '#amount' ).val();
     const fk_user_id    = item_record.find( '#user-id' ).val();
-    const sent_data     = { id, name, description, purchase_date, status, amount, fk_user_id };
+    const sent_data     = { id, name, description, purchase_date, broken_date, status, amount, fk_user_id };
     $.ajax( {
         type    : 'POST',
         url     : update_url,
@@ -366,11 +380,50 @@ function delete_item() {
     } );
 }
 
+function change_state_broken_date( status, broken_date = get_current_day() ) {
+    if ( status == "No Available" ) {
+        item_record.find( '#broken-date' ).prop( 'required', true );
+        item_record.find( '#broken-date' ).removeAttr( "disabled" );
+        item_record.find( '#broken-date' ).val( get_date( broken_date ) );
+    } else {
+        item_record.find( '#broken-date' ).attr( 'disabled', 'disabled' );
+        item_record.find( '#broken-date' ).removeAttr( "required" );
+        item_record.find( '#broken-date' ).val( "" );
+    }
+}
+
+function get_days( start_date, end_date = get_current_day() ) {
+    start_date = new Date( start_date );
+    end_date   = new Date( end_date );
+    let timeDiff = end_date.getTime() - start_date.getTime();
+    let days = Math.ceil( timeDiff / ( 1000 * 3600 * 24 ) );
+    return days;
+}
+
+function get_days_in_string( days ) {
+    const years = Math.floor( days / 365 );
+    const remainingDays = days % 365;
+    const months = Math.floor( remainingDays / 30 );
+    const remainingDaysFinal = remainingDays % 30;
+    let result = '';
+    if ( years > 0 ) {
+        result += years + ( years === 1 ? ' year ' : ' years ' );
+    }
+    if ( months > 0 ) {
+        result += months + ( months === 1 ? ' month ' : ' months ' );
+    }
+    if ( remainingDaysFinal > 0 ) {
+        result += remainingDaysFinal + ( remainingDaysFinal === 1 ? ' day ' : ' days ' );
+    }
+    return result.trim();
+}
+
 function get_date( date ) {
     var new_date = new Date( date );
     var formattedDate = new_date.getFullYear() + "-" + ( new_date.getMonth() + 1 ).toString().padStart( 2, "0" ) + "-" + new_date.getDate().toString().padStart( 2, "0" );
     return formattedDate;
 } 
+
 
 function refresh() {
     read_all_item();
