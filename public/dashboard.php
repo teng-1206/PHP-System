@@ -66,7 +66,7 @@
             <div class="layout-px-spacing">
                 <div class="row layout-top-spacing">
                     <!-- Revenue Chart Start -->
-                    <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+                    <!-- <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
                         <div id="revenue-widget" class="widget widget-chart-one">
                             <div class="widget-heading">
                                 <h5 class="">2023 Revenue</h5>
@@ -88,10 +88,10 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- Revenue Chart End -->
                     <!-- Expenses Category Start -->
-                    <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+                    <!-- <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
                         <div id="expenses-category-widget" class="widget widget-chart-two">
                             <div class="widget-heading">
                                 <h5 class="">Expenses by Category</h5>
@@ -100,7 +100,7 @@
                                 <div id="expenses-category"></div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- Expenses Category End -->
                     <!-- Recent Income Table Start -->
                     <!-- <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
@@ -744,7 +744,7 @@
             load_category( select_date );
         }
 
-        loading( 'This Week' );
+        // loading( 'This Week' );
         
     </script>
 </body>

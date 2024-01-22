@@ -1,6 +1,7 @@
 <?php
-    // Current Page
-    $current_page = basename( $_SERVER[ 'PHP_SELF' ] );
+    // Current Page 
+    // Current page moved to config.php for validation use
+    
 
     // Dashboard
     $dashboard = array( 'dashboard.php' );

@@ -1,10 +1,12 @@
 <?php include_once( realpath( dirname( __FILE__ ) . "//assets//config//config.php" ) ); ?>
+<?php include_once( TEMPLATES_PATH . 'validation.php' ); ?>
 <?php
-    // Check session or cookie 
-    if ( isset( $_SESSION[ 'user_id' ] ) || isset( $_COOKIE[ 'user_id' ] ) )
-    {
-        echo "<script>location.href='" . $config[ 'urls' ][ 'base' ] . "dashboard'</script>";
-    }
+    // // Check session or cookie 
+    // if ( isset( $_SESSION[ 'user_id' ] ) || isset( $_COOKIE[ 'user_id' ] ) )
+    // {
+    //     isset( $_COOKIE[ 'user_id' ] ) ? $_SESSION[ 'user_id' ] = $_COOKIE[ 'user_id' ] : null;
+    //     echo "<script>location.href='" . $config[ 'urls' ][ 'base' ] . "dashboard'</script>";
+    // }
 ?>
 
 <!DOCTYPE html>
