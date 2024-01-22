@@ -27,6 +27,9 @@
         {
             // Set session for logged user
             $_SESSION[ 'user_id' ] = $user_id;
+
+            // Set Cookie for login Id
+            setcookie( 'user_id', $user_id, time() + 86400 * 30, '/' ); 
         }
 
         // Return JSON
