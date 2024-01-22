@@ -52,6 +52,14 @@
 
 ## Logs 
 
+1. Cookie for selected wallet
+
+1. Cookie for selected month
+
+1. Cookie for selected page and the number of item
+
+<!-- 1. Finance selected month got issue -->
+
 <!-- 1. Add Cookie to store user id -->
 
 <!-- 1. Add item page on sidebar -->
