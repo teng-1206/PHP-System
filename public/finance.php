@@ -16,6 +16,19 @@
     $wallet = $wallet_controller->read_default_wallet( $conn, $wallet );
     // $wallet = $crypto->decrypt_object( $wallet );
     $wallet = $wallet_controller->convert( $wallet );
+
+    // Check got wallet id from URL
+    if ( isset( $_GET[ 'wallet_id' ] ) && $_GET[ 'wallet_id' ] != 0 ) {
+        $temp_wallet = new Wallet();
+        $temp_wallet->set( 'id', $_GET[ 'wallet_id' ] );
+        $temp_wallet = $wallet_controller->read( $conn, $temp_wallet );
+        $temp_wallet = $wallet_controller->convert( $temp_wallet );
+        
+        // If the wallet id is not belongs to the current user then show the default wallet id
+        if ( $temp_wallet->get( 'fk_user_id' ) == $wallet->get( 'fk_user_id' ) ) {
+            $wallet->set( 'id', $temp_wallet->get( 'id' ) );
+        }
+    }
 ?>
 
 <!DOCTYPE html>

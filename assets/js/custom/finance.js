@@ -774,6 +774,10 @@ $( '#finance-category-record-form' ).submit( ( event ) => {
 
 function select_wallet( id ) {
     $( '#wallet-id' ).val( id );
+    var currentUrl = new URL( window.location.href );
+    currentUrl.searchParams.set( 'wallet_id', id );
+    history.replaceState( null, null, currentUrl.toString() );
+
     read_wallet_summary();
     close_manage_wallet_modal();
     refresh();
