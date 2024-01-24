@@ -202,7 +202,7 @@ function read_all_item() {
         dataType: 'JSON',
         success: ( res ) => {
             if ( res.result ) {
-                console.log(res);
+                // console.log(res);
                 const data = res.data;
                 if ( data.length > 0 ) {
                     data.forEach( ( row_data ) => {
@@ -255,7 +255,7 @@ function read_item() {
         dataType: 'JSON',
         data    : sent_data,
         success: ( res ) => {
-            console.log(res);
+            // console.log(res);
             if ( res.result ) {
                 const data = res.data;
                 const { id, name, description, status, amount, purchase_date, broken_date  } = data;
@@ -293,7 +293,7 @@ function create_item() {
         dataType: 'JSON',
         data    : sent_data,
         success: ( res ) => {
-            console.log(res);
+            // console.log(res);
             if ( res.result ) {
                 close_item_modal();
                 refresh();
@@ -330,7 +330,7 @@ function update_item() {
         dataType: 'JSON',
         data    : sent_data,
         success: ( res ) => {
-            console.log(res);
+            // console.log(res);
             if ( res.result ) {
                 close_item_modal();
                 refresh();
@@ -360,7 +360,7 @@ function delete_item() {
         dataType: 'JSON',
         data    : sent_data,
         success: ( res ) => {
-            console.log(res);
+            // console.log(res);
             if ( res.result ) {
                 close_item_delete_modal();
                 refresh();

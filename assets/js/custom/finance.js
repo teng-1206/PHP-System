@@ -332,7 +332,7 @@ function read_finance() {
         dataType: 'JSON',
         data    : sent_data,
         success: ( res ) => {
-            console.log(res);
+            // console.log(res);
             if ( res.result ) {
                 const data = res.data;
                 const { title, date, category_id, status, amount, fk_wallet_id } = data;
@@ -370,7 +370,7 @@ function create_finance() {
         dataType: 'JSON',
         data    : sent_data,
         success: ( res ) => {
-            console.log(res);
+            // console.log(res);
             if ( res.result ) {
                 close_finance_modal();
                 refresh();
@@ -406,7 +406,7 @@ function update_finance() {
         dataType: 'JSON',
         data    : sent_data,
         success: ( res ) => {
-            console.log(res);
+            // console.log(res);
             if ( res.result ) {
                 close_finance_modal();
                 refresh();
@@ -436,7 +436,7 @@ function delete_finance() {
         dataType: 'JSON',
         data    : sent_data,
         success: ( res ) => {
-            console.log(res);
+            // console.log(res);
             if ( res.result ) {
                 close_finance_delete_modal();
                 refresh();
@@ -585,7 +585,7 @@ function read_all_finance_category() {
         dataType: 'JSON',
         data    : sent_data,
         success: ( res ) => {
-            console.log( res );
+            // console.log( res );
             if ( res.result ) {
                 const data = res.data;
                 if ( data.length > 0 ) {
@@ -875,7 +875,7 @@ function read_wallet_summary() {
         dataType: 'JSON',
         data    : sent_data,
         success: ( res ) => {
-            console.log(res);
+            // console.log(res);
             if ( res.result ) {
                 const data = res.data;
                 const { name, category, amount } = data;
@@ -905,7 +905,7 @@ function read_all_wallet() {
         dataType: 'JSON',
         data    : sent_data,
         success: ( res ) => {
-            console.log( res );
+            // console.log( res );
             const data = res.data;
             if ( data.length > 0 ) {
                 let all_element = '';
@@ -963,7 +963,7 @@ function read_wallet() {
         dataType: 'JSON',
         data    : sent_data,
         success: ( res ) => {
-            console.log(res);
+            // console.log(res);
             if ( res.result ) {
                 const data = res.data;
                 const { name, category, amount } = data;
@@ -997,7 +997,7 @@ function create_wallet() {
         dataType: 'JSON',
         data    : sent_data,
         success: ( res ) => {
-            console.log(res);
+            // console.log(res);
             if ( res.result ) {
                 // open_manage_wallet_modal();
                 close_wallet_modal();
@@ -1032,7 +1032,7 @@ function update_wallet() {
         dataType: 'JSON',
         data    : sent_data,
         success: ( res ) => {
-            console.log(res);
+            // console.log(res);
             if ( res.result ) {
                 open_manage_wallet_modal();
                 close_wallet_modal();
@@ -1063,7 +1063,7 @@ function delete_wallet() {
         dataType: 'JSON',
         data    : sent_data,
         success: ( res ) => {
-            console.log(res);
+            // console.log(res);
             if ( res.result ) {
                 open_manage_wallet_modal();
                 close_wallet_delete_modal();
@@ -1091,7 +1091,7 @@ $( '#wallet-record-form' ).submit( ( event ) => {
     } else {
         update_wallet();
     }
-    console.log( "create" );
+    // console.log( "create" );
 } );
 
 function get_date( date ) {
