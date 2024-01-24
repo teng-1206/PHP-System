@@ -276,7 +276,8 @@
                                             <a class="dropdown-item" href="javascript:void( update_select_date( 'This Month' ) );">This Month</a>
                                             <a class="dropdown-item" href="javascript:void( update_select_date( 'This Year' ));">This Year</a>
                                             <a class="dropdown-item" href="javascript:void( update_select_date( 'Last Month' ) )">Last Month</a>
-                                            <!-- <a class="dropdown-item" href="javascript:void( update_select_date( 'Last Year' ));">Last Year</a> -->
+                                            <a class="dropdown-item" href="javascript:void( update_select_date( 'Last 3 Months' ) )">Last 3 Months</a>
+                                            <a class="dropdown-item" href="javascript:void( update_select_date( 'Last Year' ));">Last Year</a>
                                             <a class="dropdown-item" href="javascript:void( update_select_date( 'All' ));">All</a>
                                         </div>
                                     </div>

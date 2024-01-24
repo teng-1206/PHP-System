@@ -237,8 +237,16 @@
                         $where = "AND MONTH( finance.date ) = MONTH( CURRENT_TIMESTAMP ) - 1 AND YEAR( finance.date ) = YEAR( CURRENT_TIMESTAMP )";
                     }
                     break;
-                case "Last Three Month":
-                    $where = "AND finance.date >= DATE_SUB( CURDATE(), INTERVAL 3 MONTH ) AND finance.date <= CURDATE()";
+                case "Last 3 Months":
+                    if ( date( 'm' ) == 1 ) {
+                        $where = "AND (MONTH( finance.date ) = 10 OR MONTH( finance.date ) = 11 OR MONTH( finance.date ) = 12) AND YEAR( finance.date ) = YEAR( CURRENT_TIMESTAMP ) - 1";
+                    } else if ( date( 'm' ) == 2 ) {
+                        $where = "AND ( ( MONTH( finance.date ) = 11 AND YEAR( finance.date ) = YEAR( CURRENT_TIMESTAMP ) - 1) OR (MONTH( finance.date ) = 12 AND YEAR( finance.date ) = YEAR( CURRENT_TIMESTAMP ) - 1) OR (MONTH( finance.date ) = 1 AND YEAR( finance.date ) = YEAR( CURRENT_TIMESTAMP ) ) )";
+                    } else if ( date( 'm' ) == 3 ) {
+                        $where = "AND ( ( MONTH( finance.date ) = 12 AND YEAR( finance.date ) = YEAR( CURRENT_TIMESTAMP ) - 1) OR (MONTH( finance.date ) = 1 AND YEAR( finance.date ) = YEAR( CURRENT_TIMESTAMP ) )  OR (MONTH( finance.date ) = 2 AND YEAR( finance.date ) = YEAR( CURRENT_TIMESTAMP ) ) )";
+                    } else {
+                        $where = "AND MONTH( finance.date ) = MONTH( CURRENT_TIMESTAMP ) - 3 AND YEAR( finance.date ) = YEAR( CURRENT_TIMESTAMP )";
+                    }
                     break;
                 case "Last Year":
                     $where = "AND YEAR( finance.date ) = YEAR( CURRENT_TIMESTAMP ) - 1";
