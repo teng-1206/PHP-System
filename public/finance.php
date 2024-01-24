@@ -263,7 +263,7 @@
                     <div id="table-area" class="col-12 col-sm-9 layout-spacing">
                         <div class="widget">
                             <div class="widget-heading">
-                                Records  ( <span id="select-date-label">This Month</span> )
+                                Records  ( <span id="select-date-label"><?= isset( $_GET[ 'filter' ] ) ? $_GET[ 'filter' ] : 'This Month'; ?></span> )
                                 <!-- <button id="btn-add-record" class="btn btn-sm btn-primary rounded-pill shadow mb-3" style="" onclick="open_create_finance()">
                                     <i class="fas fa-plus-circle"></i>
                                 </button> -->
@@ -282,7 +282,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <input type="hidden" id="select-date" value="This Month">
+                                <input type="hidden" id="select-date" value="<?= isset( $_GET[ 'filter' ] ) ? $_GET[ 'filter' ] : 'This Month'; ?>">
                             </div>
                             <div class="widget-content">
                                 <table id="table-finance" class="table style-1 dt-table-hover non-hover">

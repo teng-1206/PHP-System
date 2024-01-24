@@ -1102,6 +1102,10 @@ function get_date( date ) {
 
 function update_select_date( value ) {
     $( '#select-date' ).val( value );
+    var currentUrl = new URL( window.location.href );
+    currentUrl.searchParams.set( 'filter', value );
+    history.replaceState( null, null, currentUrl.toString() );
+
     $( '#select-date-label' ).html( value );
     refresh();
 }
