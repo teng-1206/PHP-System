@@ -107,9 +107,9 @@
                                         </div> -->
                                     </div>
                                 </form>
-                                <div>
-                                    <button id="btn-submit" class="btn btn-success px-3" type="button">Save Changes</button>
-                                </div>
+                                <!-- <div> -->
+                                    <!-- <button id="btn-submit" class="btn btn-success px-3" type="button">Save Changes</button> -->
+                                <!-- </div> -->
                             </div>
                         </div>
                     </div>
@@ -199,7 +199,7 @@
             const new_password     = $( '#m-new-password' ).val();
             const confirm_password = $( '#m-confirm-password' ).val();
             let res = true;
-            if ( password != md5( current_password ) ) {
+            if ( password != calcMD5( current_password ) ) {
                 res = false;
                 Toast.fire( {
                     icon : 'error',
@@ -231,7 +231,7 @@
             const user_id  = $( '#m-user-id' ).val();
             const password = $( '#m-new-password' ).val();
             const sent_data = { user_id, password };
-            console.log( sent_data );
+            // console.log( sent_data );
             $.ajax( {
                 type    : 'POST',
                 url     : update_url,
@@ -239,7 +239,7 @@
                 data    : sent_data,
                 success: ( res ) => {
                     if ( res.result ) {
-                        $( '#m-password' ).val( md5( password ) );
+                        $( '#m-password' ).val( calcMD5( password ) );
                         close_change_password_modal();
                         Toast.fire( {
                             icon : 'success',
