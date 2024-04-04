@@ -20,6 +20,13 @@
          */
         private $title;
 
+         /**
+         * The description of the financial transaction.
+         *
+         * @var string
+         */
+        private $description;
+
         /**
          * The date of the financial transaction.
          *
@@ -99,6 +106,9 @@
                 case 'title':
                     return $this->title;
                     break;
+                case 'description':
+                    return $this->description;
+                    break;
                 case 'date':
                     return $this->date;
                     break;
@@ -145,6 +155,9 @@
                     break;
                 case 'title':
                     $this->title = $value;
+                    break;
+                case 'description':
+                    $this->description = $value;
                     break;
                 case 'date':
                     $this->date = $value;
@@ -314,11 +327,12 @@
          */
         public function create ( $conn, Finance $object )
         {
-            $sql = "INSERT INTO finance( title, date, status, amount, fk_category_id, fk_wallet_id, fk_user_id )
-                    VALUES( ?, ?, ?, ?, ?, ?, ? )";
+            $sql = "INSERT INTO finance( title, description, date, status, amount, fk_category_id, fk_wallet_id, fk_user_id )
+                    VALUES( ?, ?, ?, ?, ?, ?, ?, ? )";
             $stmt = $conn->prepare( $sql );
             $result = $stmt->execute( [
                 $object->get( 'title' ),
+                $object->get( 'description' ),
                 $object->get( 'date' ),
                 $object->get( 'status' ),
                 $object->get( 'amount' ),
@@ -341,11 +355,12 @@
         public function update ( $conn, Finance $object )
         {
             $sql = "UPDATE finance
-                    SET title = ?, date = ?, status = ?, amount = ?, fk_category_id = ?, fk_wallet_id = ?, update_at = CURRENT_TIMESTAMP
+                    SET title = ?, description = ?,  date = ?, status = ?, amount = ?, fk_category_id = ?, fk_wallet_id = ?, update_at = CURRENT_TIMESTAMP
                     WHERE id = ?";
             $stmt = $conn->prepare( $sql );
             $result = $stmt->execute( [
                 $object->get( 'title' ),
+                $object->get( 'description' ),
                 $object->get( 'date' ),
                 $object->get( 'status' ),
                 $object->get( 'amount' ),
@@ -389,6 +404,7 @@
             $new_object = new Finance();
             $new_object->set( 'id', $object[ 'id' ] );
             $new_object->set( 'title', $object[ 'title' ] );
+            $new_object->set( 'description', $object[ 'description' ] );
             $new_object->set( 'date', $object[ 'date' ] );
             $new_object->set( 'status', $object[ 'status' ] );
             $new_object->set( 'amount', $object[ 'amount' ] );

@@ -8,6 +8,7 @@
         $finance = new Finance();
         // $finance->set( 'title', $crypto->encrypt( htmlspecialchars( $_POST[ 'title' ] ) ) );
         $finance->set( 'title', ( htmlspecialchars( $_POST[ 'title' ] ) ) );
+        $finance->set( 'description', ( htmlspecialchars( $_POST[ 'description' ] ) ) );
         $finance->set( 'date', htmlspecialchars( $_POST[ 'date' ] ) );
         // $finance->set( 'status', $crypto->encrypt( htmlspecialchars( $_POST[ 'status' ] ) ) );
         $finance->set( 'status', ( htmlspecialchars( $_POST[ 'status' ] ) ) );

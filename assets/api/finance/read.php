@@ -62,6 +62,7 @@
                 "data" => array(
                     "id"           => $finance->get( 'id' ),
                     "title"        => $finance->get( 'title' ),
+                    "description"        => $finance->get( 'description' ),
                     "date"         => $finance->get( 'date' ),
                     "status"       => $finance->get( 'status' ),
                     "category_id"  => $finance_category->get( 'id' ),

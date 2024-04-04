@@ -343,7 +343,13 @@
                                             <label for="title" class="form-label">Title</label>
                                             <input type="text" id="title" name="title" class="form-control" placeholder="Breakfast.." autocomplete="off" required />
                                         </div>
+
+                                        <div class="col-12 mb-4">
+                                            <label for="description" class="form-label">Description</label>
+                                            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                                        </div>
                                         
+
                                         <div class="col-12 col-lg-6 mb-4">
                                             <label for="status" class="form-label">Status</label>
                                             <select id="status" name="status" class="form-control" required >

@@ -1,3 +1,7 @@
+textarea { 
+    resize: none;
+}
+
 .layout-spacing {
     padding-bottom: 25px;
 }
