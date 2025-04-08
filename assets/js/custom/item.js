@@ -213,12 +213,14 @@ function read_all_item() {
                         } else {
                             days = get_days( purchase_date );
                         }
+                        
                         table.row.add( [
                             `<td class="checkbox-column"> ${ id } </td>`,
                             `${ name }`,
                             `<span class="${ status == "Available" ? 'text-success' : 'text-danger' }">${ status }</span>`,
                             `${ get_days_in_string( days ) }`,
                             `RM ${ amount }`,
+                            `RM ${calculate_daily_value(amount, days)}`,
                             `${ get_date( purchase_date ) }`,
                             `
                             <button onclick="open_update_item( ${ id } );" class="btn btn-primary rounded-pill" data-toggle="tooltip" data-placement="top" title="Edit">
@@ -231,7 +233,7 @@ function read_all_item() {
                         ] ).draw( false );
                     } );
                 }
-                table.order( 1 ).draw()
+                table.order( 6 ).draw()
             }
             $( '#table-area' ).unblock();
             return res;
@@ -423,6 +425,14 @@ function get_date( date ) {
     var formattedDate = new_date.getFullYear() + "-" + ( new_date.getMonth() + 1 ).toString().padStart( 2, "0" ) + "-" + new_date.getDate().toString().padStart( 2, "0" );
     return formattedDate;
 } 
+
+function calculate_daily_value(amount, days) {
+    if ( days <= 0 ) {
+        return amount;
+    }
+    const daily_value = amount / days;
+    return daily_value.toFixed( 2 ); // rounded to 2 decimal places
+}
 
 
 function refresh() {

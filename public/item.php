@@ -130,6 +130,7 @@
                                             <th>Status</th>
                                             <th>Days</th>
                                             <th>Price</th>
+                                            <th>Value</th>
                                             <th>Purchase Date</th>
                                             <th>Actions</th>
                                         </tr>
