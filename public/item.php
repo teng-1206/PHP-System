@@ -115,6 +115,21 @@
                         </button>
                     </div>
 
+                    <!-- Summary Area START -->
+                    <div class="summary-area col-12 col-sm-3 layout-spacing justify-content-center">
+                        <div id="" class="widget item-summary-widget">
+                            <div class="widget-heading"><span>Total Value</span>
+                            </div>
+                            <div class="widget-content row">
+                                <div class="row mb-3 col-12">
+                                    <div class="col">
+                                        <span class="fw-bold text-success">RM <span id="total-value">0.00</span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
                         <div id="table-area" class="widget">
                             <div class="widget-heading">

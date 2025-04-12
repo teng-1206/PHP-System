@@ -106,58 +106,54 @@ const table = $( '#table-item' ).DataTable( {
 // multiCheck( table );
 
 function read_item_summary() {
-    // $( '.item-summary-widget' ).block( {
-        // message: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>',
-        // fadeIn: 800, 
-        // fadeOut: 800,
-        // centerX: 0,
-        // centerY: 0,
-        // overlayCSS: {
-        //     backgroundColor: '#191e3a',
-        //     opacity: 0.8,
-        //     cursor: 'wait',
-        //     borderRadius: '1rem',
-        // },
-        // css: {
-        //     width: '100%',
-        //     top: '50%',
-        //     left: '',
-        //     right: '0px',
-        //     bottom: 0,
-        //     border: 0,
-        //     color: '#25d5e4',
-        //     padding: 0,
-        //     backgroundColor: 'transparent'
-        // }
-    // } ); 
-    // const summary_url  = `${ api_url }item/summary.php`;
-    // const fk_wallet_id = $( '#wallet-id' ).val();
-    // const fk_user_id   = item_record.find( '#user-id' ).val();
-    // const select_date  = $( '#select-date' ).val();
-    // const sent_data    = { fk_wallet_id, fk_user_id, select_date };
-    // $.ajax( {
-    //     type    : 'POST',
-    //     url     : summary_url,
-    //     data: sent_data,
-    //     dataType: 'JSON',
-    //     success: ( res ) => {
-    //         if ( res.result ) {
-    //             const data = res.data;
-    //             const { total_income, total_expense, total_earning } = data;
-    //             $( '#total-income' ).html( total_income );
-    //             $( '#total-expense' ).html( total_expense );
-    //             $( '#total-earning' ).html( total_earning );
-    //             $('.item-summary-widget').unblock();
-    //         }
-    //         return res;
-    //     },
-    //     error: ( err ) => {
-    //         Toast.fire( {
-    //             icon : 'error',
-    //             title: 'Read Error'
-    //         } );
-    //     }
-    // } );
+    $( '.item-summary-widget' ).block( {
+        message: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>',
+        fadeIn: 800, 
+        fadeOut: 800,
+        centerX: 0,
+        centerY: 0,
+        overlayCSS: {
+            backgroundColor: '#191e3a',
+            opacity: 0.8,
+            cursor: 'wait',
+            borderRadius: '1rem',
+        },
+        css: {
+            width: '100%',
+            top: '50%',
+            left: '',
+            right: '0px',
+            bottom: 0,
+            border: 0,
+            color: '#25d5e4',
+            padding: 0,
+            backgroundColor: 'transparent'
+        }
+    } ); 
+    const summary_url  = `${ api_url }item/summary.php`;
+    const fk_user_id   = item_record.find( '#user-id' ).val();
+    const sent_data    = { fk_user_id };
+    $.ajax( {
+        type    : 'POST',
+        url     : summary_url,
+        data: sent_data,
+        dataType: 'JSON',
+        success: ( res ) => {
+            if ( res.result ) {
+                const data = res.data;
+                const { total_value } = data;
+                $( '#total-value' ).html( total_value );
+                $('.item-summary-widget').unblock();
+            }
+            return res;
+        },
+        error: ( err ) => {
+            Toast.fire( {
+                icon : 'error',
+                title: 'Read Summary Error'
+            } );
+        }
+    } );
 }
 
 
@@ -437,6 +433,7 @@ function calculate_daily_value(amount, days) {
 
 function refresh() {
     read_all_item();
+    read_item_summary();
 }
 
 refresh();
