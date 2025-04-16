@@ -18,92 +18,16 @@
         /**
          * Get Method
          */
-        public function get ( string $attribute )
-        {
-            switch ( $attribute ) 
-            {
-                case 'id':
-                    return $this->id;
-                    break;
-                case 'title':
-                    return $this->title;
-                    break;
-                case 'description':
-                    return $this->description;
-                    break;
-                case 'due_date':
-                    return $this->due_date;
-                    break;
-                case 'fk_task_status_id':
-                    return $this->fk_task_status_id;
-                    break;
-                case 'fk_order_id':
-                    return $this->fk_order_id;
-                    break;
-                case 'fk_priority_id':
-                    return $this->fk_priority_id;
-                    break;
-                case 'fk_repeat_period_id':
-                    return $this->fk_repeat_period_id;
-                    break;
-                case 'fk_reminder_id':
-                    return $this->fk_reminder_id;
-                    break;
-                case 'soft_delete':
-                    return $this->soft_delete;
-                    break;
-                case 'create_at':
-                    return $this->create_at;
-                    break;
-                case 'update_at':
-                    return $this->update_at;
-                    break;
-            }
+        public function get(string $attribute) {
+            return property_exists($this, $attribute) ? $this->$attribute : null;
         }
 
         /**
          * Set Method
          */
-        public function set ( string $attribute, $value )
-        {
-            switch ( $attribute ) 
-            {
-                case 'id':
-                    $this->id = $value;
-                    break;
-                case 'title':
-                    $this->title = $value;
-                    break;
-                case 'description':
-                    $this->description = $value;
-                    break;
-                case 'due_date':
-                    $this->due_date = $value;
-                    break;
-                case 'fk_task_status_id':
-                    $this->fk_task_status_id = $value;
-                    break;
-                case 'fk_order_id':
-                    $this->fk_order_id = $value;
-                    break;
-                case 'fk_priority_id':
-                    $this->fk_priority_id = $value;
-                    break;
-                case 'fk_repeat_period_id':
-                    $this->fk_repeat_period_id = $value;
-                    break;
-                case 'fk_reminder_id':
-                    $this->fk_reminder_id = $value;
-                    break;
-                case 'soft_delete':
-                    $this->soft_delete = $value;
-                    break;
-                case 'create_at':
-                    $this->create_at = $value;
-                    break;
-                case 'update_at':
-                    $this->update_at = $value;
-                    break;
+        public function set(string $attribute, $value) {
+            if (property_exists($this, $attribute)) {
+                $this->$attribute = $value;
             }
         }
     }

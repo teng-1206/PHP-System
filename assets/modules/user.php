@@ -7,56 +7,20 @@ class User {
     private $soft_delete;
     private $create_at;
     private $update_at;
-    
+
+    /**
+     * Get Method
+     */
     public function get(string $attribute) {
-        switch($attribute) {
-            case 'id':
-                return $this->id;
-                break;
-            case 'username':
-                return $this->username;
-                break;
-            case 'password':
-                return $this->password;
-                break;
-            case 'email':
-                return $this->email;
-                break;
-            case 'soft_delete':
-                return $this->soft_delete;
-                break;
-            case 'create_at':
-                return $this->create_at;
-                break;
-            case 'update_at':
-                return $this->update_at;
-                break;
-        }
+        return property_exists($this, $attribute) ? $this->$attribute : null;
     }
-    
+
+    /**
+     * Set Method
+     */
     public function set(string $attribute, $value) {
-        switch($attribute) {
-            case 'id':
-                $this->id = $value;
-                break;
-            case 'username':
-                $this->username = $value;
-                break;
-            case 'password':
-                $this->password = $value;
-                break;
-            case 'email':
-                $this->email = $value;
-                break;
-            case 'soft_delete':
-                $this->soft_delete = $value;
-                break;
-            case 'create_at':
-                $this->create_at = $value;
-                break;
-            case 'update_at':
-                $this->update_at = $value;
-                break;
+        if (property_exists($this, $attribute)) {
+            $this->$attribute = $value;
         }
     }
 }

@@ -9,51 +9,19 @@
         private $create_at;
         private $update_at;
 
-        public function get(string $attribute)
-        {
-            switch ($attribute) {
-                case 'id':
-                    return $this->id;
-                    break;
-                case 'date':
-                    return $this->date;
-                    break;
-                case 'fk_user_id':
-                    return $this->fk_user_id;
-                    break;
-                case 'soft_delete':
-                    return $this->soft_delete;
-                    break;
-                case 'create_at':
-                    return $this->create_at;
-                    break;
-                case 'update_at':
-                    return $this->update_at;
-                    break;
-            }
+        /**
+         * Get Method
+         */
+        public function get(string $attribute) {
+            return property_exists($this, $attribute) ? $this->$attribute : null;
         }
 
-        public function set(string $attribute, $value)
-        {
-            switch ($attribute) {
-                case 'id':
-                    $this->id = $value;
-                    break;
-                case 'date':
-                    $this->date = $value;
-                    break;
-                case 'fk_user_id':
-                    $this->fk_user_id = $value;
-                    break;
-                case 'soft_delete':
-                    $this->soft_delete = $value;
-                    break;
-                case 'create_at':
-                    $this->create_at = $value;
-                    break;
-                case 'update_at':
-                    $this->update_at = $value;
-                    break;
+        /**
+         * Set Method
+         */
+        public function set(string $attribute, $value) {
+            if (property_exists($this, $attribute)) {
+                $this->$attribute = $value;
             }
         }
     }

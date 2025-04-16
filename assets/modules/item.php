@@ -16,95 +16,17 @@ class Item
 
     /**
      * Get Method
-     * 
-     * Returns the value of the specified attribute
-     * 
-     * @param string $attribute The name of the attribute to retrieve
-     * @return mixed The value of the specified attribute
      */
-    public function get( string $attribute )
-    {
-        switch ($attribute) {
-            case 'id':
-                return $this->id;
-                break;
-            case 'name':
-                return $this->name;
-                break;
-            case 'description':
-                return $this->description;
-                break;
-            case 'status':
-                return $this->status;
-                break;
-            case 'amount':
-                return $this->amount;
-                break;
-            case 'purchase_date':
-                return $this->purchase_date;
-                break;
-            case 'broken_date':
-                return $this->broken_date;
-                break;
-            case 'fk_user_id':
-                return $this->fk_user_id;
-                break;
-            case 'soft_delete':
-                return $this->soft_delete;
-                break;
-            case 'create_at':
-                return $this->create_at;
-                break;
-            case 'update_at':
-                return $this->update_at;
-                break;
-        }
+    public function get(string $attribute) {
+        return property_exists($this, $attribute) ? $this->$attribute : null;
     }
 
     /**
      * Set Method
-     * 
-     * Sets the value of the specified attribute
-     * 
-     * @param string $attribute The name of the attribute to set
-     * @param mixed $value The value to set the attribute to
      */
-    public function set(string $attribute, $value)
-    {
-        switch ($attribute) {
-            case 'id':
-                $this->id = $value;
-                break;
-            case 'name':
-                $this->name = $value;
-                break;
-            case 'description':
-                $this->description = $value;
-                break;
-            case 'status':
-                $this->status = $value;
-                break;
-            case 'amount':
-                $this->amount = $value;
-                break;
-            case 'purchase_date':
-                $this->purchase_date = $value;
-                break;
-            case 'broken_date':
-                $this->broken_date = $value;
-                break;
-            case 'fk_user_id':
-                $this->fk_user_id = $value;
-                break;
-            case 'soft_delete':
-                $this->soft_delete = $value;
-                break;
-            case 'create_at':
-                $this->create_at = $value;
-                break;
-            case 'update_at':
-                $this->update_at = $value;
-                break;
+    public function set(string $attribute, $value) {
+        if (property_exists($this, $attribute)) {
+            $this->$attribute = $value;
         }
     }
 }

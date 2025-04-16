@@ -102,57 +102,19 @@
             return $new_array;
         }
 
-        public function get ( String $attribute )
-        {
-            switch ( $attribute )
-            {
-                case 'encrypt_method':
-                    return $this->encrypt_method;
-                    break;
-                case 'secret_key':
-                    return $this->secret_key;
-                    break;
-                case 'secret_iv':
-                    return $this->secret_iv;
-                    break;
-                case 'key':
-                    return $this->key;
-                    break;
-                case 'iv':
-                    return $this->iv;
-                    break;
-                case 'pass_array':
-                    return $this->pass_array;
-                    break;
-                default:
-                    break;
-            }
+        /**
+         * Get Method
+         */
+        public function get(string $attribute) {
+            return property_exists($this, $attribute) ? $this->$attribute : null;
         }
 
-        public function set ( String $attribute, $value )
-        {
-            switch ( $attribute )
-            {
-                case 'encrypt_method':
-                    $this->encrypt_method = $value;
-                    break;
-                case 'secret_key':
-                    $this->secret_key = $value;
-                    break;
-                case 'secret_iv':
-                    $this->secret_iv = $value;
-                    break;
-                case 'key':
-                    $this->key = $value;
-                    break;
-                case 'iv':
-                    $this->iv = $value;
-                    break;
-                case 'pass_array':
-                    $this->pass_array = $value;
-                    break;
-                default:
-                    break;
+        /**
+         * Set Method
+         */
+        public function set(string $attribute, $value) {
+            if (property_exists($this, $attribute)) {
+                $this->$attribute = $value;
             }
         }
     }

@@ -12,56 +12,16 @@
         /**
          * Get Method
          */
-        public function get( string $attribute )
-        {
-            switch ( $attribute ) 
-            {
-                case 'id':
-                    return $this->id;
-                    break;
-                case 'email':
-                    return $this->email;
-                    break;
-                case 'name':
-                    return $this->name;
-                    break;
-                case 'gender':
-                    return $this->gender;
-                    break;
-                case 'profile_image':
-                    return $this->profile_image;
-                    break;
-                case 'fk_user_id':
-                    return $this->fk_user_id;
-                    break;
-            }
+        public function get(string $attribute) {
+            return property_exists($this, $attribute) ? $this->$attribute : null;
         }
 
         /**
          * Set Method
          */
-        public function set( string $attribute, $value )
-        {
-            switch ( $attribute ) 
-            {
-                case 'id':
-                    $this->id = $value;
-                    break;
-                case 'email':
-                    $this->email = $value;
-                    break;
-                case 'name':
-                    $this->name = $value;
-                    break;
-                case 'gender':
-                    $this->gender = $value;
-                    break;
-                case 'profile_image':
-                    $this->profile_image = $value;
-                    break;
-                case 'fk_user_id':
-                    $this->fk_user_id = $value;
-                    break;
+        public function set(string $attribute, $value) {
+            if (property_exists($this, $attribute)) {
+                $this->$attribute = $value;
             }
         }
     }
