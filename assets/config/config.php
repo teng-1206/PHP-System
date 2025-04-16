@@ -35,6 +35,7 @@
             "plugins"   => "https://" . DOMAIN_NAME . "/assets/plugins/",
             "templates" => "https://" . DOMAIN_NAME . "/assets/templates/",
             "uploads"   => "https://" . DOMAIN_NAME . "/assets/uploads/",
+            "vendor"   => "https://" . DOMAIN_NAME . "/assets/vendor/",
         ),
         "paths" => array(
             "resources" => "/path/to/assets",
@@ -79,6 +80,34 @@
 
     defined( 'UPLOADS_PATH' )
         or define( 'UPLOADS_PATH', ASSETS_PATH . '//uploads//' );
+
+    defined( 'VENDOR_PATH' )
+        or define( 'VENDOR_PATH', ASSETS_PATH . '//vendor//' );
+
+    // ! Email
+    defined( 'SMTP_EMAIL' )
+        or define( 'SMTP_EMAIL', 'noreply@ngqiteng.com' );
+
+    defined( 'SMTP_NAME' )
+        or define( 'SMTP_NAME', 'SYSTEM' );
+        
+    defined( 'SMTP_HOST' )
+        or define( 'SMTP_HOST', 'mail.ngqiteng.com' );
+
+    defined( 'SMTP_AUTH' )
+        or define( 'SMTP_AUTH', true );
+
+    defined( 'SMTP_USERNAME' )
+        or define( 'SMTP_USERNAME', 'noreply@ngqiteng.com' );
+
+    defined( 'SMTP_PASSWORD' )
+        or define( 'SMTP_PASSWORD', 't@ZB,1?x-D%2' );
+
+    defined( 'SMTP_SECURE' )
+        or define( 'SMTP_SECURE', 'ssl' );
+
+    defined( 'SMTP_PORT' )
+        or define( 'SMTP_PORT', 465 );
 
     include_once( MODULES_PATH . 'cryptography.php' );
     $crypto = new Cryptography();
