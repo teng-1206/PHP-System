@@ -18,6 +18,30 @@
         {
             $item->set( 'broken_date', NULL );
         }
+        
+        $file_path = $config[ 'urls' ][ 'uploads' ] . "item/image-placeholder.jpg";
+        $item->set( 'image_url', $file_path );
+
+        if ( isset( $_FILES[ 'image' ] ) ) {
+            $file = $_FILES[ 'image' ];
+            $file_name = basename( $file[ 'name' ] );
+            $file_path = $config[ 'urls' ][ 'uploads' ] . 'item/' . time() . '_' . $file_name;
+            $target_path = UPLOADS_PATH . 'item/' . time() . '_' . $file_name;
+
+            if ( move_uploaded_file( $file[ 'tmp_name' ], $target_path ) ) {
+                $item->set( 'image_url', $file_path );
+                // echo json_encode(['result' => true, 'message' => 'Image uploaded successfully.']);
+            } 
+            else
+            {
+                // echo json_encode(['result' => false, 'message' => 'Failed to move uploaded file.']);
+            }
+        }
+        else
+        {
+            // echo json_encode(['result' => false, 'message' => 'No file uploaded.']);
+        }
+
         $item->set( 'fk_user_id', htmlspecialchars( $_POST[ 'fk_user_id' ] ) );
 
         $item_controller = new Item_Controller();

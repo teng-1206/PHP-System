@@ -202,6 +202,10 @@
                                         <label for="broken-date" class="form-label">Broken Date</label>
                                         <input type="date" id="broken-date" name="broken-date" class="form-control" placeholder="DD/MM/YYYY">
                                     </div>
+                                    <div class="col-12 mb-4">
+                                        <label for="image" class="form-label">Image</label>
+                                        <input type="file" id="image" name="image" class="form-control">
+                                    </div>
                                 </div>
                             </form>
                         </div>

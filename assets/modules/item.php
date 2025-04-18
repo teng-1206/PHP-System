@@ -9,6 +9,7 @@ class Item
     private $amount;
     private $purchase_date;
     private $broken_date;
+    private $image_url;
     private $fk_user_id;
     private $soft_delete;
     private $create_at;
@@ -93,8 +94,8 @@ class Item_Controller
     }
 
     public function create( $conn, Item $object ) {
-        $sql = "INSERT INTO item( name, description, status, amount, purchase_date, broken_date, fk_user_id )
-                VALUES( ?, ?, ?, ?, ?, ?, ? )";
+        $sql = "INSERT INTO item( name, description, status, amount, purchase_date, broken_date, image_url, fk_user_id )
+                VALUES( ?, ?, ?, ?, ?, ?, ?, ? )";
         $stmt = $conn->prepare( $sql );
         $result = $stmt->execute( [
             $object->get( 'name' ),
@@ -103,6 +104,7 @@ class Item_Controller
             $object->get( 'amount' ),
             $object->get( 'purchase_date' ),
             $object->get( 'broken_date' ),
+            $object->get( 'image_url' ),
             $object->get( 'fk_user_id' ),
         ] );
         $last_id = $result ? $conn->lastInsertId() : null;
@@ -111,7 +113,7 @@ class Item_Controller
 
     public function update( $conn, Item $object)  {
         $sql = "UPDATE item
-                SET name = ?, description = ?, status = ?, amount = ?, purchase_date = ?, broken_date = ?, update_at = CURRENT_TIMESTAMP
+                SET name = ?, description = ?, status = ?, amount = ?, purchase_date = ?, broken_date = ?, image_url = ?, update_at = CURRENT_TIMESTAMP
                 WHERE id = ?";
         $stmt = $conn->prepare( $sql );
         $result = $stmt->execute( [
@@ -121,6 +123,7 @@ class Item_Controller
             $object->get( 'amount' ),
             $object->get( 'purchase_date' ),
             $object->get( 'broken_date' ),
+            $object->get( 'image_url' ),
             $object->get( 'id' ),
         ] );
         return $result ? true : false;
@@ -153,6 +156,7 @@ class Item_Controller
         $new_object->set( 'amount', $object[ 'amount' ] );
         $new_object->set( 'purchase_date', $object[ 'purchase_date' ] );
         $new_object->set( 'broken_date', $object[ 'broken_date' ] );
+        $new_object->set( 'image_url', $object[ 'image_url' ] );
         $new_object->set( 'fk_user_id', $object[ 'fk_user_id' ] );
         $new_object->set( 'soft_delete', $object[ 'soft_delete' ] );
         $new_object->set( 'create_at', $object[ 'create_at' ] );

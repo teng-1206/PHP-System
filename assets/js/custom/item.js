@@ -6,10 +6,12 @@ const item_record_delete          = $( '#m-item-delete-record' );
 function reset_item_modal() {
     item_record.find( '#name' ).val( '' );
     item_record.find( '#description' ).val( '' );
-    item_record.find( '#status' ).prop( 'selectedIndex', 0 );
+    item_record.find( '#status' ).prop( 'selectedIndex', 1 );
     item_record.find( '#purchase-date' ).val( get_current_day() );
     item_record.find( '#broken-date' ).val( get_current_day() );
     item_record.find( '#amount' ).val( '' );
+    item_record.find( '#image' ).val( '' );
+    change_state_broken_date( item_record.find( '#status' ).val() );
 }
 
 /**
@@ -277,19 +279,37 @@ function read_item() {
 
 function create_item() {
     const create_url    = `${ api_url }item/create.php`;
-    const name          = item_record.find( '#name' ).val();
-    const description   = item_record.find( '#description' ).val();
-    const purchase_date = item_record.find( '#purchase-date' ).val();
-    const broken_date   = item_record.find( '#broken-date' ).val();
-    const status        = item_record.find( '#status' ).val();
-    const amount        = item_record.find( '#amount' ).val();
-    const fk_user_id    = item_record.find( '#user-id' ).val();
-    const sent_data     = { name, description, purchase_date, broken_date, status, amount, fk_user_id };
+    // const name          = item_record.find( '#name' ).val();
+    // const description   = item_record.find( '#description' ).val();
+    // const purchase_date = item_record.find( '#purchase-date' ).val();
+    // const broken_date   = item_record.find( '#broken-date' ).val();
+    // const status        = item_record.find( '#status' ).val();
+    // const amount        = item_record.find( '#amount' ).val();
+    // const image         = item_record.find( '#image' )[ 0 ];
+    // const fk_user_id    = item_record.find( '#user-id' ).val();
+
+    let formData = new FormData();
+
+    const image = item_record.find('#image')[0];
+    if (image && image.files.length > 0) {
+        formData.append('image', image.files[0]);
+    }
+    
+    formData.append('name', item_record.find('#name').val() || '');
+    formData.append('description', item_record.find('#description').val() || '');
+    formData.append('purchase_date', item_record.find('#purchase-date').val() || '');
+    formData.append('broken_date', item_record.find('#broken-date').val() || '');
+    formData.append('status', item_record.find('#status').val() || '');
+    formData.append('amount', item_record.find('#amount').val() || '');
+    formData.append('fk_user_id', item_record.find('#user-id').val() || '');
+
     $.ajax( {
         type    : 'POST',
         url     : create_url,
+        processData: false,
+        contentType: false,    
         dataType: 'JSON',
-        data    : sent_data,
+        data    : formData,
         success: ( res ) => {
             // console.log(res);
             if ( res.result ) {
