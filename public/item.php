@@ -29,6 +29,10 @@
     <link rel="stylesheet" type="text/css" href="<?= $config[ 'urls' ][ 'plugins' ] . "table/datatable/dt-global_style.min.css"; ?>">
     <!-- Data Table End -->
 
+    <!-- Preview Start -->
+    <link rel="stylesheet" type="text/css" href="<?= $config[ 'urls' ][ 'plugins' ] . "file-upload/file-upload-with-preview.min.css"; ?>">
+    <!-- Preview End -->
+
     <!-- Custom CSS End -->
 
     <style>
@@ -60,6 +64,12 @@
         }
         .widget .widget-content {
             font-size: 14px;
+        }
+        .image-thumb {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            transition: transform 0.2s ease;
         }
     </style>
 </head>
@@ -141,6 +151,7 @@
                                         <tr>
                                             <!-- <th class="checkbox-column dt-no-sorting"> Record no. </th> -->
                                             <th>No.</th>
+                                            <th>Image</th>
                                             <th>Name</th>
                                             <th>Status</th>
                                             <th>Days</th>
@@ -203,8 +214,15 @@
                                         <input type="date" id="broken-date" name="broken-date" class="form-control" placeholder="DD/MM/YYYY">
                                     </div>
                                     <div class="col-12 mb-4">
-                                        <label for="image" class="form-label">Image</label>
-                                        <input type="file" id="image" name="image" class="form-control">
+                                        <div class="custom-file-container" data-upload-id="file-preview-image">
+                                            <label>Upload Image <a href="javascript:void(0)" class="custom-file-container__image-clear" title="Clear Image">x</a></label>
+                                            <label class="custom-file-container__custom-file" >
+                                                <input type="file" id="image" name="image" class="custom-file-container__custom-file__custom-file-input" accept="image/*">
+                                                <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
+                                                <span class="custom-file-container__custom-file__custom-file-control"></span>
+                                            </label>
+                                            <div class="custom-file-container__image-preview"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </form>
@@ -244,6 +262,18 @@
             </div>
             <!-- Item Delete Modal End -->
 
+            <!-- Item Image Modal Start -->
+            <div class="modal fade back-blur-3" id="m-item-image" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content border-0 bg-transparent shadow-none">
+                        <div class="modal-body text-center p-0">
+                            <img id="preview-image" name="preview-image" width="100%" height="100%" src="#" alt="Full size preview">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Item Image Modal End -->
+
             <!-- Footer Start -->
             <?php include_once( TEMPLATES_PATH . 'footer.php' ); ?>
             <!-- Footer End -->
@@ -263,8 +293,13 @@
     <script src="<?= $config[ 'urls' ][ 'plugins' ] . "table/datatable/datatables.min.js"; ?>"></script>
     <!-- Data Table End -->
 
+    <!-- Block JS Start -->
     <script src="<?= $config[ 'urls' ][ 'plugins' ] . "blockui/jquery.blockUI.min.js"; ?>"></script>
+    <!-- Block JS ENd -->
 
+    <!-- Preview JS Start -->
+    <script src="<?= $config[ 'urls' ][ 'plugins' ] . "file-upload/file-upload-with-preview.min.js"; ?>"></script>
+    <!-- Preview JS End -->
 
     <!-- Item JS Start -->
     <script src="<?= $config[ 'urls' ][ 'js' ] . "custom/item.js"; ?>"></script>

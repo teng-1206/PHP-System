@@ -1,5 +1,6 @@
-const item_record                 = $( '#m-item-record' );
-const item_record_delete          = $( '#m-item-delete-record' );
+const item_record        = $( '#m-item-record' );
+const item_record_delete = $( '#m-item-delete-record' );
+const item_image         = $( '#m-item-image' );
 
 // ! Item
 
@@ -204,7 +205,7 @@ function read_all_item() {
                 const data = res.data;
                 if ( data.length > 0 ) {
                     data.forEach( ( row_data ) => {
-                        const { id, name, purchase_date, broken_date, status, amount } = row_data;
+                        const { id, name, purchase_date, broken_date, status, amount, image_url } = row_data;
                         let days;
                         if ( status == "No Available" ) {
                             days = get_days( purchase_date, broken_date );
@@ -214,6 +215,7 @@ function read_all_item() {
                         
                         table.row.add( [
                             `<td class="checkbox-column"> ${ id } </td>`,
+                            `<img class="image-thumb" src="${ image_url }" onclick="open_item_image_modal( this.src )" />`,
                             `${ name }`,
                             `<span class="${ status == "Available" ? 'text-success' : 'text-danger' }">${ status }</span>`,
                             `${ get_days_in_string( days ) }`,
@@ -231,7 +233,7 @@ function read_all_item() {
                         ] ).draw( false );
                     } );
                 }
-                table.order( 6 ).draw()
+                table.order( 7 ).draw()
             }
             $( '#table-area' ).unblock();
             return res;
@@ -333,20 +335,39 @@ function create_item() {
 
 function update_item() {
     const update_url    = `${ api_url }item/update.php`;
-    const id            = item_record.find( '#id' ).val();
-    const name          = item_record.find( '#name' ).val();
-    const description   = item_record.find( '#description' ).val();
-    const purchase_date = item_record.find( '#purchase-date' ).val();
-    const broken_date   = item_record.find( '#broken-date' ).val();
-    const status        = item_record.find( '#status' ).val();
-    const amount        = item_record.find( '#amount' ).val();
-    const fk_user_id    = item_record.find( '#user-id' ).val();
-    const sent_data     = { id, name, description, purchase_date, broken_date, status, amount, fk_user_id };
+    // const id            = item_record.find( '#id' ).val();
+    // const name          = item_record.find( '#name' ).val();
+    // const description   = item_record.find( '#description' ).val();
+    // const purchase_date = item_record.find( '#purchase-date' ).val();
+    // const broken_date   = item_record.find( '#broken-date' ).val();
+    // const status        = item_record.find( '#status' ).val();
+    // const amount        = item_record.find( '#amount' ).val();
+    // const fk_user_id    = item_record.find( '#user-id' ).val();
+
+    let formData = new FormData();
+
+    const image = item_record.find('#image')[0];
+    if (image && image.files.length > 0) {
+        formData.append('image', image.files[0]);
+    }
+    
+    formData.append('id', item_record.find('#id').val() || '');
+    formData.append('name', item_record.find('#name').val() || '');
+    formData.append('description', item_record.find('#description').val() || '');
+    formData.append('purchase_date', item_record.find('#purchase-date').val() || '');
+    formData.append('broken_date', item_record.find('#broken-date').val() || '');
+    formData.append('status', item_record.find('#status').val() || '');
+    formData.append('amount', item_record.find('#amount').val() || '');
+    formData.append('fk_user_id', item_record.find('#user-id').val() || '');
+
+    // const sent_data     = { id, name, description, purchase_date, broken_date, status, amount, fk_user_id };
     $.ajax( {
         type    : 'POST',
         url     : update_url,
+        processData: false,
+        contentType: false,
         dataType: 'JSON',
-        data    : sent_data,
+        data    : formData,
         success: ( res ) => {
             // console.log(res);
             if ( res.result ) {
@@ -450,10 +471,15 @@ function calculate_daily_value(amount, days) {
     return daily_value.toFixed( 2 ); // rounded to 2 decimal places
 }
 
+function open_item_image_modal( src ) {
+    item_image.find( '#preview-image' ).attr( 'src', src );
+    item_image.modal( 'show' );
+}
 
 function refresh() {
     read_all_item();
     read_item_summary();
+    var firstUpload = new FileUploadWithPreview( 'file-preview-image' )
 }
 
 refresh();
