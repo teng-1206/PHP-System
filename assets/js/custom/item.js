@@ -205,7 +205,7 @@ function read_all_item() {
                 const data = res.data;
                 if ( data.length > 0 ) {
                     data.forEach( ( row_data ) => {
-                        const { id, name, purchase_date, broken_date, status, amount, image_url } = row_data;
+                        const { id, name, purchase_date, broken_date, status, amount, image_url, thumb_image_url } = row_data;
                         let days;
                         if ( status == "No Available" ) {
                             days = get_days( purchase_date, broken_date );
@@ -215,7 +215,7 @@ function read_all_item() {
                         
                         table.row.add( [
                             `<td class="checkbox-column"> ${ id } </td>`,
-                            `<img class="image-thumb" src="${ image_url }" onclick="open_item_image_modal( this.src )" />`,
+                            `<img class="image-thumb" src="${ thumb_image_url }" data-full-src="${ image_url }" onclick="open_item_image_modal( this )" />`,
                             `${ name }`,
                             `<span class="${ status == "Available" ? 'text-success' : 'text-danger' }">${ status }</span>`,
                             `${ get_days_in_string( days ) }`,
@@ -471,8 +471,9 @@ function calculate_daily_value(amount, days) {
     return daily_value.toFixed( 2 ); // rounded to 2 decimal places
 }
 
-function open_item_image_modal( src ) {
-    item_image.find( '#preview-image' ).attr( 'src', src );
+function open_item_image_modal( element ) {
+    const full_src = $( element ).data( 'full-src' );
+    item_image.find( '#preview-image' ).attr( 'src', full_src );
     item_image.modal( 'show' );
 }
 

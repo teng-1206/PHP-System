@@ -1,6 +1,7 @@
 <?php
     include_once( realpath( dirname( __FILE__ ) . "//..//..//config//config.php" ) );
     include_once( MODULES_PATH . "item.php" );
+    include_once( MODULES_PATH . "common.php" );
 
     if ( isset( $_POST ) && isset( $_POST[ 'fk_user_id' ] ) )
     {
@@ -20,6 +21,7 @@
         }
         
         $file_path = $config[ 'urls' ][ 'uploads' ] . "item/image-placeholder.jpg";
+        $thumb_file_path = $config[ 'urls' ][ 'uploads' ] . "item/image-placeholder.jpg";
         $item->set( 'image_url', $file_path );
 
         if ( isset( $_FILES[ 'image' ] ) ) {
@@ -30,6 +32,21 @@
 
             if ( move_uploaded_file( $file[ 'tmp_name' ], $target_path ) ) {
                 $item->set( 'image_url', $file_path );
+
+                $thumb_file_path = $config[ 'urls' ][ 'uploads' ] . 'item/' . time() . '_thumb_' . $file_name;
+                $thumb_target_path = UPLOADS_PATH . 'item/' . time() . '_thumb_' . $file_name;
+
+                if ( Common::create_thumbnail( $target_path, $thumb_target_path, 300 ) ) {
+                    $item->set( 'thumb_image_url', $thumb_file_path );
+
+                    // echo json_encode(['result' => true, 'message' => 'Thumbnail image uploaded successfully.']);
+                } else {
+                    // $response['thumbnail'] = null;
+                    // echo json_encode(['result' => false, 'message' => 'Failed to move thumbnail uploaded file.']);
+
+                }
+
+
                 // echo json_encode(['result' => true, 'message' => 'Image uploaded successfully.']);
             } 
             else
