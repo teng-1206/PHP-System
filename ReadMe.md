@@ -1,46 +1,50 @@
-# Errors
+# SYSTEM
 
-<!-- 1. Create, Update, Delete finance record got error. -->
+## Improvements
 
-<!-- 1. Data table show current month records. -->
+### Finance
 
-<!-- 1. Auto select the current wallet based on wallet id. -->
+<!-- - [x] Create, Update, Delete finance record got error. -->
 
-<!-- 1. Create finance, the amount up to 4 digit then the calculation wrong. Example: 1000. -->
+<!-- - [x] Data table show current month records. -->
 
-<!-- 1. Update wallet amount failed. -->
+<!-- - [x] Auto select the current wallet based on wallet id. -->
 
-<!-- 1. Delete default wallet should hide the delete options. -->
+<!-- - [x] Create finance, the amount up to 4 digit then the calculation wrong. Example: 1000. -->
 
-1. Make the frontend amount got ',' for thousand and above.
+<!-- - [x] Update wallet amount failed. -->
 
-<!-- 1. Add a new column for Broken date -->
+<!-- - [x] Delete option is now hidden for the default wallet. -->
 
-<!-- 1. Modify calculation format: Days = Current Date - Broken Date -->
+<!-- - [ ] Make the frontend amount got ',' for thousand and above. -->
 
-<!-- 1. Covert days become Year | Month | Days -->
+<!-- - [x] Add a new column for Broken date -->
 
-1. Add a column for image
+<!-- - [x] Modify calculation format: Days = Current Date - Broken Date -->
 
-1. Add a column for files (Storing invoice : PDF / Image)
+<!-- - [x] Covert days become Year | Month | Days -->
 
-1. Change the status become a label design
+<!-- - [ ] Add a column for image -->
 
-<!-- If want to show all wallet -->
+<!-- - [ ] Add a column for files (Storing invoice : PDF / Image) -->
 
-1. Data table show all records from each wallet.
+- [ ] Change the status to be displayed as a label design.
 
-1. Show all wallet's amount in a section, such as finance category.
+- [ ] Display a widget listing all wallets along with their current amounts.
 
-1. Add a column inside the data table, Wallet.
+- [x] Implement monthly finance summary email / notification
+
+### Item
+
+- [x] Added a "Daily Value" column to display the average daily value for each item.
+
+- [x] Add a widget to show the total value of all items.
+
+- [x] Enabled image upload and preview when adding an item.
+
+- [x] Automatically generate and upload a thumbnail when an image is added.
 
 ## Requirement
-
-### Admin
-
-1. Manage User
-
-1. Profile
 
 ### User
 
@@ -50,11 +54,15 @@
 
 1. Profile
 
-## Logs 
+### Logs
 
-1. Cookie for selected wallet
+<!-- 1. Fix login & logout issue -->
 
-1. Cookie for selected month
+<!-- 1. Update last 3 months SQL statement -->
+
+<!-- 1. Using GET param for selected wallet -->
+
+<!-- 1. Using GET param for selected month -->
 
 1. Cookie for selected page and the number of item
 
@@ -79,9 +87,21 @@
 1. Create a finance record without enter any information.
 
 1. Create a finance record by following the information below.
-    - Title: Breakfast
-    - Amount: 10
-    - Date: Yesterday
-    - Wallet: Cash
+    * Title: Breakfast
+    * Amount: 10
+    * Date: Yesterday
+    * Wallet: Cash
 
 1. Create a finance category.
+
+Import and Export Feature
+
+Remove wallet feature
+
+Only tracking expense
+
+Example:
+
+1. Toll
+
+1. Fuel
