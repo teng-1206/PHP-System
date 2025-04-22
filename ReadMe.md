@@ -2,6 +2,16 @@
 
 ## Improvements
 
+### Dashboard
+
+- [ ] Display a widget showing all categories along with their current amounts based on the default wallet.
+
+- [ ] Display a widget listing all wallets along with their current amounts.
+
+- [ ] Display a widget to show the total value of all items.
+
+- [ ] Block the user interface while loading to prevent interactions.
+
 ### Finance
 
 <!-- - [x] Create, Update, Delete finance record got error. -->
@@ -18,8 +28,6 @@
 
 <!-- - [ ] Make the frontend amount got ',' for thousand and above. -->
 
-<!-- - [x] Add a new column for Broken date -->
-
 <!-- - [x] Modify calculation format: Days = Current Date - Broken Date -->
 
 <!-- - [x] Covert days become Year | Month | Days -->
@@ -27,6 +35,8 @@
 <!-- - [ ] Add a column for image -->
 
 <!-- - [ ] Add a column for files (Storing invoice : PDF / Image) -->
+
+- [ ] Block the user interface while loading to prevent interactions.
 
 - [ ] Change the status to be displayed as a label design.
 
@@ -36,13 +46,27 @@
 
 ### Item
 
-- [x] Added a "Daily Value" column to display the average daily value for each item.
+- [x] Add a "Broken Date" attribute to store the date each item was broken.
+
+- [ ] Block the user interface while loading to prevent interactions.
+
+- [ ] Change the status to be displayed as a label design.
+
+- [x] Add a "Daily Value" column to display the average daily value for each item.
 
 - [x] Add a widget to show the total value of all items.
 
 - [x] Enabled image upload and preview when adding an item.
 
 - [x] Automatically generate and upload a thumbnail when an image is added.
+
+### Activity Log
+
+- [ ] Block the user interface while loading to prevent interactions.
+
+- [ ] Record all user actions for activity tracking.
+
+- [ ] User Interface – Display activity logs from the last 7 days.
 
 ## Requirement
 
@@ -54,27 +78,9 @@
 
 1. Profile
 
-### Logs
+1. Activity Log
 
-<!-- 1. Fix login & logout issue -->
-
-<!-- 1. Update last 3 months SQL statement -->
-
-<!-- 1. Using GET param for selected wallet -->
-
-<!-- 1. Using GET param for selected month -->
-
-1. Cookie for selected page and the number of item
-
-<!-- 1. Finance selected month got issue -->
-
-<!-- 1. Add Cookie to store user id -->
-
-<!-- 1. Add item page on sidebar -->
-
-<!-- 1. Update footer calculate year become automatically -->
-
-## User acceptance testing ( UAT )
+<!-- ## User Acceptance Testing ( UAT )
 
 ### Login
 
@@ -104,4 +110,4 @@ Example:
 
 1. Toll
 
-1. Fuel
+1. Fuel -->
