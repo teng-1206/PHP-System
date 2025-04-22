@@ -36,9 +36,11 @@
 
 <!-- - [ ] Add a column for files (Storing invoice : PDF / Image) -->
 
+- [ ] User interface responsive
+
 - [ ] Block the user interface while loading to prevent interactions.
 
-- [ ] Change the status to be displayed as a label design.
+- [ ] Change the category to be displayed as a label design.
 
 - [ ] Display a widget listing all wallets along with their current amounts.
 
@@ -46,11 +48,13 @@
 
 ### Item
 
+- [ ] User interface responsive
+
 - [x] Add a "Broken Date" attribute to store the date each item was broken.
 
 - [ ] Block the user interface while loading to prevent interactions.
 
-- [ ] Change the status to be displayed as a label design.
+- [x] Change the status to be displayed as a label design.
 
 - [x] Add a "Daily Value" column to display the average daily value for each item.
 

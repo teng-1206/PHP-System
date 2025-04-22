@@ -217,7 +217,7 @@ function read_all_item() {
                             `<td class="checkbox-column"> ${ id } </td>`,
                             `<img class="image-thumb" src="${ thumb_image_url }" data-full-src="${ image_url }" onclick="open_item_image_modal( this )" />`,
                             `${ name }`,
-                            `<span class="${ status == "Available" ? 'text-success' : 'text-danger' }">${ status }</span>`,
+                            `<span class="badge ${ status == "Available" ? 'outline-badge-success' : 'outline-badge-danger' }">${ status }</span>`,
                             `${ get_days_in_string( days ) }`,
                             `RM ${ amount }`,
                             `RM ${calculate_daily_value(amount, days)}`,
