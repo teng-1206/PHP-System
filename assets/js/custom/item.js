@@ -89,9 +89,9 @@ const table = $( '#table-item' ).DataTable( {
     //     e.getElementsByTagName( "th" )[ 0 ].innerHTML='<label class="new-control new-checkbox checkbox-outline-info m-auto">\n<input type="checkbox" class="new-control-input chk-parent select-customers-info" id="customer-all-info">\n<span class="new-control-indicator"></span><span style="visibility:hidden">c</span>\n</label>'
     // },
     columnDefs:[ {
-        targets:0, width:"30px", className:"", orderable:5, render:function(e, a, t, n) {
-            return'<label class="new-control new-checkbox checkbox-outline-info  m-auto">\n<input type="checkbox" class="new-control-input child-chk select-customers-info" id="customer-all-info">\n<span class="new-control-indicator"></span><span style="visibility:hidden">c</span>\n</label>'
-        }
+        // targets:0, width:"30px", className:"", orderable:5, render:function(e, a, t, n) {
+        //     return'<label class="new-control new-checkbox checkbox-outline-info  m-auto">\n<input type="checkbox" class="new-control-input child-chk select-customers-info" id="customer-all-info">\n<span class="new-control-indicator"></span><span style="visibility:hidden">c</span>\n</label>'
+        // }
     } ],
     dom: "<'dt--top-section'<'row'<'col-12 col-sm-6 d-flex justify-content-sm-start justify-content-center'l><'col-12 col-sm-6 d-flex justify-content-sm-end justify-content-center mt-sm-0 mt-3'f>>>" +
         "<'table-responsive'tr>" +
@@ -214,7 +214,7 @@ function read_all_item() {
                         }
                         
                         table.row.add( [
-                            `<td class="checkbox-column"> ${ id } </td>`,
+                            // `<td class="checkbox-column"> ${ id } </td>`,
                             `<img class="image-thumb" src="${ thumb_image_url }" data-full-src="${ image_url }" onclick="open_item_image_modal( this )" />`,
                             `${ name }`,
                             `<span class="badge ${ status == "Available" ? 'outline-badge-success' : 'outline-badge-danger' }">${ status }</span>`,
@@ -233,7 +233,7 @@ function read_all_item() {
                         ] ).draw( false );
                     } );
                 }
-                table.order( 7 ).draw()
+                table.order( 6 ).draw()
             }
             $( '#table-area' ).unblock();
             return res;

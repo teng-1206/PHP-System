@@ -150,7 +150,7 @@
                                     <thead>
                                         <tr>
                                             <!-- <th class="checkbox-column dt-no-sorting"> Record no. </th> -->
-                                            <th>No.</th>
+                                            <!-- <th>No.</th> -->
                                             <th>Image</th>
                                             <th>Name</th>
                                             <th>Status</th>

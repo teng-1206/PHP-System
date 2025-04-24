@@ -83,13 +83,13 @@ $( '#finance-record-form' ).submit( ( event ) => {
 } );
 
 const table = $( '#table-finance' ).DataTable( {
-    headerCallback:function( e, a, t, n, s ) {
-        e.getElementsByTagName( "th" )[ 0 ].innerHTML='<label class="new-control new-checkbox checkbox-outline-info m-auto">\n<input type="checkbox" class="new-control-input chk-parent select-customers-info" id="customer-all-info">\n<span class="new-control-indicator"></span><span style="visibility:hidden">c</span>\n</label>'
-    },
+    // headerCallback:function( e, a, t, n, s ) {
+    //     e.getElementsByTagName( "th" )[ 0 ].innerHTML='<label class="new-control new-checkbox checkbox-outline-info m-auto">\n<input type="checkbox" class="new-control-input chk-parent select-customers-info" id="customer-all-info">\n<span class="new-control-indicator"></span><span style="visibility:hidden">c</span>\n</label>'
+    // },
     columnDefs:[ {
-        targets:0, width:"30px", className:"", orderable:!1, render:function(e, a, t, n) {
-            return'<label class="new-control new-checkbox checkbox-outline-info  m-auto">\n<input type="checkbox" class="new-control-input child-chk select-customers-info" id="customer-all-info">\n<span class="new-control-indicator"></span><span style="visibility:hidden">c</span>\n</label>'
-        }
+        // targets:0, width:"30px", className:"", orderable:!1, render:function(e, a, t, n) {
+        //     return'<label class="new-control new-checkbox checkbox-outline-info  m-auto">\n<input type="checkbox" class="new-control-input child-chk select-customers-info" id="customer-all-info">\n<span class="new-control-indicator"></span><span style="visibility:hidden">c</span>\n</label>'
+        // }
     } ],
     dom: "<'dt--top-section'<'row'<'col-12 col-sm-6 d-flex justify-content-sm-start justify-content-center'l><'col-12 col-sm-6 d-flex justify-content-sm-end justify-content-center mt-sm-0 mt-3'f>>>" +
         "<'table-responsive'tr>" +
@@ -104,7 +104,7 @@ const table = $( '#table-finance' ).DataTable( {
         "lengthMenu": [ 8, 20, 50 ],
         "pageLength": 8 
 } );
-multiCheck( table );
+// multiCheck( table );
 
 
 function read_finance_summary() {
@@ -293,7 +293,7 @@ function read_all_finance() {
                     data.forEach( ( row_data ) => {
                         const { id, title, status, category, amount, date } = row_data;
                         table.row.add( [
-                            `<td class="checkbox-column"> 1 </td>`,
+                            // `<td class="checkbox-column"> 1 </td>`,
                             `${ get_date( date ) }`,
                             `${ title }`,
                             `${ category }`,

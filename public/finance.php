@@ -288,7 +288,7 @@
                                 <table id="table-finance" class="table style-1 dt-table-hover non-hover">
                                     <thead>
                                         <tr>
-                                            <th class="checkbox-column dt-no-sorting"> Record no. </th>
+                                            <!-- <th class="checkbox-column dt-no-sorting"> Record no. </th> -->
                                             <th>Date</th>
                                             <th>Title</th>
                                             <th>Category</th>
