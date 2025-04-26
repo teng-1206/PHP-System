@@ -36,17 +36,27 @@
 
 <!-- - [ ] Add a column for files (Storing invoice : PDF / Image) -->
 
+- [x] Remove checkbox column from datatable.
+
+- [ ] Hide wallet amounts by default, with the option to unhide on click.
+
 - [ ] User interface responsive
 
 - [ ] Block the user interface while loading to prevent interactions.
 
-- [ ] Change the category to be displayed as a label design.
+- [x] Change the category to be displayed as a label design.
+
+- [ ] Add colour code for category.
 
 - [ ] Display a widget listing all wallets along with their current amounts.
 
 - [x] Implement monthly finance summary email / notification
 
 ### Item
+
+- [x] Remove checkbox column from datatable.
+
+- [ ] Hide total value amounts by default, with the option to unhide on click.
 
 - [ ] User interface responsive
 

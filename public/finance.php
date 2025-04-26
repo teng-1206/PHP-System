@@ -59,8 +59,6 @@
 
 
     <style>
-
-        
         /*
         Component Card 4
         */

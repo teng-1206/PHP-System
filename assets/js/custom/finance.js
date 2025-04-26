@@ -199,6 +199,7 @@ function read_finance_category_summary() {
         dataType: 'JSON',
         data    : sent_data,
         success: ( res ) => {
+            console.log( res );
             if ( res.result ) {
                 const data = res.data;
                 const container = $( '#finance-category-list' );
@@ -208,13 +209,13 @@ function read_finance_category_summary() {
                     let all_element = "";
                     data.forEach( ( row_data ) => {
                         index++;
-                        const { category, income, expense } = row_data;
+                        const { category, income, expense, color_code } = row_data;
                         const income_color = income == '0.00' ? 'text-dark' : 'text-success';
                         const expense_color = expense == '0.00' ? 'text-dark' : 'text-danger';
                         const element =   `
                                     <div class="row mb-3">
-                                        <div class="col-12">
-                                            <small class="fw-bold fst-italic">${ category }</small><br/>
+                                        <div class="col-12 mb-1">
+                                            <span class="badge" style="color: ${ color_code }; border: 1px solid ${ color_code };"  >${ category }</span>
                                         </div>
                                         <div class="col-6">
                                             <span class="fw-bold ${ income_color }">RM ${ income }</span>
@@ -287,16 +288,16 @@ function read_all_finance() {
         dataType: 'JSON',
         success: ( res ) => {
             if ( res.result ) {
-                console.log(res);
+                console.log( res );
                 const data = res.data;
                 if ( data.length > 0 ) {
                     data.forEach( ( row_data ) => {
-                        const { id, title, status, category, amount, date } = row_data;
+                        const { id, title, status, category, amount, date, color_code } = row_data;
                         table.row.add( [
                             // `<td class="checkbox-column"> 1 </td>`,
                             `${ get_date( date ) }`,
                             `${ title }`,
-                            `${ category }`,
+                            `<span class="badge" style="color: ${ color_code }; border: 1px solid ${ color_code };"  >${ category }</span>`,
                             `<span class="${ status == 0 ? 'text-success' : 'text-danger' }">RM ${ amount }</span>`,
                             `
                             <button onclick="open_update_finance( ${ id } );" class="btn btn-primary rounded-pill" data-toggle="tooltip" data-placement="top" title="Edit">
@@ -309,7 +310,7 @@ function read_all_finance() {
                         ] ).draw( false );
                     } );
                 }
-                table.order( 1 ).draw()
+                table.order( 0 ).draw()
             }
             $( '#table-area' ).unblock();
             return res;
