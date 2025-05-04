@@ -7,6 +7,30 @@ const wallet_record                  = $( '#m-wallet-record' );
 const wallet_record_delete           = $( '#m-wallet-delete-record' );
 const manage_wallet                  = $( '#m-manage-wallet' );
 const manage_finance_category        = $( '#m-manage-finance-category' );
+const block_options = {
+    message: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>',
+    fadeIn: 800, 
+    fadeOut: 800,
+    centerX: 0,
+    centerY: 0,
+    overlayCSS: {
+        backgroundColor: '#191e3a',
+        opacity: 0.8,
+        cursor: 'wait',
+        borderRadius: '1rem',
+    },
+    css: {
+        width: '100%',
+        top: '50%',
+        left: '',
+        right: '0px',
+        bottom: 0,
+        border: 0,
+        color: '#25d5e4',
+        padding: 0,
+        backgroundColor: 'transparent'
+    }
+}
 
 // ! Finance 
 /**
@@ -108,30 +132,7 @@ const table = $( '#table-finance' ).DataTable( {
 
 
 function read_finance_summary() {
-    $( '.finance-summary-widget' ).block( {
-        message: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>',
-        fadeIn: 800, 
-        fadeOut: 800,
-        centerX: 0,
-        centerY: 0,
-        overlayCSS: {
-            backgroundColor: '#191e3a',
-            opacity: 0.8,
-            cursor: 'wait',
-            borderRadius: '1rem',
-        },
-        css: {
-            width: '100%',
-            top: '50%',
-            left: '',
-            right: '0px',
-            bottom: 0,
-            border: 0,
-            color: '#25d5e4',
-            padding: 0,
-            backgroundColor: 'transparent'
-        }
-    } ); 
+    $( '.finance-summary-widget' ).block( block_options ); 
     const summary_url  = `${ api_url }finance/summary.php`;
     const fk_wallet_id = $( '#wallet-id' ).val();
     const fk_user_id   = finance_record.find( '#user-id' ).val();
@@ -149,7 +150,6 @@ function read_finance_summary() {
                 $( '#total-income' ).html( total_income );
                 $( '#total-expense' ).html( total_expense );
                 $( '#total-earning' ).html( total_earning );
-                $('.finance-summary-widget').unblock();
             }
             return res;
         },
@@ -160,34 +160,15 @@ function read_finance_summary() {
             } );
         }
     } );
+
+    setTimeout(function () {
+        $('.finance-summary-widget').unblock();
+    }, 1000);
 }
 
 function read_finance_category_summary() {
+    $( '#finance-category-summary-widget' ).block( block_options );
     $( '#finance-category-list' ).empty();
-    $( '#finance-category-summary-widget' ).block( {
-        message: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>',
-        fadeIn: 800, 
-        fadeOut: 800,
-        centerX: 0,
-        centerY: 0,
-        overlayCSS: {
-            backgroundColor: '#191e3a',
-            opacity: 0.8,
-            cursor: 'wait',
-            borderRadius: '1rem',
-        },
-        css: {
-            width: '100%',
-            top: '50%',
-            left: '',
-            right: '0px',
-            bottom: 0,
-            border: 0,
-            color: '#25d5e4',
-            padding: 0,
-            backgroundColor: 'transparent'
-        }
-    } );
     const summary_url  = `${ api_url }finance_category/summary.php`;
     const fk_wallet_id = $( '#wallet-id' ).val();
     const fk_user_id   = finance_record.find( '#user-id' ).val();
@@ -199,11 +180,10 @@ function read_finance_category_summary() {
         dataType: 'JSON',
         data    : sent_data,
         success: ( res ) => {
-            console.log( res );
+            // console.log( res );
             if ( res.result ) {
                 const data = res.data;
                 const container = $( '#finance-category-list' );
-
                 if ( data.length > 0 ) {
                     let index = 1;
                     let all_element = "";
@@ -232,7 +212,6 @@ function read_finance_category_summary() {
                     const element = `<small>No Data Available </small>`;
                     container.html( element );
                 }
-                $('#finance-category-summary-widget').unblock();
             }
             return res;
         },
@@ -243,38 +222,13 @@ function read_finance_category_summary() {
             } );
         }
     } );
+    setTimeout(function () {
+        $('#finance-category-summary-widget').unblock();
+    }, 1000);
 }
 
 function read_all_finance() {
-    $( '#table-area' ).block( {
-        message: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>',
-        fadeIn: 800, 
-        fadeOut: 800,
-        centerX: 0,
-        centerY: 0,
-        overlayCSS: {
-            backgroundColor: '#191e3a',
-            opacity: 0.8,
-            cursor: 'wait',
-            borderRadius: '1rem',
-            width: '98%',
-            height: '97%',
-            top: '0px',
-            left: '1%',
-            right: '0px',
-        },
-        css: {
-            width: '100%',
-            top: '50%',
-            left: '',
-            right: '0px',
-            bottom: 0,
-            border: 0,
-            color: '#25d5e4',
-            padding: 0,
-            backgroundColor: 'transparent'
-        }
-    } ); 
+    $( '#table-area' ).block( block_options ); 
     table.clear().draw();
     const read_all_url = `${ api_url }finance/read_all.php`;
     const fk_user_id   = finance_record.find( '#user-id' ).val();
@@ -288,7 +242,7 @@ function read_all_finance() {
         dataType: 'JSON',
         success: ( res ) => {
             if ( res.result ) {
-                console.log( res );
+                // console.log( res );
                 const data = res.data;
                 if ( data.length > 0 ) {
                     data.forEach( ( row_data ) => {
@@ -312,7 +266,6 @@ function read_all_finance() {
                 }
                 table.order( 0 ).draw()
             }
-            $( '#table-area' ).unblock();
             return res;
         },
         error: ( err ) => {
@@ -322,9 +275,13 @@ function read_all_finance() {
             } );
         }
     } );
+    setTimeout(function () {
+        $( '#table-area' ).unblock();
+    }, 1000);
 }
 
 function read_finance() {
+    finance_record.block( block_options ); 
     const read_url  = `${ api_url }finance/read.php`;
     const id        = finance_record.find( '#id' ).val();
     const sent_data = { id };
@@ -355,12 +312,15 @@ function read_finance() {
             } );
         }
     } );
+    setTimeout(function () {
+        finance_record.unblock();
+    }, 1000);
 }
 
 function create_finance() {
     const create_url     = `${ api_url }finance/create.php`;
     const title          = finance_record.find( '#title' ).val();
-    const description          = finance_record.find( '#description' ).val();
+    const description    = finance_record.find( '#description' ).val();
     const date           = finance_record.find( '#date' ).val();
     const fk_category_id = finance_record.find( '#category' ).val();
     const fk_wallet_id   = finance_record.find( '#wallet-id' ).val();
@@ -554,30 +514,7 @@ function open_delete_finance_category( id ) {
 
 
 function read_all_finance_category() {
-    // $( '#table-area' ).block( {
-    //     message: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>',
-    //     fadeIn: 800, 
-    //     fadeOut: 800,
-    //     centerX: 0,
-    //     centerY: 0,
-    //     overlayCSS: {
-    //         backgroundColor: '#191e3a',
-    //         opacity: 0.8,
-    //         cursor: 'wait',
-    //         borderRadius: '1rem',
-    //     },
-    //     css: {
-    //         width: '100%',
-    //         top: '50%',
-    //         left: '',
-    //         right: '0px',
-    //         bottom: 0,
-    //         border: 0,
-    //         color: '#25d5e4',
-    //         padding: 0,
-    //         backgroundColor: 'transparent'
-    //     }
-    // } ); 
+    // $( '#table-area' ).block( block_options ); 
     // table.clear().draw();
     const container = $( '#finance-category-content-area' );
     container.empty();
@@ -635,6 +572,9 @@ function read_all_finance_category() {
             } );
         }
     } );
+    // setTimeout(function () {
+    //     $( '#table-area' ).unblock();
+    // }, 1000);
 }
 
 function read_finance_category() {
