@@ -66,19 +66,19 @@
             <div class="layout-px-spacing">
                 <div class="row layout-top-spacing">
                     <!-- Revenue Chart Start -->
-                    <!-- <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+                    <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
                         <div id="revenue-widget" class="widget widget-chart-one">
                             <div class="widget-heading">
-                                <h5 class="">2023 Revenue</h5>
+                                <h5 class="">2025 Revenue</h5>
                                 <div class="task-action">
                                     <div class="dropdown">
                                         <a class="dropdown-toggle" href="#" role="button" id="pendingTask" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="pendingTask" style="will-change: transform;">
-                                            <a class="dropdown-item" href="javascript:void( loading('This Week') );">Week</a>
-                                            <a class="dropdown-item" href="javascript:void( loading('This Month') );">Month</a>
-                                            <a class="dropdown-item" href="javascript:void( loading('This Year') );">Year</a>
+                                            <a class="dropdown-item" href="javascript:void( load_revenue('This Week') );">Week</a>
+                                            <a class="dropdown-item" href="javascript:void( load_revenue('This Month') );">Month</a>
+                                            <a class="dropdown-item" href="javascript:void( load_revenue('This Year') );">Year</a>
                                         </div>
                                     </div>
                                 </div>
@@ -88,20 +88,34 @@
                                 </div>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
                     <!-- Revenue Chart End -->
+                    
                     <!-- Expenses Category Start -->
-                    <!-- <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
-                        <div id="expenses-category-widget" class="widget widget-chart-two">
-                            <div class="widget-heading">
+                    <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+                        <div id="expenses-category-widget" class="widget widget-chart-two widget-three">
+                            <div class="widget-heading" style="margin-bottom: 15px;">
                                 <h5 class="">Expenses by Category</h5>
+                                <div class="task-action">
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" role="button" id="pendingTask" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="pendingTask" style="will-change: transform;">
+                                            <a class="dropdown-item" href="javascript:void( load_category('This Week') );">Week</a>
+                                            <a class="dropdown-item" href="javascript:void( load_category('This Month') );">Month</a>
+                                            <a class="dropdown-item" href="javascript:void( load_category('This Year') );">Year</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="widget-content">
                                 <div id="expenses-category"></div>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
                     <!-- Expenses Category End -->
+                    
                     <!-- Recent Income Table Start -->
                     <!-- <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
                         <div class="widget widget-table-two">
@@ -260,6 +274,31 @@
     <script src="<?= '' // $config[ 'urls' ][ 'js' ] . "custom/dashboard.js"; ?>"></script>
 
     <script>
+        const block_options = {
+            message: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>',
+            fadeIn: 800, 
+            fadeOut: 800,
+            centerX: 0,
+            centerY: 0,
+            overlayCSS: {
+                backgroundColor: '#191e3a',
+                opacity: 0.8,
+                cursor: 'wait',
+                borderRadius: '1rem',
+            },
+            css: {
+                width: '100%',
+                top: '50%',
+                left: '',
+                right: '0px',
+                bottom: 0,
+                border: 0,
+                color: '#25d5e4',
+                padding: 0,
+                backgroundColor: 'transparent'
+            }
+        }
+
         Apex.tooltip = {
             theme: 'dark'
         }
@@ -270,32 +309,9 @@
         */
         var revenue_chart = null;
         function load_revenue( select_date ) {
-            $( '#revenue-widget' ).block( {
-                message: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>',
-                fadeIn: 800, 
-                fadeOut: 800,
-                centerX: 0,
-                centerY: 0,
-                overlayCSS: {
-                    backgroundColor: '#191e3a',
-                    opacity: 0.8,
-                    cursor: 'wait',
-                    borderRadius: '1rem',
-                },
-                css: {
-                    width: '100%',
-                    top: '50%',
-                    left: '',
-                    right: '0px',
-                    bottom: 0,
-                    border: 0,
-                    color: '#25d5e4',
-                    padding: 0,
-                    backgroundColor: 'transparent'
-                }
-            } ); 
+            $( '#revenue-widget' ).block( block_options ); 
             revenue_chart != null ? revenue_chart.destroy() : null;
-            const revenue_url = `${ api_url }finance/revenue.php`;
+            const revenue_url = `${ api_url }finance/dashboard.php`;
             const fk_user_id = $( '#m-user-id' ).val();
             const sent_data = { fk_user_id, select_date };
 
@@ -308,7 +324,6 @@
                     if ( res.result ) {
                         // console.log( res.data );
                         display_revenue( res.data );
-                        $('#revenue-widget').unblock();
                     }
                     return res;
                 },
@@ -319,6 +334,10 @@
                     } );
                 }
             } );
+
+            setTimeout(function () {
+                $('#revenue-widget').unblock();
+            }, 1000);
         }
 
         function display_revenue( data ) {
@@ -553,8 +572,6 @@
             revenue_chart.render();
         }
 
-        
-
         /*
             ==================================
                 Sales By Category | Options
@@ -571,32 +588,9 @@
         }
 
         function load_category( select_date ) {
-            $( '#expenses-category-widget' ).block( {
-                message: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>',
-                fadeIn: 800, 
-                fadeOut: 800,
-                centerX: 0,
-                centerY: 0,
-                overlayCSS: {
-                    backgroundColor: '#191e3a',
-                    opacity: 0.8,
-                    cursor: 'wait',
-                    borderRadius: '1rem',
-                },
-                css: {
-                    width: '100%',
-                    top: '50%',
-                    left: '',
-                    right: '0px',
-                    bottom: 0,
-                    border: 0,
-                    color: '#25d5e4',
-                    padding: 0,
-                    backgroundColor: 'transparent'
-                }
-            } ); 
+            $( '#expenses-category-widget' ).block( block_options ); 
             expenses_category_chart != null ? expenses_category_chart.destroy() : null;
-            const summary_url = `${ api_url }finance_category/summary.php`;
+            const summary_url = `${ api_url }finance_category/dashboard.php`;
             const fk_user_id = $( '#m-user-id' ).val();
             const sent_data = { fk_user_id, select_date };
             $.ajax( {
@@ -606,9 +600,8 @@
                 data    : sent_data,
                 success: ( res ) => {
                     if ( res.result ) {
-                        console.log( res.data );
+                        // console.log( res.data );
                         res.data.length > 0 ? display_category( res.data ) : null;
-                        $('#expenses-category-widget').unblock();
                     }
                     return res;
                 },
@@ -619,6 +612,9 @@
                     } );
                 }
             } );
+            setTimeout(function () {
+                $('#expenses-category-widget').unblock();
+            }, 1000);
         }
 
         function display_category( data ) {
@@ -744,7 +740,7 @@
             load_category( select_date );
         }
 
-        // loading( 'This Week' );
+        loading( 'This Year' );
         
     </script>
 </body>

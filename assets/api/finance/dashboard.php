@@ -1,12 +1,13 @@
 <?php
     include_once( realpath( dirname( __FILE__ ) . "//..//..//config//config.php" ) );
     include_once( MODULES_PATH . "finance.php" );
+    include_once( MODULES_PATH . "wallet.php" );
     include_once( MODULES_PATH . "common.php" );
 
     if ( isset( $_POST ) && isset( $_POST[ 'fk_user_id' ] ) && isset( $_POST[ 'select_date' ] ) )
     {
         // Define user id & select date
-        $fk_wallet_id = htmlspecialchars( $_POST[ 'fk_wallet_id' ] );
+        // $fk_wallet_id = htmlspecialchars( $_POST[ 'fk_wallet_id' ] );
         $fk_user_id = htmlspecialchars( $_POST[ 'fk_user_id' ] );
         $select_date = htmlspecialchars( $_POST[ 'select_date' ] );
 
@@ -15,9 +16,16 @@
         $expenses = array();
         $labels = array();
 
+        // Get default wallet id
+        $wallet = new Wallet();
+        $wallet->set( 'fk_user_id', $fk_user_id );
+        $wallet->set( 'status', ( 'Default' ) );
+        $wallet_controller = new Wallet_Controller();
+        $wallet = $wallet_controller->read_default_wallet( $conn, $wallet );
+
         // Get all finance records
         $finance = new Finance();
-        $finance->set( 'fk_wallet_id', $fk_wallet_id );
+        $finance->set( 'fk_wallet_id', $wallet[ 'id' ] );
         $finance->set( 'fk_user_id', $fk_user_id );
         $finance_controller = new Finance_Controller();
         $all_finance = $finance_controller->read_all_by_user_id( $conn, $finance, $select_date );
