@@ -1,11 +1,15 @@
 <?php include_once( realpath( dirname( __FILE__ ) . "//assets//config//config.php" ) ); ?>
 <?php include_once( TEMPLATES_PATH . 'validation.php' ); ?>
 <?php include_once( MODULES_PATH . 'user.php' ); ?>
+<?php include_once( MODULES_PATH . 'finance.php' ); ?>
 <?php
     $user_controller = new User_Controller();
     $user = new User();
     $user->set( 'id', $_SESSION[ 'user_id' ] );
     $user = $user_controller->read( $conn2, $user );
+
+    $finance_controller = new Finance_Controller();
+    $years = $finance_controller->get_available_years( $conn, $user->get( 'id' ) );
 ?>
 
 <!DOCTYPE html>
@@ -69,16 +73,16 @@
                     <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
                         <div id="revenue-widget" class="widget widget-chart-one">
                             <div class="widget-heading">
-                                <h5 class="">2025 Revenue</h5>
+                                <h5 id="revenue-heading" class="">2025 Revenue</h5>
                                 <div class="task-action">
                                     <div class="dropdown">
                                         <a class="dropdown-toggle" href="#" role="button" id="pendingTask" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="pendingTask" style="will-change: transform;">
-                                            <a class="dropdown-item" href="javascript:void( load_revenue('This Week') );">Week</a>
-                                            <a class="dropdown-item" href="javascript:void( load_revenue('This Month') );">Month</a>
-                                            <a class="dropdown-item" href="javascript:void( load_revenue('This Year') );">Year</a>
+                                            <?php foreach ( $years as $year ) : ?>
+                                                <a class="dropdown-item" href="javascript:void( load_revenue('<?= $year ?>') );"><?= $year ?></a>
+                                            <?php endforeach; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -310,6 +314,7 @@
         var revenue_chart = null;
         function load_revenue( select_date ) {
             $( '#revenue-widget' ).block( block_options ); 
+            $( '#revenue-heading' ).html( select_date + " Revenue" );
             revenue_chart != null ? revenue_chart.destroy() : null;
             const revenue_url = `${ api_url }finance/dashboard.php`;
             const fk_user_id = $( '#m-user-id' ).val();
@@ -416,30 +421,30 @@
                     size: 4
                     }]
                 },
-                subtitle: {
-                    text    : '0',
-                    align   : 'left',
-                    margin  : 0,
-                    offsetX : 95,
-                    offsetY : 0,
-                    floating: false,
-                    style   : {
-                        fontSize: '18px',
-                        color   : '#4361ee'
-                    }
-                },
-                title: {
-                    text: 'Total Earning',
-                    align: 'left',
-                    margin: 0,
-                    offsetX: -10,
-                    offsetY: 0,
-                    floating: false,
-                    style: {
-                        fontSize: '18px',
-                        color:  '#bfc9d4'
-                    },
-                },
+                // subtitle: {
+                //     text    : '0',
+                //     align   : 'left',
+                //     margin  : 0,
+                //     offsetX : 95,
+                //     offsetY : 0,
+                //     floating: false,
+                //     style   : {
+                //         fontSize: '18px',
+                //         color   : '#4361ee'
+                //     }
+                // },
+                // title: {
+                //     text: 'Total Earning',
+                //     align: 'left',
+                //     margin: 0,
+                //     offsetX: -10,
+                //     offsetY: 0,
+                //     floating: false,
+                //     style: {
+                //         fontSize: '18px',
+                //         color:  '#bfc9d4'
+                //     },
+                // },
                 stroke: {
                     show: true,
                     curve: 'smooth',
@@ -740,7 +745,7 @@
             load_category( select_date );
         }
 
-        loading( 'This Year' );
+        loading( new Date().getFullYear() );
         
     </script>
 </body>

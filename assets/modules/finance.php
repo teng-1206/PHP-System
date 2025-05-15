@@ -137,6 +137,62 @@
         //     return null;
         // }
 
+        public function get_available_years( $conn, $user_id = null )
+        {
+            $sql = "SELECT DISTINCT YEAR(date) AS year 
+                    FROM finance 
+                    WHERE soft_delete = 0 AND fk_user_id = ? ORDER BY year DESC";
+
+            $stmt = $conn->prepare($sql);
+            $result = $stmt->execute( [
+                $user_id,
+            ] );
+
+            $num_row = $stmt->rowCount();
+            if ( $result )
+            {
+                $result = $stmt->fetchAll( PDO::FETCH_COLUMN );
+                // $result = $this->convert( $result );
+                return $result;
+            }
+            return null;
+        }
+
+        public function read_all_by_user_id_and_year($conn, Finance $object, $year = null)
+        {
+            $where = "";
+
+            if ( $year ) {
+                $where = "AND YEAR(finance.date) = $year";
+            }
+
+            $sql = "SELECT finance.*, finance_category.category, finance_category.color_code, finance_category.background_color_code, finance_category.icon_code 
+                    FROM finance
+                    INNER JOIN finance_category ON finance.fk_category_id = finance_category.id
+                    WHERE finance.fk_wallet_id = ? 
+                    AND finance.fk_user_id = ? 
+                    AND finance.soft_delete = 0 
+                    $where
+                    ORDER BY finance.id DESC";
+
+            $stmt = $conn->prepare($sql);
+            $result = $stmt->execute([
+                $object->get('fk_wallet_id'),
+                $object->get('fk_user_id'),
+            ]);
+
+            $num_row = $stmt->rowCount();
+            if ( $result ) 
+            {
+                $result = $stmt->fetchAll();
+                return $result;
+            }
+
+            return null;
+        }
+
+
+
         /**
          * Reads all finance data from the database for a specific user and date range.
          *

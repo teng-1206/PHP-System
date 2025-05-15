@@ -17,96 +17,50 @@
         $labels = array();
 
         // Get default wallet id
-        $wallet = new Wallet();
-        $wallet->set( 'fk_user_id', $fk_user_id );
-        $wallet->set( 'status', ( 'Default' ) );
         $wallet_controller = new Wallet_Controller();
-        $wallet = $wallet_controller->read_default_wallet( $conn, $wallet );
+        $wallet = $wallet_controller->read_default_wallet( $conn, $fk_user_id );
 
         // Get all finance records
         $finance = new Finance();
         $finance->set( 'fk_wallet_id', $wallet[ 'id' ] );
         $finance->set( 'fk_user_id', $fk_user_id );
         $finance_controller = new Finance_Controller();
-        $all_finance = $finance_controller->read_all_by_user_id( $conn, $finance, $select_date );
+        $all_finance = $finance_controller->read_all_by_user_id_and_year( $conn, $finance, $select_date );
         // $all_finance = $crypto->decrypt_all_object( $all_finance );
 
-        // 
-        switch ( $select_date ) 
+        $labels = array( 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' );
+        // $current_year = date( 'Y' );
+        for ( $i = 1; $i <= 12; $i++ ) 
         {
-            case 'This Week':
-                $labels = array( 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun' );
-                $current_date = date( 'D' ) != 'Mon' ? date( 'Y-m-d', strtotime( 'last Monday' ) ) : date( 'Y-m-d' );
-                for ( $i = 1; $i < 8; $i++ ) 
-                {
-                    $total_income = 0;
-                    $total_expense = 0;
-                    foreach ( $all_finance as $finance )
-                    {
-                        $finance_current_date = date( 'Y-m-d', strtotime( $finance[ 'date' ] ) );
-                        if ( $finance_current_date == $current_date && $finance[ 'status' ] == false ) 
-                            $total_income += ( float ) $finance[ 'amount' ];
-                        if ( $finance_current_date == $current_date && $finance[ 'status' ] == true ) 
-                            $total_expense += ( float ) $finance[ 'amount' ];
+            $total_income = 0;
+            $total_expense = 0;
+
+            // Ensure month is two digits, e.g., '01', '02', ..., '12'
+            $m = str_pad($i, 2, '0', STR_PAD_LEFT);
+
+            // If $select_date is a year like '2025', this works
+            $year_month = date('Y-m', strtotime("$select_date-$m"));
+
+            foreach ( $all_finance as $finance )
+            {
+                $finance_year_current_month = date('Y-m', strtotime($finance['date']));
+                
+                if ($finance_year_current_month === $year_month) {
+                    if ($finance['status'] == false) {
+                        $total_income += (float) $finance['amount'];
+                    } elseif ($finance['status'] == true) {
+                        $total_expense += (float) $finance['amount'];
                     }
-                    $total_income  = Common::convert_two_decimal( $total_income );
-                    $total_expense = Common::convert_two_decimal( $total_expense );
-                    array_push( $incomes, $total_income );
-                    array_push( $expenses, $total_expense );
-                    $current_date = date( 'Y-m-d', strtotime( $current_date . ' +1 day' ) );
                 }
-                break;
-            case 'This Month':
-                $current_month = date( 'n' );
-                $current_year = date( 'Y' );
-                $days = cal_days_in_month( CAL_GREGORIAN, $current_month, $current_year );
-                for ( $i = 1; $i < $days + 1; $i++ ) 
-                {
-                    $current_date = date( 'Y-m-d', strtotime( $current_year . '-' . $current_month . '-' . $i ) );
-                    $total_income = 0;
-                    $total_expense = 0;
-                    foreach ( $all_finance as $finance )
-                    {
-                        $finance_current_date = date( 'Y-m-d', strtotime( $finance[ 'date' ] ) );
-                        if ( $finance_current_date == $current_date && $finance[ 'status' ] == false ) 
-                            $total_income += ( float ) $finance[ 'amount' ];
-                        if ( $finance_current_date == $current_date && $finance[ 'status' ] == true ) 
-                            $total_expense += ( float ) $finance[ 'amount' ];
-                    }
-                    $total_income  = Common::convert_two_decimal( $total_income );
-                    $total_expense = Common::convert_two_decimal( $total_expense );
-                    array_push( $incomes, $total_income );
-                    array_push( $expenses, $total_expense );
-                    array_push( $labels, $i );
-                }
-                break;
-            case 'This Year':
-                $labels = array( 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' );
-                $current_year = date( 'Y' );
-                for ( $i = 1; $i < 13; $i++ ) 
-                {
-                    $total_income = 0;
-                    $total_expense = 0;
-                    $m = ( strlen( ( string ) $i ) > 1 ) ? '0' . $i  : $i ;
-                    $year_month = ( $select_date == 'This Year' ) ? date( 'Y-m', strtotime( date( 'Y-'. $m ) ) ) : date( 'Y-m', strtotime( date( 'Y-'. $m ) . ' -1 year') );
-                    foreach ( $all_finance as $finance )
-                    {
-                        $finance_year_current_month = date( 'Y-m', strtotime( $finance[ 'date' ] ) );
-                        if ( $finance_year_current_month == $year_month && $finance[ 'status' ] == false ) 
-                            $total_income += ( float ) $finance[ 'amount' ];
-                        if ( $finance_year_current_month == $year_month && $finance[ 'status' ] == true ) 
-                            $total_expense += ( float ) $finance[ 'amount' ];
-                    }
-                    $total_income  = Common::convert_two_decimal( $total_income );
-                    $total_expense = Common::convert_two_decimal( $total_expense );
-                    array_push( $incomes, $total_income );
-                    array_push( $expenses, $total_expense );
-                }
-                break;
-            default:
-                $labels = array( 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' );
-                break;
+            }
+
+            $total_income  = Common::convert_two_decimal($total_income);
+            $total_expense = Common::convert_two_decimal($total_expense);
+
+            $incomes[]  = $total_income;
+            $expenses[] = $total_expense;
         }
+
         
         if ( ! is_null( $all_finance ) )
         {

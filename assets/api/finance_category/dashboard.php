@@ -12,11 +12,8 @@
         $select_date = htmlspecialchars( $_POST[ 'select_date' ] );
 
         // Get default wallet id
-        $wallet = new Wallet();
-        $wallet->set( 'fk_user_id', $fk_user_id );
-        $wallet->set( 'status', ( 'Default' ) );
         $wallet_controller = new Wallet_Controller();
-        $wallet = $wallet_controller->read_default_wallet( $conn, $wallet );
+        $wallet = $wallet_controller->read_default_wallet( $conn, $fk_user_id );
         $fk_wallet_id = $wallet[ 'id' ];
 
         $finance = new Finance();
