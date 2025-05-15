@@ -72,15 +72,14 @@
             return null;
         }
 
-        public function read_default_wallet ( $conn, Wallet $object )
+        public function read_default_wallet ( $conn, $user_id = 0 )
         {
             $sql = "SELECT * FROM wallet
-                    WHERE fk_user_id = ? AND status = ? AND soft_delete = 0
+                    WHERE fk_user_id = ? AND status = 'Default' AND soft_delete = 0
                     ORDER BY id DESC";
             $stmt = $conn->prepare( $sql );
             $result = $stmt->execute( [
-                $object->get( 'fk_user_id' ),
-                $object->get( 'status' ),
+                $user_id,
             ] );
             $num_row = $stmt->rowCount();
             if ( $result && $num_row == 1 )

@@ -9,11 +9,11 @@
     $user = $user_controller->read( $conn2, $user );
 
     $wallet_controller = new Wallet_Controller();
-    $wallet = new Wallet();
-    $wallet->set( 'fk_user_id', $_SESSION[ 'user_id' ] );
+    // $wallet = new Wallet();
+    // $wallet->set( 'fk_user_id', $_SESSION[ 'user_id' ] );
     // $wallet->set( 'status', $crypto->encrypt( 'Default' ) );
-    $wallet->set( 'status', ( 'Default' ) );
-    $wallet = $wallet_controller->read_default_wallet( $conn, $wallet );
+    // $wallet->set( 'status', ( 'Default' ) );
+    $wallet = $wallet_controller->read_default_wallet( $conn, $user->get( 'id' ) );
     // $wallet = $crypto->decrypt_object( $wallet );
     $wallet = $wallet_controller->convert( $wallet );
 
