@@ -1,26 +1,42 @@
 <?php
 
+    $envFile = __DIR__ . '/.env';
+    if (file_exists($envFile)) {
+        $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        foreach ($lines as $line) {
+            if (strpos(trim($line), '#') === 0) continue; // Skip comments
+            
+            list($name, $value) = explode('=', $line, 2);
+            $name = trim($name);
+            $value = trim($value);
+            
+            putenv("$name=$value");
+            $_ENV[$name] = $value;
+            $_SERVER[$name] = $value;
+        }
+    }
+
     // ! Sandbox
     // defined( 'DOMAIN_NAME' )
     //     or define( 'DOMAIN_NAME', 'localhost' );
 
     // ! Production
     defined( 'DOMAIN_NAME' )
-        or define( 'DOMAIN_NAME', 'system.ngqiteng.com' );
+        or define( 'DOMAIN_NAME', getenv( 'DOMAIN_NAME' ) );
 
     $config = array(
         "db" => array(
             "db1" => array(
-                "dbname"   => "ngqitengcom_system",
-                "username" => "ngqitengcom_system",
-                "password" => "6MsGWn&bs?G~",
-                "host"     => "localhost"
+                "dbname"   => getenv( 'DB_DATABASE' ),
+                "username" => getenv( 'DB_USERNAME' ),
+                "password" => getenv( 'DB_PASSWORD' ),
+                "host"     => getenv( 'DB_HOST' )
             ),
             "db2" => array(
-                "dbname"   => "ngqitengcom_users",
-                "username" => "ngqitengcom_users",
-                "password" => "EYJ[,(2ttr~3",
-                "host"     => "localhost"
+                "dbname"   => getenv( 'DB_DATABASE_2' ),
+                "username" => getenv( 'DB_USERNAME_2' ),
+                "password" => getenv( 'DB_PASSWORD_2' ),
+                "host"     => getenv( 'DB_HOST_2' )
             ),
         ),
         "urls" => array(
