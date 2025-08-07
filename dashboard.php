@@ -99,16 +99,16 @@
                     <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
                         <div id="expenses-category-widget" class="widget widget-chart-two widget-three">
                             <div class="widget-heading" style="margin-bottom: 15px;">
-                                <h5 class="">Expenses by Category</h5>
+                                <h5 id="category-heading" class="">2025 Expenses by Category</h5>
                                 <div class="task-action">
                                     <div class="dropdown">
                                         <a class="dropdown-toggle" href="#" role="button" id="pendingTask" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="pendingTask" style="will-change: transform;">
-                                            <a class="dropdown-item" href="javascript:void( load_category('This Week') );">Week</a>
-                                            <a class="dropdown-item" href="javascript:void( load_category('This Month') );">Month</a>
-                                            <a class="dropdown-item" href="javascript:void( load_category('This Year') );">Year</a>
+                                            <?php foreach ( $years as $year ) : ?>
+                                                <a class="dropdown-item" href="javascript:void( load_category('<?= $year ?>') );"><?= $year ?></a>
+                                            <?php endforeach; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -594,6 +594,7 @@
 
         function load_category( select_date ) {
             $( '#expenses-category-widget' ).block( block_options ); 
+            $( '#category-heading' ).html( select_date + " Expenses by Category" )
             expenses_category_chart != null ? expenses_category_chart.destroy() : null;
             const summary_url = `${ api_url }finance_category/dashboard.php`;
             const fk_user_id = $( '#m-user-id' ).val();
