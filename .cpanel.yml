@@ -1,5 +1,5 @@
+---
 deployment:
     tasks:
-        - export DEPLOYPATH=/home/ngqiteng/public_html/system
-        - /bin/cp -R assets $DEPLOYPATH
-        # - /bin/cp * $DEPLOYPATH
+        - export DEPLOYPATH=/home/ngqiteng/public_html/system222
+        - /bin/rsync -av --exclude='.env' --exclude='.git/' ./ $DEPLOYPATH
