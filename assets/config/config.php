@@ -102,28 +102,28 @@
 
     // ! Email
     defined( 'SMTP_EMAIL' )
-        or define( 'SMTP_EMAIL', 'noreply@ngqiteng.com' );
+        or define( 'SMTP_EMAIL', getenv( 'MAIL_FROM_ADDRESS' ) );
 
     defined( 'SMTP_NAME' )
-        or define( 'SMTP_NAME', 'SYSTEM' );
+        or define( 'SMTP_NAME', getenv( 'MAIL_FROM_NAME' ) );
         
     defined( 'SMTP_HOST' )
-        or define( 'SMTP_HOST', 'mail.ngqiteng.com' );
+        or define( 'SMTP_HOST', getenv( 'MAIL_HOST' ) );
 
     defined( 'SMTP_AUTH' )
         or define( 'SMTP_AUTH', true );
 
     defined( 'SMTP_USERNAME' )
-        or define( 'SMTP_USERNAME', 'noreply@ngqiteng.com' );
+        or define( 'SMTP_USERNAME', getenv( 'MAIL_USERNAME' ) );
 
     defined( 'SMTP_PASSWORD' )
-        or define( 'SMTP_PASSWORD', 't@ZB,1?x-D%2' );
+        or define( 'SMTP_PASSWORD', getenv( 'MAIL_PASSWORD' ) );
 
     defined( 'SMTP_SECURE' )
-        or define( 'SMTP_SECURE', 'ssl' );
+        or define( 'SMTP_SECURE', getenv( 'MAIL_ENCRYPTION' ) );
 
     defined( 'SMTP_PORT' )
-        or define( 'SMTP_PORT', 465 );
+        or define( 'SMTP_PORT', getenv( 'MAIL_PORT' ) );
 
     include_once( MODULES_PATH . 'cryptography.php' );
     $crypto = new Cryptography();
