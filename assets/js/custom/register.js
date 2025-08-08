@@ -22,11 +22,12 @@ $( document ).ready( () => {
                 success: ( res ) => {
                     var res = JSON.parse( res );
                     if( res.result == true ) {
-                        window.location.href= "login";
+                        window.location.href= "verification";
                     } else {
+                        console.log( res );
                         Toast.fire( {
                             icon : 'error',
-                            title: 'Username or Password Wrong'
+                            title: res.message,
                         } );
                         e_password.val( '' );
                         e_confirm_password.val( '' );
