@@ -44,8 +44,8 @@
                                 <h2 class="fw-bold mb-2 text-uppercase">Register</h2>
                                 <p class="text-white-50 mb-5">Please fill in</p>
                                 <div class="form-outline form-white mb-4">
-                                    <input type="text" id="username" name="username" class="form-control form-control-lg" autocomplete="off" required />
-                                    <label class="form-label" for="username">Username</label>
+                                    <input type="email" id="username" name="username" class="form-control form-control-lg" autocomplete="off" required />
+                                    <label class="form-label" for="username">Email</label>
                                 </div>
                                 <div class="form-outline form-white mb-4">
                                     <input type="password" id="password" name="password" class="form-control form-control-lg" autocomplete="off" required />

@@ -43,10 +43,10 @@
                             <form id="login-form" class="mb-md-5 mt-md-4 pb-3">
                                 <img class="mb-3" src="<?= $config[ 'urls' ][ 'img' ] . "icon-128x128.png"; ?>" height="100px" width="100px" alt="Icon">
                                 <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
-                                <p class="text-white-50 mb-5">Please enter your username and password</p>
+                                <p class="text-white-50 mb-5">Please enter your email and password</p>
                                 <div class="form-outline form-white mb-4">
-                                    <input type="text" id="username" name="username" class="form-control form-control-lg" autocomplete="off" required />
-                                    <label class="form-label" for="username">Username</label>
+                                    <input type="email" id="username" name="username" class="form-control form-control-lg" autocomplete="off" required />
+                                    <label class="form-label" for="username">Email</label>
                                 </div>
                                 <div class="form-outline form-white mb-4">
                                     <input type="password" id="password" name="password" class="form-control form-control-lg" autocomplete="off" required />
