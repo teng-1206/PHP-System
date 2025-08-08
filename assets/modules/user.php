@@ -4,6 +4,10 @@ class User {
     private $username;
     private $password;
     private $email;
+    private $verify;
+    private $code;
+    private $verify_timestamp;
+    private $twofa;
     private $soft_delete;
     private $create_at;
     private $update_at;
@@ -80,10 +84,16 @@ class User_Controller {
     }
     
     public function create($conn, User $object) {
-        $sql = "INSERT INTO user(username, password, email)
-                VALUES(?, ?, ?)";
+        $sql = "INSERT INTO user(username, password, email, code, verify_timestamp)
+                VALUES(?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $result = $stmt->execute([$object->get('username'), $object->get('password'), $object->get('email')]);
+        $result = $stmt->execute([
+            $object->get('username'),
+            $object->get('password'),
+            $object->get('email'),
+            $object->get('code'),
+            $object->get('verify_timestamp'),
+        ]);
         $last_id = $result ? $conn->lastInsertId() : null;
         return $last_id;
     }
@@ -91,10 +101,18 @@ class User_Controller {
     public function update($conn, User $object)
     {
         $sql = "UPDATE user
-                SET username = ?, password = ?, email = ?, update_at = CURRENT_TIMESTAMP
+                SET username = ?, password = ?, email = ?, update_at = CURRENT_TIMESTAMP, verify = ?, code = ?, verify_timestamp = ?, twofa = ?
                 WHERE id = ?";
         $stmt = $conn->prepare($sql);
-        $result = $stmt->execute([$object->get('username'), $object->get('password'), $object->get('email'), $object->get('id')]);
+        $result = $stmt->execute([
+            $object->get('username'),
+            $object->get('password'),
+            $object->get('email'),
+            $object->get('verify'),
+            $object->get('code'),
+            $object->get('verify_timestamp'),
+            $object->get('twofa'),
+            $object->get('id')]);
         return $result ? true : false;
     }
 
@@ -115,6 +133,10 @@ class User_Controller {
         $new_object->set('username', $object['username']);
         $new_object->set('password', $object['password']);
         $new_object->set('email', $object['email']);
+        $new_object->set('verify', $object['verify']);
+        $new_object->set('code', $object['code']);
+        $new_object->set('verify_timestamp', $object['verify_timestamp']);
+        $new_object->set('twofa', $object['twofa']);
         $new_object->set('soft_delete', $object['soft_delete']);
         $new_object->set('create_at', $object['create_at']);
         $new_object->set('update_at', $object['update_at']);
