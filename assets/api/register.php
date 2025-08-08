@@ -162,12 +162,6 @@
             echo json_encode( array( "result" => false, "message" => 'Email could not be sent. Mailer Error: ' . $mail->ErrorInfo ) );
             die();
         }
-
-        // Return JSON
-        $respond = array(
-            "result" => true
-        );
-        echo json_encode( $respond );
     }
     else
     {
