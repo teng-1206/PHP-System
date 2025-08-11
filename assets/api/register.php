@@ -159,6 +159,7 @@
             die();
         } catch (Exception $e) {
             unset( $_SESSION[ 'verify_email' ] );
+            $user->set( 'id', $user_id );
             $user_controller->delete( $conn2, $user );
             echo json_encode( array( "result" => false, "message" => 'Email could not be sent. Mailer Error: ' . $mail->ErrorInfo ) );
             die();
