@@ -39,8 +39,8 @@
                 <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                     <div class="card bg-dark text-white" style="border-radius: 1rem;">
                         <div class="card-body p-5 text-center">
-                            <form id="verify-form" class="mb-md-5 mt-md-4 pb-3">
-                                <input type="hidden" id="" name="" value="<?= $_SERVER[ 'verify_email' ]; ?>">
+                            <form id="verification-form" class="mb-md-5 mt-md-4 pb-3">
+                                <input type="hidden" id="email" name="email" value="<?= $_SESSION[ 'verify_email' ]; ?>">
                                 <img class="mb-3" src="<?= $config['urls']['img'] . "icon-128x128.png"; ?>" height="100px" width="100px" alt="Icon">
                                 <h2 class="fw-bold mb-2 text-uppercase">Verification</h2>
                                 <p class="text-white-50 mb-5">

@@ -117,7 +117,6 @@
         }
 
         // Send verified email to user email
-
         $content = <<<HTML
         <!DOCTYPE html>
             <html>
@@ -155,7 +154,7 @@
             $mail->Body    = $content;
 
             $mail->send();
-            $_SERVER[ 'verify_email' ] = $user->get( 'email' );
+            $_SESSION[ 'verify_email' ] = $user->get( 'email' );
             echo json_encode( array( "result" => true, "message" => "Email sent successfully" ) );
             die();
         } catch (Exception $e) {

@@ -1,0 +1,67 @@
+$( document ).ready( () => {
+
+    function verify() {
+        $('#verification-form').addClass('was-validated');
+        const email             = $('#email').val();
+        const verification_code = $('#verification_code').val();
+        const api_url           = $('meta[name="api-url"]').attr('content');
+        const verification_url  = `${api_url}/verification.php`;
+
+        const data = {
+            email,
+            verification_code
+        };
+        $('#btn-verify').prop('disabled', true);
+
+        $.ajax({
+            type: "POST",
+            url: verification_url,
+            data: data,
+            success: (response) => {
+                const res = JSON.parse(response);
+                if (res.result === true) {
+                    window.location.href = "dashboard";
+                } else {
+                    Toast.fire({
+                        icon: 'error',
+                        title: res.message
+                    });
+                    $('#verification_code').val( '' );
+                }
+            },
+            error: (xhr) => {
+                let message = 'AJAX Error';
+                if (xhr.responseText) {
+                    try {
+                        const res = JSON.parse(xhr.responseText);
+                        if (res.message) message = res.message;
+                    } catch (e) {}
+                }
+                Toast.fire({
+                    icon: 'error',
+                    title: message
+                });
+            },
+            complete: () => {
+                $('#btn-verify').prop('disabled', false); // Re-enable button
+            }
+        });
+    }
+
+    $( '#btn-verify' ).click( () => {
+        verify();
+    } );
+
+    $('#verification_code').on('keydown', (e) => {
+        if (e.key === 'Enter' || e.keyCode === 13) {
+            e.preventDefault();
+            verify();
+        }
+    });
+
+    $( '#btn-resend' ).click( () => {
+
+    } );
+
+
+} );

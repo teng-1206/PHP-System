@@ -22,7 +22,7 @@
     }
 
     // Verification page access restriction
-    if ($current_page == 'verification.php' && !isset($_SESSION['verification'])) {
+    if ($current_page == 'verification.php' && !isset( $_SESSION[ 'verify_email' ] ) ) {
         header("Location: {$config[ 'urls' ][ 'base' ]}login");
         exit;
     }

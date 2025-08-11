@@ -55,6 +55,23 @@ class User_Controller {
         }
         return 0;
     }
+
+    public function verification_code($conn, User $object) {
+        $sql = "SELECT * FROM user
+                WHERE email = ? AND verification_code = ?  AND verify_timestamp = ? AND soft_delete = 0";
+        $stmt = $conn->prepare($sql);
+        $result = $stmt->execute([
+            $object->get('email'),
+            $object->get('verification_code'),
+            date('Y-m-d H:i:s', time()),
+        ]);
+        $num_row = $stmt->rowCount();
+        if($result && $num_row == 1) {
+            $result = $stmt->fetch();
+            return $result['id'];
+        }
+        return 0;
+    }
     
     public function read_all($conn) {
         $sql = "SELECT * FROM user WHERE soft_delete = 0
