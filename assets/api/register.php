@@ -159,6 +159,7 @@
             die();
         } catch (Exception $e) {
             echo json_encode( array( "result" => false, "message" => 'Email could not be sent. Mailer Error: ' . $mail->ErrorInfo ) );
+            $user_controller->delete( $conn2, $user );
             die();
         }
     }
