@@ -1,5 +1,11 @@
 <?php include_once( realpath( dirname( __FILE__ ) . "//assets//config//config.php" ) ); ?>
-<?php include_once( TEMPLATES_PATH . 'validation.php' ); ?>
+<?php 
+    // Verification page access restriction
+    if ( !isset( $_SESSION[ 'verify_email' ] ) ) {
+        header("Location: {$config[ 'urls' ][ 'base' ]}login");
+        exit;
+    }
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +35,7 @@
     <!-- Global CSS End -->
 
     <!-- Custom CSS Start -->
-    <link rel="stylesheet" href="<?= $config[ 'urls' ][ 'css' ] . "custom/verify.css"; ?>" />
+    <link rel="stylesheet" href="<?= $config[ 'urls' ][ 'css' ] . "custom/verification.css"; ?>" />
     <!-- Custom CSS End -->
 </head>
 <body>
@@ -83,7 +89,7 @@
     <!-- Font Awesome 5 End -->
 
     <!-- Custom JS Start -->
-    <script src="<?= $config['urls']['js'] . "custom/verify.js"; ?>"></script>
+    <script src="<?= $config['urls']['js'] . "custom/verification.js"; ?>"></script>
     <!-- Custom JS End -->
 </body>
 </html>
