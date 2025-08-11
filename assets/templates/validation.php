@@ -1,20 +1,29 @@
 <?php
-    // Check session or cookie 
-    // If got session or cookie but current page is on login page then redirect to dashboard
-    if ( isset( $_SESSION[ 'user_id' ] ) || ( isset( $_COOKIE[ 'user_id' ] ) && $_COOKIE[ 'user_id' ] != 0 ) )
-    {
-        if ( ! isset( $_SESSION[ 'user_id' ] ) ) {
-            $_SESSION[ 'user_id' ] = $_COOKIE[ 'user_id' ];
+    // Check if user_id exists in session or cookie
+    $user_id = $_SESSION['user_id'] ?? ($_COOKIE['user_id'] ?? null);
+
+    if ($user_id) {
+        // Store cookie user_id into session if missing
+        if (!isset($_SESSION['user_id'])) {
+            $_SESSION['user_id'] = (int) $user_id;
         }
 
+        // If already logged in but on login page → redirect to dashboard
         if ( $current_page == 'login.php' ) {
-            echo "<script>location.href='" . $config[ 'urls' ][ 'base' ] . "dashboard'</script>";
+            header("Location: {$config[ 'urls' ][ 'base' ]}dashboard");
+            exit;
+        }
+    } else {
+        // If no session/cookie and not on login page → redirect to login
+        if ( $current_page != 'login.php') {
+            header("Location: {$config[ 'urls' ][ 'base' ]}login");
+            exit;
         }
     }
 
-    // If no session or cookie then redirect to login page
-    if ( ! isset( $_SESSION[ 'user_id' ] ) && ! isset( $_SESSION[ 'user_id' ] ) && $current_page != 'login.php' )
-    {
-        echo "<script>location.href='" . $config[ 'urls' ][ 'base' ] . 'login' . "'</script>";
+    // Verification page access restriction
+    if ($current_page == 'verification.php' && !isset($_SESSION['verification'])) {
+        header("Location: {$config[ 'urls' ][ 'base' ]}login");
+        exit;
     }
 ?>
