@@ -1,4 +1,6 @@
 <?php
+    
+
     // Check if user_id exists in session or cookie
     $user_id = $_SESSION['user_id'] ?? ($_COOKIE['user_id'] ?? null);
 
@@ -21,9 +23,5 @@
         }
     }
 
-    // Verification page access restriction
-    if ($current_page == 'verification.php' && !isset( $_SESSION[ 'verify_email' ] ) ) {
-        header("Location: {$config[ 'urls' ][ 'base' ]}login");
-        exit;
-    }
+    
 ?>
