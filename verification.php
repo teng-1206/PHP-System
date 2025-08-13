@@ -46,15 +46,15 @@
                     <div class="card bg-dark text-white" style="border-radius: 1rem;">
                         <div class="card-body p-5 text-center">
                             <form id="verification-form" class="mb-md-5 mt-md-4 pb-3">
-                                <input type="hidden" id="email" name="email" value="<?= $_SESSION[ 'verify_email' ]; ?>">
+                                <input type="hidden" id="email" name="email" value="<?= $_COOKIE['verify_email']; ?>">
                                 <img class="mb-3" src="<?= $config['urls']['img'] . "icon-128x128.png"; ?>" height="100px" width="100px" alt="Icon">
                                 <h2 class="fw-bold mb-2 text-uppercase">Verification</h2>
                                 <p class="text-white-50 mb-5">
                                     Please enter the 6-digit code sent to your email.
                                 </p>
                                 <div class="form-outline form-white mb-4">
-                                    <input type="text" id="verification_code" name="verification_code" class="form-control form-control-lg" maxlength="6" pattern="\d{6}" autocomplete="off" required />
-                                    <label class="form-label" for="verification_code">6-Digit Code</label>
+                                    <input type="text" id="code" name="code" class="form-control form-control-lg" maxlength="6" pattern="\d{6}" autocomplete="off" required />
+                                    <label class="form-label" for="code">6-Digit Code</label>
                                 </div>
                             </form>
                             <div>

@@ -5,10 +5,10 @@
     // Include User class
     include_once( MODULES_PATH . 'user.php' );
 
-    if ( isset( $_POST[ 'email' ] ) && isset( $_POST[ 'verification_code' ] ) ) 
+    if ( isset( $_POST[ 'email' ] ) && isset( $_POST[ 'code' ] ) ) 
     {
-        $email             = htmlspecialchars( $_POST[ 'email' ] );
-        $verification_code = htmlspecialchars( $_POST[ 'verification_code' ] );
+        $email = htmlspecialchars( $_POST[ 'email' ] );
+        $code  = htmlspecialchars( $_POST[ 'code' ] );
 
         // Define user controller
         $user_controller = new User_Controller();
@@ -16,12 +16,13 @@
         // Define user object
         $user = new User();
         $user->set( 'email', $email );
-        $user->set( 'verification_code', $verification_code );
+        $user->set( 'code', $code );
         
         // Check username
         $user_id = $user_controller->verification_code( $conn2, $user );
         if ( $user_id != 0 )
         {
+            unset( $_COOKIE['verify_email'] );
             echo json_encode( array( "result" => true, "message" => "Verification Success" ) );
             die();
         } else {

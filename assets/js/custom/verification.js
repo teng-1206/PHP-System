@@ -2,14 +2,13 @@ $( document ).ready( () => {
 
     function verify() {
         $('#verification-form').addClass('was-validated');
-        const email             = $('#email').val();
-        const verification_code = $('#verification_code').val();
-        const api_url           = $('meta[name="api-url"]').attr('content');
-        const verification_url  = `${api_url}/verification.php`;
-
+        const email            = $('#email').val();
+        const code             = $('#code').val();
+        const api_url          = $('meta[name="api-url"]').attr('content');
+        const verification_url = `${api_url}/verification.php`;
         const data = {
             email,
-            verification_code
+            code
         };
         $('#btn-verify').prop('disabled', true);
 
@@ -26,7 +25,7 @@ $( document ).ready( () => {
                         icon: 'error',
                         title: res.message
                     });
-                    $('#verification_code').val( '' );
+                    $('#code').val( '' );
                 }
             },
             error: (xhr) => {
@@ -52,7 +51,7 @@ $( document ).ready( () => {
         verify();
     } );
 
-    $('#verification_code').on('keydown', (e) => {
+    $('#code').on('keydown', (e) => {
         if (e.key === 'Enter' || e.keyCode === 13) {
             e.preventDefault();
             verify();
