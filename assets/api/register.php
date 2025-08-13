@@ -154,11 +154,11 @@
             $mail->Body    = $content;
 
             $mail->send();
-            $_SESSION[ 'verify_email' ] = $user->get( 'email' );
+            setcookie( 'verify_email',  $user->get( 'email' ), time() + 86400 * 30, '/' ); 
             echo json_encode( array( "result" => true, "message" => "Email sent successfully" ) );
             die();
         } catch (Exception $e) {
-            unset( $_SESSION[ 'verify_email' ] );
+            unset( $_COOKIE['verify_email'] );
             $user->set( 'id', $user_id );
             $user_controller->delete( $conn2, $user );
             echo json_encode( array( "result" => false, "message" => 'Email could not be sent. Mailer Error: ' . $mail->ErrorInfo ) );

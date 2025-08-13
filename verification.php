@@ -1,7 +1,7 @@
 <?php include_once( realpath( dirname( __FILE__ ) . "//assets//config//config.php" ) ); ?>
 <?php 
     // Verification page access restriction
-    if ( !isset( $_SESSION[ 'verify_email' ] ) ) {
+    if ( !isset( $_COOKIE['verify_email'] ) ) {
         header("Location: {$config[ 'urls' ][ 'base' ]}login");
         exit;
     }
