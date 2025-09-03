@@ -126,7 +126,7 @@
                     </div>
 
                     <!-- Summary Area START -->
-                    <div class="summary-area col-12 col-sm-3 layout-spacing justify-content-center">
+                    <div class="summary-area col-12 col-xl-3 col-lg-6 col-sm-6 layout-spacing justify-content-center">
                         <div id="" class="widget item-summary-widget">
                             <div class="widget-heading"><span>Total Value</span>
                             </div>

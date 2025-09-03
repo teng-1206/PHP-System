@@ -171,7 +171,7 @@
                     </div>
 
                     <!-- Summary Area START -->
-                    <div class="summary-area col-12 col-sm-3 layout-spacing justify-content-center">
+                    <div class="summary-area col-12 col-xl-3 col-lg-6 col-sm-6 layout-spacing justify-content-center">
                         <div id="" class="widget finance-summary-widget">
                             <div class="widget-heading"><span id="current-wallet-name">Wallet</span>
                                 <div class="float-right">
@@ -201,7 +201,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="summary-area col-12 col-sm-3 layout-spacing justify-content-center">
+                    <div class="summary-area col-12 col-xl-3 col-lg-6 col-sm-6 layout-spacing justify-content-center">
                         <div id="" class="widget finance-summary-widget">
                             <div class="widget-heading">Incomes</div>
                             <div class="widget-content row">
@@ -219,7 +219,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="summary-area col-12 col-sm-3 layout-spacing justify-content-center">
+                    <div class="summary-area col-12 col-xl-3 col-lg-6 col-sm-6 layout-spacing justify-content-center">
                         <div id="" class="widget finance-summary-widget">
                             <div class="widget-heading">Expenses</div>
                             <div class="widget-content row">
@@ -237,7 +237,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="summary-area col-12 col-sm-3 layout-spacing justify-content-center">
+                    <div class="summary-area col-12 col-xl-3 col-lg-6 col-sm-6 layout-spacing justify-content-center">
                         <div id="" class="widget finance-summary-widget">
                             <div class="widget-heading">Earnings</div>
                             <div class="widget-content row">
@@ -258,7 +258,7 @@
                     <!-- Summary Area END -->
 
                     <!-- Table Area START -->
-                    <div id="table-area" class="col-12 col-sm-9 layout-spacing">
+                    <div id="table-area" class="col-12 col-xl-9 col-lg-12 col-md-12 layout-spacing">
                         <div class="widget">
                             <div class="widget-heading">
                                 Records  ( <span id="select-date-label"><?= isset( $_GET[ 'filter' ] ) ? $_GET[ 'filter' ] : 'This Month'; ?></span> )
@@ -303,7 +303,7 @@
                     <!-- Table Area START -->
 
                     <!-- Category Area START -->
-                    <div id="category-area" class="col-12 col-sm-3 layout-spacing justify-content-center">
+                    <div id="category-area" class="col-12 col-xl-3 col-lg-6 col-md-6 layout-spacing justify-content-center">
                         <div id="finance-category-summary-widget" class="widget">
                             <div class="widget-heading">Category
                                 <div class="float-right">
