@@ -57,6 +57,24 @@ class User_Controller {
     }
 
     public function verification_code($conn, User $object) {
+        $sql = "UPDATE user
+                SET verify = 1
+                WHERE email = ? AND verification_code = ?  AND verify_timestamp = ? AND soft_delete = 0";
+        $stmt = $conn->prepare($sql);
+        $result = $stmt->execute([
+            $object->get('email'),
+            $object->get('verification_code'),
+            date('Y-m-d H:i:s', time()),
+        ]);
+        $num_row = $stmt->rowCount();
+        if($result && $num_row == 1) {
+            $result = $stmt->fetch();
+            return $result['id'];
+        }
+        return 0;
+    }
+
+    public function resend_verification_code($conn, User $object) {
         $sql = "SELECT * FROM user
                 WHERE email = ? AND code = ?  AND verify_timestamp > ? AND soft_delete = 0";
         $stmt = $conn->prepare($sql);
@@ -93,6 +111,20 @@ class User_Controller {
                 WHERE id = ?";
         $stmt = $conn->prepare($sql);
         $result = $stmt->execute([$object->get('id')]);
+        $num_row = $stmt->rowCount();
+        if($result && $num_row == 1) {
+            $result = $stmt->fetch();
+            $new_object = $this->convert($result);
+            return $new_object;
+        }
+        return null;
+    }
+
+    public function read_by_email($conn, User $object) {
+        $sql = "SELECT * FROM user
+                WHERE email = ? AND soft_delete = 0";
+        $stmt = $conn->prepare($sql);
+        $result = $stmt->execute([$object->get('email')]);
         $num_row = $stmt->rowCount();
         if($result && $num_row == 1) {
             $result = $stmt->fetch();

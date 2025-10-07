@@ -21,7 +21,7 @@
         $finance->set( 'fk_user_id', $fk_user_id );
 
         $finance_controller = new Finance_Controller();
-        $all_finance = $finance_controller->read_all_by_user_id( $conn, $finance, $select_date );
+        $all_finance = $finance_controller->read_all_by_user_id_and_year( $conn, $finance, $select_date );
         // $all_finance = $crypto->decrypt_all_object( $all_finance );
 
         $finance_category = new Finance_Category();
