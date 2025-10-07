@@ -24,7 +24,11 @@ $( document ).ready( () => {
                 success: (response) => {
                     const res = JSON.parse(response);
                     if (res.result === true) {
-                        window.location.href = "dashboard";
+                        if (res.twofa === true) {
+                            window.location.href = "2fa";
+                        } else {
+                            window.location.href = "dashboard";
+                        }
                     } else {
                         Toast.fire({
                             icon: 'error',
