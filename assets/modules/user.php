@@ -32,7 +32,7 @@ class User {
 class User_Controller {
     public function login($conn, User $object) {
         $sql = "SELECT * FROM user
-                WHERE username = ? AND password = ? AND soft_delete = 0";
+                WHERE username = ? AND password = ? AND verify = 1 AND soft_delete = 0";
         $stmt = $conn->prepare($sql);
         $result = $stmt->execute([$object->get('username'), $object->get('password')]);
         $num_row = $stmt->rowCount();
@@ -56,32 +56,28 @@ class User_Controller {
         return 0;
     }
 
-    public function verification_code($conn, User $object) {
+    public function verify_code($conn, User $object) {
         $sql = "UPDATE user
                 SET verify = 1
-                WHERE email = ? AND verification_code = ?  AND verify_timestamp = ? AND soft_delete = 0";
-        $stmt = $conn->prepare($sql);
-        $result = $stmt->execute([
-            $object->get('email'),
-            $object->get('verification_code'),
-            date('Y-m-d H:i:s', time()),
-        ]);
-        $num_row = $stmt->rowCount();
-        if($result && $num_row == 1) {
-            $result = $stmt->fetch();
-            return $result['id'];
-        }
-        return 0;
-    }
-
-    public function resend_verification_code($conn, User $object) {
-        $sql = "SELECT * FROM user
-                WHERE email = ? AND code = ?  AND verify_timestamp > ? AND soft_delete = 0";
+                WHERE email = ? AND code = ?  AND verify_timestamp > NOW() AND soft_delete = 0";
         $stmt = $conn->prepare($sql);
         $result = $stmt->execute([
             $object->get('email'),
             $object->get('code'),
-            date('Y-m-d H:i:s', time()),
+        ]);
+        if ($result && $stmt->rowCount() > 0) {
+            return $stmt->rowCount();
+        }
+        return 0;
+    }
+
+    public function resend_code($conn, User $object) {
+        $sql = "SELECT * FROM user
+                WHERE email = ? AND code = ? AND soft_delete = 0";
+        $stmt = $conn->prepare($sql);
+        $result = $stmt->execute([
+            $object->get('email'),
+            $object->get('code'),
         ]);
         $num_row = $stmt->rowCount();
                 error_log($num_row);

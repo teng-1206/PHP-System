@@ -18,10 +18,12 @@
         $user->set( 'email', $email );
         $user->set( 'code', $code );
         
-        // Check username
-        $user_id = $user_controller->verification_code( $conn2, $user );
+        // Verify code
+        $user_id = $user_controller->verify_code( $conn2, $user );
+        
         if ( $user_id != 0 )
         {
+            setcookie('verify_email', '', time() - 3600, '/');
             unset( $_COOKIE['verify_email'] );
             echo json_encode( array( "result" => true, "message" => "Verification Success" ) );
             die();

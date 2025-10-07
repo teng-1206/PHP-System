@@ -19,7 +19,14 @@ $( document ).ready( () => {
             success: (response) => {
                 const res = JSON.parse(response);
                 if (res.result === true) {
-                    window.location.href = "login";
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Verification successful! Redirecting to login in 5 seconds...'
+                    });
+
+                    setTimeout(() => {
+                        window.location.href = "login";
+                    }, 5000);
                 } else {
                     Toast.fire({
                         icon: 'error',
@@ -57,6 +64,7 @@ $( document ).ready( () => {
         }
 
         $('#btn-resend').prop('disabled', true);
+        $('#btn-resend').text('Resending...');
 
         $.ajax({
             type: "POST",
@@ -91,6 +99,7 @@ $( document ).ready( () => {
             },
             complete: () => {
                 $('#btn-resend').prop('disabled', false);
+                $('#btn-resend').text('Resend Code');
             }
         });
     }
