@@ -1,4 +1,6 @@
 <?php
+    date_default_timezone_set('Asia/Kuala_Lumpur');
+
 
     $envFile = __DIR__ . '/.env';
     if (file_exists($envFile)) {
@@ -138,30 +140,56 @@
     defined( 'VENDOR_PATH' )
         or define( 'VENDOR_PATH', ASSETS_PATH . '//vendor//' );
 
-    // ! Email
-    defined( 'SMTP_EMAIL' )
-        or define( 'SMTP_EMAIL', getenv( 'MAIL_FROM_ADDRESS' ) );
+    // // ! Email
+    // defined( 'SMTP_EMAIL' )
+    //     or define( 'SMTP_EMAIL', getenv( 'MAIL_FROM_ADDRESS' ) );
 
-    defined( 'SMTP_NAME' )
-        or define( 'SMTP_NAME', getenv( 'MAIL_FROM_NAME' ) );
+    // defined( 'SMTP_NAME' )
+    //     or define( 'SMTP_NAME', getenv( 'MAIL_FROM_NAME' ) );
         
-    defined( 'SMTP_HOST' )
-        or define( 'SMTP_HOST', getenv( 'MAIL_HOST' ) );
+    // defined( 'SMTP_HOST' )
+    //     or define( 'SMTP_HOST', getenv( 'MAIL_HOST' ) );
 
-    defined( 'SMTP_AUTH' )
-        or define( 'SMTP_AUTH', true );
+    // defined( 'SMTP_AUTH' )
+    //     or define( 'SMTP_AUTH', true );
 
-    defined( 'SMTP_USERNAME' )
-        or define( 'SMTP_USERNAME', getenv( 'MAIL_USERNAME' ) );
+    // defined( 'SMTP_USERNAME' )
+    //     or define( 'SMTP_USERNAME', getenv( 'MAIL_USERNAME' ) );
 
-    defined( 'SMTP_PASSWORD' )
-        or define( 'SMTP_PASSWORD', getenv( 'MAIL_PASSWORD' ) );
+    // defined( 'SMTP_PASSWORD' )
+    //     or define( 'SMTP_PASSWORD', getenv( 'MAIL_PASSWORD' ) );
 
-    defined( 'SMTP_SECURE' )
-        or define( 'SMTP_SECURE', getenv( 'MAIL_ENCRYPTION' ) );
+    // defined( 'SMTP_SECURE' )
+    //     or define( 'SMTP_SECURE', getenv( 'MAIL_ENCRYPTION' ) );
 
-    defined( 'SMTP_PORT' )
-        or define( 'SMTP_PORT', getenv( 'MAIL_PORT' ) );
+    // defined( 'SMTP_PORT' )
+    //     or define( 'SMTP_PORT', getenv( 'MAIL_PORT' ) );
+
+    // ! Email (Localhost / XAMPP Mercury)
+    defined('SMTP_EMAIL')
+        or define('SMTP_EMAIL', 'cmdcool3@gmail.com');
+
+    defined('SMTP_NAME')
+        or define('SMTP_NAME', 'Local Mailer');
+
+    defined('SMTP_HOST')
+        or define('SMTP_HOST', 'smtp.gmail.com');
+
+    defined('SMTP_AUTH')
+        or define('SMTP_AUTH', true); // Usually Mercury doesn't require auth
+
+    defined('SMTP_USERNAME')
+        or define('SMTP_USERNAME', 'cmdcool3@gmail.com');
+
+    defined('SMTP_PASSWORD')
+        or define('SMTP_PASSWORD', 'dsbq qyyz gzpm hhhy');
+
+    defined('SMTP_SECURE')
+        or define('SMTP_SECURE', 'tls'); // no SSL/TLS for localhost
+
+    defined('SMTP_PORT')
+        or define('SMTP_PORT', 587);
+
 
     include_once( MODULES_PATH . 'cryptography.php' );
     $crypto = new Cryptography();
