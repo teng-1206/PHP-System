@@ -15,12 +15,18 @@ $( document ).ready( () => {
                 username: e_username.val(),
                 password: e_password.val(),
             };
-            $('#btn-login').prop('disabled', true); // Optional UX
 
             $.ajax({
                 type: "POST",
                 url: login_url,
                 data: data,
+                beforeSend: () => {
+                    $('#btn-login').prop('disabled', true); // Disable button to prevent multiple clicks
+                    Toast.fire({
+                        icon: 'info',
+                        title: 'Logging in...'
+                    });
+                },
                 success: (response) => {
                     const res = JSON.parse(response);
                     if (res.result === true) {

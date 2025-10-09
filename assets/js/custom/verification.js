@@ -8,7 +8,7 @@ $( document ).ready( () => {
         const verification_url = `${api_url}/verification.php`;
         const data = {
             email,
-            code
+            code,
         };
         $('#btn-verify').prop('disabled', true);
 
@@ -16,17 +16,24 @@ $( document ).ready( () => {
             type: "POST",
             url: verification_url,
             data: data,
+            beforeSend: () => {
+                $('#btn-verify').prop('disabled', true);
+                Toast.fire({
+                    icon: 'info',
+                    title: 'Verifying...'
+                });
+            },
             success: (response) => {
                 const res = JSON.parse(response);
                 if (res.result === true) {
                     Toast.fire({
                         icon: 'success',
-                        title: 'Verification successful! Redirecting to login in 5 seconds...'
+                        title: 'Verification successful! Redirecting to login in 3 seconds...'
                     });
 
                     setTimeout(() => {
                         window.location.href = "login";
-                    }, 5000);
+                    }, 3000);
                 } else {
                     Toast.fire({
                         icon: 'error',
@@ -60,16 +67,22 @@ $( document ).ready( () => {
         const resend_url = `${api_url}/resend.php`;
 
         const data = {
-            email
+            email,
+            action: 'verify',
         }
-
-        $('#btn-resend').prop('disabled', true);
-        $('#btn-resend').text('Resending...');
 
         $.ajax({
             type: "POST",
             url: resend_url,
             data: data,
+            beforeSend: () => {
+                $('#btn-resend').prop('disabled', true);
+                $('#btn-resend').text('Resending...');
+                Toast.fire({
+                    icon: 'info',
+                    title: 'Resending...'
+                });
+            },
             success: (response) => {
                 const res = JSON.parse(response);
                 if (res.result === true) {
