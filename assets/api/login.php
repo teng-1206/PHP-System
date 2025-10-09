@@ -101,8 +101,6 @@
                 die();
             } catch (Exception $e) {
                 unset( $_COOKIE['2fa_email'] );
-                $user->set( 'id', $user_id );
-                $user_controller->delete( $conn2, $user );
                 echo json_encode( array( "result" => false, "twofa" => true, "message" => 'Email could not be sent. Mailer Error: ' . $mail->ErrorInfo ) );
                 die();
             }
