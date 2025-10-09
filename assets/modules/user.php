@@ -43,6 +43,20 @@ class User_Controller {
         return 0;
     }
 
+    // validate password before update to new password
+    public function validate_password($conn, User $object) {
+        $sql = "SELECT * FROM user
+                WHERE id = ? AND password = ? AND soft_delete = 0";
+        $stmt = $conn->prepare($sql);
+        $result = $stmt->execute([$object->get('id'), $object->get('password')]);
+        $num_row = $stmt->rowCount();
+        if($result && $num_row == 1) {
+            $result = $stmt->fetch();
+            return true;
+        }
+        return false;
+    }
+
     public function check_username($conn, User $object) {
         $sql = "SELECT * FROM user
                 WHERE username = ? AND soft_delete = 0";

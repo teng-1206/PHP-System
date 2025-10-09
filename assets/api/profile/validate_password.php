@@ -7,20 +7,12 @@
     {
         $user = new User();
         $user->set( 'id', htmlspecialchars( $_POST[ 'user_id' ] ) );
+        $user->set( 'password', htmlspecialchars( $_POST[ 'password' ] ) );
 
         $user_controller = new User_Controller();
-        $user = $user_controller->read( $conn2, $user );
-        $user->set( 'password', htmlspecialchars( $_POST[ 'password' ] ) );
-        $res = $user_controller->update( $conn2, $user );
+        $is_valid = $user_controller->validate_password( $conn2, $user );
 
-        if ( $res )
-        {
-            echo json_encode( array( "result" => true ) );
-        }
-        else
-        {
-            echo json_encode( array( "result" => false ) );
-        }
+        echo json_encode( array( "result" => $is_valid ) );
     } else {
         echo json_encode( array( "result" => false, "error" => "Cannot direct access this page" ) );
     }

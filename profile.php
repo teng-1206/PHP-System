@@ -23,6 +23,7 @@
     <!-- Global CSS End -->
 
     <!-- Custom CSS Start -->
+    <link href="<?= $config[ 'urls' ][ 'css' ] . "forms/switches.css"; ?>" rel="stylesheet" type="text/css" />
     <!-- Custom CSS End -->
 </head>
 <body>
@@ -72,7 +73,6 @@
                             <div class="card-body p-5" >
                                 <form id="profile-form" class="mb-md-5 pb-3" >
                                     <input type="hidden" id="m-user-id" name="m-user-id" value="<?= $user->get( 'id' ) ?>">
-                                    <input type="hidden" id="m-password" name="m-password" value="<?= $user->get( 'password' ) ?>">
                                     <h2 class="fw-bold mb-2">Profile</h2>
                                     <small class="">Please fill in.</small>
                                     <div class="row mt-5 mb-4">
@@ -80,8 +80,15 @@
                                             <label class="form-label">Image</label>
                                             <input type="file" name="profile-image" id="profile-image" class="form-control" accept="image/*">
                                         </div> -->
-                                        <div class="col-12 col-sm-6 mb-4">
+                                        <div class="col-12 col-sm-12 col-md-6 mb-4">
                                             <label class="form-label">Username</label>
+                                            <?php
+                                            // if ($user->get( 'verify' ) == 0) {
+                                            //     echo '<span class="badge badge-warning">Not Verified</span>';
+                                            // } else {
+                                            //     echo '<span class="badge badge-success">Verified</span>';
+                                            // }
+                                            ?>
                                             <p class=""><?= $user->get( 'username' ) ?></p>
                                         </div>
                                         <div class="col-12 col-sm-6 mb-4">
@@ -89,6 +96,16 @@
                                             <br />
                                             <button class="btn btn-primary form-control" type="button" onclick="open_change_password_modal()">Change</button>
                                         </div>
+                                        <div class="col-12 col-sm-6 mb-4">
+                                            <label class="form-label">Two Factor Authenticator</label>
+                                            <br />
+                                            <label class="switch s-icons s-outline s-outline-primary mr-2">
+                                                <input name="twofa" id="twofa" type="checkbox" <?= $user->get( 'twofa' ) ? 'checked' : '' ?>>
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+
+                                        
                                         <!-- <div class="col-12 col-sm-6 mb-4">
                                             <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="name" name="name" placeholder="John" value="">
@@ -171,6 +188,7 @@
     <!-- MD5 End -->
     <script src="<?= $config[ 'urls' ][ 'plugins' ] . "md5/md5.js"; ?>"></script>
     <!-- MD5 End -->
+
     <script>
         function open_change_password_modal() {
             reset_change_password_modal();
@@ -188,50 +206,75 @@
             $( '#m-confirm-password' ).val( null );
         }
 
-        $( '#change-password-form' ).submit( ( event ) => {
+        $('#change-password-form').submit((event) => {
             event.preventDefault();
             password_validation();
-        } );
+        });
 
         function password_validation() {
-            const password         = $( '#m-password' ).val();
-            const current_password = $( '#m-current-password' ).val();
-            const new_password     = $( '#m-new-password' ).val();
-            const confirm_password = $( '#m-confirm-password' ).val();
-            let res = true;
-            if ( password != calcMD5( current_password ) ) {
-                res = false;
-                Toast.fire( {
-                    icon : 'error',
-                    title: 'Current Password Not Correct'
-                } );
-            } else if ( current_password == new_password ) {
-                res = false;
-                Toast.fire( {
-                    icon : 'error',
-                    title: 'New Password Cannot Same With Old Password'
-                } );
-            } else if ( new_password != confirm_password ) {
-                res = false;
-                Toast.fire( {
-                    icon : 'error',
-                    title: 'New Password Not Same With Confirm Password'
-                } );
+            const user_id        = $('#m-user-id').val();
+            const current_password = $('#m-current-password').val();
+            const new_password     = $('#m-new-password').val();
+            const confirm_password = $('#m-confirm-password').val();
+
+            if (current_password === new_password) {
+                reset_change_password_modal();
+                return Toast.fire({ icon: 'error', title: 'New Password Cannot Same With Old Password' });
+            }
+            if (new_password !== confirm_password) {
+                reset_change_password_modal();
+                return Toast.fire({ icon: 'error', title: 'New Password Not Same With Confirm Password' });
             }
 
-            if ( res ) {
-                update_password();
-            } else {
-                reset_change_password_modal();
-            }
+            $.ajax({
+                type: 'POST',
+                url: `${api_url}profile/validate_password.php`,
+                dataType: 'JSON',
+                data: { user_id, password: calcMD5(current_password) },
+                success: (res) => {
+                    if (res.result) {
+                        update_password();
+                    } else {
+                        Toast.fire({ icon: 'error', title: 'Current Password Not Correct' });
+                        reset_change_password_modal();
+                    }
+                },
+                error: () => {
+                    Toast.fire({ icon: 'error', title: 'Unable to validate password' });
+                }
+            });
         }
 
         function update_password() {
-            const update_url = `${ api_url }profile/update_password.php`;
+            const update_url = `${api_url}profile/update_password.php`;
+            const user_id = $('#m-user-id').val();
+            const password = $('#m-new-password').val();
+
+            $.ajax({
+                type: 'POST',
+                url: update_url,
+                dataType: 'JSON',
+                data: { user_id, password: calcMD5(password) },
+                success: (res) => {
+                    if (res.result) {
+                        close_change_password_modal();
+                        Toast.fire({ icon: 'success', title: 'Password changed successfully' });
+                    } else {
+                        Toast.fire({ icon: 'error', title: 'Password update failed' });
+                    }
+                },
+                error: () => {
+                    Toast.fire({ icon: 'error', title: 'Change Password Error' });
+                }
+            });
+        }
+
+
+        $( '#twofa' ).change( function() {
+            const update_url = `${ api_url }profile/update_twofa.php`;
             const user_id  = $( '#m-user-id' ).val();
-            const password = $( '#m-new-password' ).val();
-            const sent_data = { user_id, password };
-            // console.log( sent_data );
+            const twofa    = $( '#twofa' ).is( ':checked' ) ? 1 : 0;
+            const sent_data = { user_id, twofa };
             $.ajax( {
                 type    : 'POST',
                 url     : update_url,
@@ -239,11 +282,9 @@
                 data    : sent_data,
                 success: ( res ) => {
                     if ( res.result ) {
-                        $( '#m-password' ).val( calcMD5( password ) );
-                        close_change_password_modal();
                         Toast.fire( {
                             icon : 'success',
-                            title: 'Change Password Success'
+                            title: 'Update Two Factor Authenticator Success'
                         } );
                     }
                     return res;
@@ -251,13 +292,11 @@
                 error: ( err ) => {
                     Toast.fire( {
                         icon : 'error',
-                        title: 'Change Password Error'
+                        title: 'Update Two Factor Authenticator Error'
                     } );
                 }
             } );
-        }
-
-
+        } );
     </script>
     <!-- Custom JS End -->
 </body>
