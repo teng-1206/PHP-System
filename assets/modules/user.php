@@ -71,6 +71,22 @@ class User_Controller {
         return 0;
     }
 
+    public function verify_2fa($conn, User $object) {
+        $sql = "SELECT * FROM user
+                WHERE email = ? AND code = ?  AND verify_timestamp > NOW() AND soft_delete = 0 AND twofa = 1";
+        $stmt = $conn->prepare($sql);
+        $result = $stmt->execute([
+            $object->get('email'),
+            $object->get('code'),
+        ]);
+        $num_row = $stmt->rowCount();
+        if($result && $num_row == 1) {
+            $result = $stmt->fetch();
+            return $result['id'];
+        }
+        return 0;
+    }
+
     public function resend_code($conn, User $object) {
         $sql = "SELECT * FROM user
                 WHERE email = ? AND code = ? AND soft_delete = 0";
