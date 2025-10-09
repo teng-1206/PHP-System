@@ -116,24 +116,9 @@
             die();
         }
 
-        // Send verified email to user email
-        $content = <<<HTML
-        <!DOCTYPE html>
-            <html>
-            <head>
-                <meta charset="UTF-8">
-                <title>Verification Code Email</title>
-            </head>
-            <body style='font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px;'>
-                <div style='max-width: 500px; margin: auto; background-color: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.1);'>
-                    <h2 style='color: #333;'>Verification Code</h2>
-                    <p>Please use the six-digit code below to verify your account:</p>
-                    <div style='font-size: 28px; font-weight: bold; color: #2c3e50; padding: 10px 0;'>$code</div>
-                    <p>This code will expire in 15 minutes. If you did not request this, please ignore this email.</p>
-                </div>
-            </body>
-        </html>
-        HTML;
+       // Send verified email to user email
+        $template = file_get_contents( TEMPLATES_PATH . '/email/verify.html');
+        $content = str_replace('{{code}}', htmlspecialchars($code), $template);
         
         $mail = new PHPMailer(true);
 

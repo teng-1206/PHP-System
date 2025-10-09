@@ -105,42 +105,12 @@
     $total_expenses = number_format( $total_expenses, 2 );
     $today = date("F j, Y");
     
-    $content = <<<HTML
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Monthly Wallet Summary</title>
-    </head>
-    <body style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;">
-        <div style="max-width: 600px; margin: auto; background-color: #ffffff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-            <h2 style="text-align: center; color: #333;">Monthly Report</h2>
-            <p style="text-align: center; color: #777;">Here is a summary of your wallet for <strong>$month</strong>.</p>
-    
-            <table style="width: 100%; border-collapse: collapse; margin-top: 60px;">
-                <thead>
-                    <tr>
-                        <th style="text-align: left; background-color: #f8f8f8; padding: 10px; border-bottom: 2px solid #ddd;">Category</th>
-                        <th style="text-align: right; background-color: #f8f8f8; padding: 10px; border-bottom: 2px solid #ddd;">Income</th>
-                        <th style="text-align: right; background-color: #f8f8f8; padding: 10px; border-bottom: 2px solid #ddd;">Expense</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    $categoryRows
-                </tbody>
-            </table>
-
-            <h3 style="color: #333; text-align: right; margin-top: 30px;">Total Income: <span style="color:rgb(104, 217, 79);">RM $total_incomes</span></h3>
-            <h3 style="color: #333; text-align: right; margin-top: 10px;">Total Expense: <span style="color: #d9534f;">RM $total_expenses</span></h3>
-    
-            <p style="text-align: center; margin-top: 60px; color: #555;">This monthly summary helps you track your spending and manage your budget more effectively. Reviewing your expenses regularly can reveal patterns and opportunities to save.</p>
-    
-            <p style="text-align: center; margin-top: 60px; color: #aaa; font-size: 12px;">This is an automated summary generated on $today.</p>
-        </div>
-    </body>
-    </html>
-    HTML;
-
+    $template = file_get_contents( TEMPLATES_PATH . '/email/monthly-report.html');
+    $content = str_replace('{{month}}', htmlspecialchars($month), $template);
+    $content = str_replace('{{total_incomes}}', htmlspecialchars($total_incomes), $content);
+    $content = str_replace('{{total_expenses}}', htmlspecialchars($total_expenses), $content);
+    $content = str_replace('{{today}}', htmlspecialchars($today), $content);
+    $content = str_replace('{{categoryRows}}', $categoryRows, $content);    
 
     $mail = new PHPMailer(true);
 

@@ -57,25 +57,9 @@
             $user->set( 'verify_timestamp', date('Y-m-d H:i:s', time() + (15 * 60)) );
             $user_controller->update( $conn2, $user );
 
-            // Send 2FA email to user email
-            $content = <<<HTML
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <meta charset="UTF-8">
-                <title>Two-Factor Authentication (2FA) Code</title>
-            </head>
-            <body style='font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px;'>
-                <div style='max-width: 500px; margin: auto; background-color: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.1);'>
-                    <h2 style='color: #333;'>2FA Verification Code</h2>
-                    <p>To complete your login, please enter the following verification code:</p>
-                    <div style='font-size: 28px; font-weight: bold; color: #2c3e50; padding: 10px 0;'>$code</div>
-                    <p>This code is valid for <strong>15 minutes</strong>. Do not share it with anyone — even if they claim to be from our support team.</p>
-                    <p>If you did not attempt to log in, please secure your account immediately.</p>
-                </div>
-            </body>
-            </html>
-            HTML;
+            // Send verified email to user email
+            $template = file_get_contents( TEMPLATES_PATH . '/email/twofa.html');
+            $content = str_replace('{{code}}', htmlspecialchars($code), $template);
             
             $mail = new PHPMailer(true);
 
