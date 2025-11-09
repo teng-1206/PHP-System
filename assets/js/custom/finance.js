@@ -855,7 +855,7 @@ function read_all_wallet() {
                 let all_element = '';
                 data.forEach( ( row_data ) => {
                     const { id, name, category, status } = row_data;
-                    const delete_wallet = status == "Default" ? '' :  '<a class="dropdown-item" href="javascript:void( open_delete_wallet( ${ id } ) );">Delete</a>';
+                    const delete_wallet = status == "Default" ? '' :  `<a class="dropdown-item" href="javascript:void( open_delete_wallet( ${ id } ) );">Delete</a>`;
                     const element = `
                                     <div class="card component-card_4">
                                         <div class="card-body">
