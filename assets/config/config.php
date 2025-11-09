@@ -19,79 +19,37 @@
     }
 
     // ! Sandbox
-    defined( 'DOMAIN_NAME' )
-        or define( 'DOMAIN_NAME', 'localhost' );
-
-    $config = array(
-    "db" => array(
-        "db1" => array(
-            "dbname"   => 'ngqitengcom_system',
-            "username" => 'root',
-            "password" => '',
-            "host"     => 'localhost'
-        ),
-        "db2" => array(
-            "dbname"   => 'ngqitengcom_users',
-            "username" => 'root',
-            "password" => '',
-            "host"     => 'localhost'
-        ),
-    ),
-    "urls" => array(
-        "base"      => "https://" . DOMAIN_NAME . "/PHP-System/",
-        "api"       => "https://" . DOMAIN_NAME . "/PHP-System/assets/api/",
-        "config"    => "https://" . DOMAIN_NAME . "/PHP-System/assets/config/",
-        "css"       => "https://" . DOMAIN_NAME . "/PHP-System/assets/css/",
-        "docs"      => "https://" . DOMAIN_NAME . "/PHP-System/assets/docs/",
-        "img"       => "https://" . DOMAIN_NAME . "/PHP-System/assets/img/",
-        "js"        => "https://" . DOMAIN_NAME . "/PHP-System/assets/js/",
-        "modules"   => "https://" . DOMAIN_NAME . "/PHP-System/assets/modules/",
-        "plugins"   => "https://" . DOMAIN_NAME . "/PHP-System/assets/plugins/",
-        "templates" => "https://" . DOMAIN_NAME . "/PHP-System/assets/templates/",
-        "uploads"   => "https://" . DOMAIN_NAME . "/PHP-System/assets/uploads/",
-        "vendor"   => "https://" . DOMAIN_NAME . "/PHP-System/assets/vendor/",
-    ),
-    "paths" => array(
-        "resources" => "/path/to/assets",
-        "images" => array(
-            "content" => $_SERVER[ 'DOCUMENT_ROOT' ] . "/images/content",
-            "layout"  => $_SERVER[ 'DOCUMENT_ROOT' ] . "/images/layout"
-        )
-    )
-);
-
-    // ! Production
     // defined( 'DOMAIN_NAME' )
-    //     or define( 'DOMAIN_NAME', getenv( 'DOMAIN_NAME' ) );
+    //     or define( 'DOMAIN_NAME', 'localhost' );
 
     // $config = array(
     //     "db" => array(
     //         "db1" => array(
-    //             "dbname"   => getenv( 'DB_DATABASE' ),
-    //             "username" => getenv( 'DB_USERNAME' ),
-    //             "password" => getenv( 'DB_PASSWORD' ),
-    //             "host"     => getenv( 'DB_HOST' )
+    //             "dbname"   => 'ngqitengcom_system',
+    //             "username" => 'root',
+    //             "password" => '',
+    //             "host"     => 'localhost'
     //         ),
     //         "db2" => array(
-    //             "dbname"   => getenv( 'DB_DATABASE_2' ),
-    //             "username" => getenv( 'DB_USERNAME_2' ),
-    //             "password" => getenv( 'DB_PASSWORD_2' ),
-    //             "host"     => getenv( 'DB_HOST_2' )
+    //             "dbname"   => 'ngqitengcom_users',
+    //             "username" => 'root',
+    //             "password" => '',
+    //             "host"     => 'localhost'
     //         ),
     //     ),
     //     "urls" => array(
-    //         "base"      => "https://" . DOMAIN_NAME . "/",
-    //         "api"       => "https://" . DOMAIN_NAME . "/assets/api/",
-    //         "config"    => "https://" . DOMAIN_NAME . "/assets/config/",
-    //         "css"       => "https://" . DOMAIN_NAME . "/assets/css/",
-    //         "docs"      => "https://" . DOMAIN_NAME . "/assets/docs/",
-    //         "img"       => "https://" . DOMAIN_NAME . "/assets/img/",
-    //         "js"        => "https://" . DOMAIN_NAME . "/assets/js/",
-    //         "modules"   => "https://" . DOMAIN_NAME . "/assets/modules/",
-    //         "plugins"   => "https://" . DOMAIN_NAME . "/assets/plugins/",
-    //         "templates" => "https://" . DOMAIN_NAME . "/assets/templates/",
-    //         "uploads"   => "https://" . DOMAIN_NAME . "/assets/uploads/",
-    //         "vendor"   => "https://" . DOMAIN_NAME . "/assets/vendor/",
+    //         "base"      => "https://" . DOMAIN_NAME . "/PHP-System/",
+    //         "api"       => "https://" . DOMAIN_NAME . "/PHP-System/assets/api/",
+    //         "config"    => "https://" . DOMAIN_NAME . "/PHP-System/assets/config/",
+    //         "css"       => "https://" . DOMAIN_NAME . "/PHP-System/assets/css/",
+    //         "docs"      => "https://" . DOMAIN_NAME . "/PHP-System/assets/docs/",
+    //         "img"       => "https://" . DOMAIN_NAME . "/PHP-System/assets/img/",
+    //         "js"        => "https://" . DOMAIN_NAME . "/PHP-System/assets/js/",
+    //         "modules"   => "https://" . DOMAIN_NAME . "/PHP-System/assets/modules/",
+    //         "plugins"   => "https://" . DOMAIN_NAME . "/PHP-System/assets/plugins/",
+    //         "templates" => "https://" . DOMAIN_NAME . "/PHP-System/assets/templates/",
+    //         "uploads"   => "https://" . DOMAIN_NAME . "/PHP-System/assets/uploads/",
+    //         "vendor"   => "https://" . DOMAIN_NAME . "/PHP-System/assets/vendor/",
     //     ),
     //     "paths" => array(
     //         "resources" => "/path/to/assets",
@@ -101,6 +59,48 @@
     //         )
     //     )
     // );
+
+    // ! Production
+    defined( 'DOMAIN_NAME' )
+        or define( 'DOMAIN_NAME', getenv( 'DOMAIN_NAME' ) );
+
+    $config = array(
+        "db" => array(
+            "db1" => array(
+                "dbname"   => getenv( 'DB_DATABASE' ),
+                "username" => getenv( 'DB_USERNAME' ),
+                "password" => getenv( 'DB_PASSWORD' ),
+                "host"     => getenv( 'DB_HOST' )
+            ),
+            "db2" => array(
+                "dbname"   => getenv( 'DB_DATABASE_2' ),
+                "username" => getenv( 'DB_USERNAME_2' ),
+                "password" => getenv( 'DB_PASSWORD_2' ),
+                "host"     => getenv( 'DB_HOST_2' )
+            ),
+        ),
+        "urls" => array(
+            "base"      => "https://" . DOMAIN_NAME . "/",
+            "api"       => "https://" . DOMAIN_NAME . "/assets/api/",
+            "config"    => "https://" . DOMAIN_NAME . "/assets/config/",
+            "css"       => "https://" . DOMAIN_NAME . "/assets/css/",
+            "docs"      => "https://" . DOMAIN_NAME . "/assets/docs/",
+            "img"       => "https://" . DOMAIN_NAME . "/assets/img/",
+            "js"        => "https://" . DOMAIN_NAME . "/assets/js/",
+            "modules"   => "https://" . DOMAIN_NAME . "/assets/modules/",
+            "plugins"   => "https://" . DOMAIN_NAME . "/assets/plugins/",
+            "templates" => "https://" . DOMAIN_NAME . "/assets/templates/",
+            "uploads"   => "https://" . DOMAIN_NAME . "/assets/uploads/",
+            "vendor"   => "https://" . DOMAIN_NAME . "/assets/vendor/",
+        ),
+        "paths" => array(
+            "resources" => "/path/to/assets",
+            "images" => array(
+                "content" => $_SERVER[ 'DOCUMENT_ROOT' ] . "/images/content",
+                "layout"  => $_SERVER[ 'DOCUMENT_ROOT' ] . "/images/layout"
+            )
+        )
+    );
 
     include_once( 'conn.php' );
 
@@ -140,55 +140,55 @@
     defined( 'VENDOR_PATH' )
         or define( 'VENDOR_PATH', ASSETS_PATH . '//vendor//' );
 
-    // // ! Email
-    // defined( 'SMTP_EMAIL' )
-    //     or define( 'SMTP_EMAIL', getenv( 'MAIL_FROM_ADDRESS' ) );
+    // ! Email - Production
+    defined( 'SMTP_EMAIL' )
+        or define( 'SMTP_EMAIL', getenv( 'MAIL_FROM_ADDRESS' ) );
 
-    // defined( 'SMTP_NAME' )
-    //     or define( 'SMTP_NAME', getenv( 'MAIL_FROM_NAME' ) );
+    defined( 'SMTP_NAME' )
+        or define( 'SMTP_NAME', getenv( 'MAIL_FROM_NAME' ) );
         
-    // defined( 'SMTP_HOST' )
-    //     or define( 'SMTP_HOST', getenv( 'MAIL_HOST' ) );
+    defined( 'SMTP_HOST' )
+        or define( 'SMTP_HOST', getenv( 'MAIL_HOST' ) );
 
-    // defined( 'SMTP_AUTH' )
-    //     or define( 'SMTP_AUTH', true );
+    defined( 'SMTP_AUTH' )
+        or define( 'SMTP_AUTH', true );
 
-    // defined( 'SMTP_USERNAME' )
-    //     or define( 'SMTP_USERNAME', getenv( 'MAIL_USERNAME' ) );
+    defined( 'SMTP_USERNAME' )
+        or define( 'SMTP_USERNAME', getenv( 'MAIL_USERNAME' ) );
 
-    // defined( 'SMTP_PASSWORD' )
-    //     or define( 'SMTP_PASSWORD', getenv( 'MAIL_PASSWORD' ) );
+    defined( 'SMTP_PASSWORD' )
+        or define( 'SMTP_PASSWORD', getenv( 'MAIL_PASSWORD' ) );
 
-    // defined( 'SMTP_SECURE' )
-    //     or define( 'SMTP_SECURE', getenv( 'MAIL_ENCRYPTION' ) );
+    defined( 'SMTP_SECURE' )
+        or define( 'SMTP_SECURE', getenv( 'MAIL_ENCRYPTION' ) );
 
-    // defined( 'SMTP_PORT' )
-    //     or define( 'SMTP_PORT', getenv( 'MAIL_PORT' ) );
+    defined( 'SMTP_PORT' )
+        or define( 'SMTP_PORT', getenv( 'MAIL_PORT' ) );
 
     // ! Email (Localhost / XAMPP Mercury)
-    defined('SMTP_EMAIL')
-        or define('SMTP_EMAIL', 'cmdcool3@gmail.com');
+    // defined('SMTP_EMAIL')
+    //     or define('SMTP_EMAIL', 'cmdcool3@gmail.com');
 
-    defined('SMTP_NAME')
-        or define('SMTP_NAME', 'Local Mailer');
+    // defined('SMTP_NAME')
+    //     or define('SMTP_NAME', 'Local Mailer');
 
-    defined('SMTP_HOST')
-        or define('SMTP_HOST', 'smtp.gmail.com');
+    // defined('SMTP_HOST')
+    //     or define('SMTP_HOST', 'smtp.gmail.com');
 
-    defined('SMTP_AUTH')
-        or define('SMTP_AUTH', true); // Usually Mercury doesn't require auth
+    // defined('SMTP_AUTH')
+    //     or define('SMTP_AUTH', true); // Usually Mercury doesn't require auth
 
-    defined('SMTP_USERNAME')
-        or define('SMTP_USERNAME', 'cmdcool3@gmail.com');
+    // defined('SMTP_USERNAME')
+    //     or define('SMTP_USERNAME', 'cmdcool3@gmail.com');
 
-    defined('SMTP_PASSWORD')
-        or define('SMTP_PASSWORD', 'dsbq qyyz gzpm hhhy');
+    // defined('SMTP_PASSWORD')
+    //     or define('SMTP_PASSWORD', 'dsbq qyyz gzpm hhhy');
 
-    defined('SMTP_SECURE')
-        or define('SMTP_SECURE', 'tls'); // no SSL/TLS for localhost
+    // defined('SMTP_SECURE')
+    //     or define('SMTP_SECURE', 'tls'); // no SSL/TLS for localhost
 
-    defined('SMTP_PORT')
-        or define('SMTP_PORT', 587);
+    // defined('SMTP_PORT')
+    //     or define('SMTP_PORT', 587);
 
 
     include_once( MODULES_PATH . 'cryptography.php' );
