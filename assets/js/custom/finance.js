@@ -158,12 +158,11 @@ function read_finance_summary() {
                 icon : 'error',
                 title: 'Read Error'
             } );
+        },
+        complete: () => {
+            $('.finance-summary-widget').unblock();
         }
-    } );
-
-    setTimeout(function () {
-        $('.finance-summary-widget').unblock();
-    }, 1000);
+    });
 }
 
 function read_finance_category_summary() {
@@ -220,11 +219,11 @@ function read_finance_category_summary() {
                 icon : 'error',
                 title: 'Read Error'
             } );
+        },
+        complete: () => {
+            $( '#finance-category-summary-widget' ).unblock();
         }
     } );
-    setTimeout(function () {
-        $('#finance-category-summary-widget').unblock();
-    }, 1000);
 }
 
 function read_all_finance() {
@@ -273,11 +272,11 @@ function read_all_finance() {
                 icon : 'error',
                 title: 'Read All Error'
             } );
+        },
+        complete: () => {
+            $( '#table-area' ).unblock();
         }
     } );
-    setTimeout(function () {
-        $( '#table-area' ).unblock();
-    }, 1000);
 }
 
 function read_finance() {
@@ -310,11 +309,11 @@ function read_finance() {
                 icon : 'error',
                 title: 'Read Error'
             } );
+        },
+        complete: () => {
+            finance_record.unblock();
         }
     } );
-    setTimeout(function () {
-        finance_record.unblock();
-    }, 1000);
 }
 
 function create_finance() {
@@ -570,11 +569,11 @@ function read_all_finance_category() {
                 icon : 'error',
                 title: 'Read All Error'
             } );
+        },
+        complete: () => {
+            $( '#table-area' ).unblock();
         }
     } );
-    // setTimeout(function () {
-    //     $( '#table-area' ).unblock();
-    // }, 1000);
 }
 
 function read_finance_category() {

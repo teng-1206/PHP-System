@@ -146,7 +146,7 @@ function read_item_summary() {
                 const data = res.data;
                 const { total_value } = data;
                 $( '#total-value' ).html( total_value );
-                $('.item-summary-widget').unblock();
+                
             }
             return res;
         },
@@ -155,6 +155,9 @@ function read_item_summary() {
                 icon : 'error',
                 title: 'Read Summary Error'
             } );
+        },
+        complete : () => {
+            $( '.item-summary-widget' ).unblock();
         }
     } );
 }
@@ -235,7 +238,7 @@ function read_all_item() {
                 }
                 table.order( 6 ).draw()
             }
-            $( '#table-area' ).unblock();
+            
             return res;
         },
         error: ( err ) => {
@@ -243,6 +246,9 @@ function read_all_item() {
                 icon : 'error',
                 title: 'Read All Error'
             } );
+        },
+        complete : () => {  
+            $( '#table-area' ).unblock();
         }
     } );
 }

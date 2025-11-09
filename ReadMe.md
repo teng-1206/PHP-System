@@ -6,7 +6,7 @@
 
 - [ ] Display a widget showing all categories along with their current amounts based on the default wallet.
 
-- [ ] Display a widget listing all wallets along with their current amounts.
+- [x] Display a widget listing all wallets along with their current amounts.
 
 - [ ] Display a widget to show the total value of all items.
 

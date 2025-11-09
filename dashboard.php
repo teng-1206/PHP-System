@@ -260,7 +260,7 @@
 
                     <!-- Wallet Summary START -->
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12 layout-spacing">
-                        <div class="widget widget-three">
+                        <div id="wallet-widget" class="widget widget-three">
                             <div class="widget-heading">
                                 <h5 class="">Summary</h5>
                             </div>
@@ -330,6 +330,7 @@
         var revenue_chart = null;
         function load_revenue( select_date ) {
             $( '#revenue-widget' ).block( block_options ); 
+            $( '#wallet-widget' ).block( block_options );
             $( '#revenue-heading' ).html( select_date + " Revenue" );
             revenue_chart != null ? revenue_chart.destroy() : null;
             const revenue_url = `${ api_url }finance/dashboard.php`;
@@ -354,12 +355,14 @@
                         icon : 'error',
                         title: 'Read Revenue Error'
                     } );
+                },
+                complete: () => {
+                    // Unblock widgets regardless of success or failure
+                    $('#revenue-widget, #wallet-widget').unblock();
                 }
             } );
 
-            setTimeout(function () {
-                $('#revenue-widget').unblock();
-            }, 1000);
+            
         }
 
         function display_revenue( data ) {
@@ -672,11 +675,11 @@
                         icon : 'error',
                         title: 'Read Error'
                     } );
+                },
+                complete: () => {
+                    $('#expenses-category-widget').unblock();
                 }
             } );
-            setTimeout(function () {
-                $('#expenses-category-widget').unblock();
-            }, 1000);
         }
 
         function display_category( data ) {
