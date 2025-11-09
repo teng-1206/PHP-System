@@ -20,6 +20,9 @@
         $wallet_controller = new Wallet_Controller();
         $wallet = $wallet_controller->read_default_wallet( $conn, $fk_user_id );
 
+        // Read All Wallets by User ID
+        $all_wallet = $wallet_controller->read_all_by_user_id( $conn, $wallet_controller->convert( $wallet ) );
+
         // Get all finance records
         $finance = new Finance();
         $finance->set( 'fk_wallet_id', $wallet[ 'id' ] );
@@ -70,7 +73,8 @@
                 "data" => array(
                     "income" => $incomes,
                     "expense" => $expenses,
-                    "label" => $labels
+                    "label" => $labels,
+                    "wallets" => $all_wallet,
                 ),
             );
             echo json_encode( $res );

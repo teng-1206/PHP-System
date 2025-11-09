@@ -257,6 +257,22 @@
                         </div>
                     </div>  -->
                     <!-- Recent Expense Table End -->
+
+                    <!-- Wallet Summary START -->
+                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12 layout-spacing">
+                        <div class="widget widget-three">
+                            <div class="widget-heading">
+                                <h5 class="">Summary</h5>
+                            </div>
+                            <div class="widget-content">
+                                <div id="wallet-summary" name="wallet-summary" class="order-summary">
+                                    
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Wallet Summary END -->
                 </div>
             </div>
             <!-- Footer Start -->
@@ -329,6 +345,7 @@
                     if ( res.result ) {
                         // console.log( res.data );
                         display_revenue( res.data );
+                        display_wallets( res.data );
                     }
                     return res;
                 },
@@ -575,6 +592,45 @@
                 option
             );
             revenue_chart.render();
+        }
+
+        function display_wallets( data ) {
+            const { wallets } = data;
+            const wallet_summary = $( '#wallet-summary' );
+            wallet_summary.empty();
+            const total = wallets.reduce((sum, wallet) => sum + parseInt(wallet.amount), 0);
+            wallets.forEach( wallet => {
+                const { name, amount } = wallet;
+                const formatted_amount = new Intl.NumberFormat('en-MY', {
+                    style: 'currency',
+                    currency: 'MYR',
+                    minimumFractionDigits: 2
+                }).format(amount);
+                const percent = ( amount / total ) * 100;
+
+                wallet_summary.append( `
+                    <div class="summary-list">
+                        <div class="w-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-bag"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                        </div>
+                        <div class="w-summary-details">
+                            <div class="w-summary-info">
+                                <h6>${name} </h6>
+                                <p class="summary-count">${formatted_amount} </p>
+                            </div>
+                            <div class="w-summary-stats">
+                                <div class="progress">
+                                    <div class="progress-bar bg-gradient-secondary" role="progressbar" style="width: ${percent}%" aria-valuenow="${percent}" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="w-summary-info">
+                                <h6></h6>
+                                <p class="summary-count">${percent.toFixed(2)}%</p>
+                            </div>
+                        </div>
+                    </div>
+                ` );
+            } );
         }
 
         /*
