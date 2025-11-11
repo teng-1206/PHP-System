@@ -24,6 +24,11 @@
     <link rel="stylesheet" type="text/css" href="<?= $config[ 'urls' ][ 'plugins' ] . "apex/apexcharts.css"; ?>" />
     <link rel="stylesheet" type="text/css" href="<?= $config[ 'urls' ][ 'css' ] . "dashboard/dash_1.css"; ?>" />
     <!-- Custom CSS End -->
+    <style>
+        #btn-show-hide {
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <!-- Loader Start -->
@@ -634,6 +639,24 @@
                     </div>
                 ` );
             } );
+            const items = wallet_summary.find('.summary-list');
+            const maxVisible = 3;
+            if (items.length > maxVisible) {
+                items.slice(maxVisible).hide();
+                const btn = $('<div class="tm-action-btn text-center"><small id="btn-show-hide">Show All</small></div>');
+                const btnText = btn.find('#btn-show-hide');
+                wallet_summary.append(btn);
+                btnText.on('click', function() {
+                    const isExpanded = btnText.text() === 'Hide All';
+                    if (isExpanded) {
+                        items.slice(maxVisible).slideUp();
+                        btnText.text('Show All');
+                    } else {
+                        items.slice(maxVisible).slideDown();
+                        btnText.text('Hide All');
+                    }
+                });
+            }
         }
 
         /*
